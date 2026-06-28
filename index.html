@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="https://i.ibb.co/JR9kvR91/Custom-TPA-2-1.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CustomTPA - Modern Teleport Requests</title>
+    <!-- Твоя аватарка для favicon -->
+    <link rel="icon" href="https://i.ibb.co/JR9kvR91/Custom-TPA-2-1.png">
     <style>
         :root {
             --bg: #0d0d0d;
@@ -29,6 +30,14 @@
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        .random-image {
+            max-width: 500px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            transition: opacity 0.5s ease;
         }
         h1 { color: var(--gold); font-size: 3em; margin-bottom: 20px; }
         p { font-size: 1.3em; margin-bottom: 40px; }
@@ -59,6 +68,9 @@
 </head>
 <body>
     <div class="container">
+        <!-- Случайная картинка 16:9 -->
+        <img id="randomImage" class="random-image" src="" alt="CustomTPA Feature">
+
         <h1>🌐 CustomTPA</h1>
         <p>Choose your language / Выберите язык</p>
         <div class="lang-select">
@@ -72,5 +84,16 @@
             </a>
         </div>
     </div>
+
+    <script>
+        // Картинки 16:9, которые будут меняться
+        const images = [
+            "https://i.ibb.co/0RpM2yYS/all-platforms.png",
+            "https://i.ibb.co/hFLQHkX3/25-languages.png"
+        ];
+        const randomIndex = Math.floor(Math.random() * images.length);
+        document.getElementById("randomImage").src = images[randomIndex];
+        document.getElementById("randomImage").alt = "CustomTPA Feature " + (randomIndex + 1);
+    </script>
 </body>
 </html>
