@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CustomTPA - Современные запросы телепортации</title>
+    <style>
+        :root {
+            --bg: #0d0d0d;
+            --card: #1a1a1a;
+            --text: #cccccc;
+            --gold: #ffaa00;
+            --purple: #b366ff;
+            --green: #55ff55;
+            --red: #ff5555;
+            --yellow: #ffff55;
+            --white: #ffffff;
+            --gray: #888888;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        a { color: var(--gold); text-decoration: none; transition: 0.3s; }
+        a:hover { color: var(--purple); text-decoration: underline; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .fade-in { animation: fadeInUp 0.8s ease forwards; opacity: 0; }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        .container { max-width: 960px; margin: 0 auto; padding: 20px; }
+        header {
+            text-align: center;
+            padding: 80px 20px 60px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            position: relative;
+            overflow: hidden;
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,170,0,0.15), transparent);
+            top: -100px;
+            left: -100px;
+            animation: float 6s infinite;
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(179,102,255,0.15), transparent);
+            bottom: -50px;
+            right: -50px;
+            animation: float 6s infinite reverse;
+        }
+        header h1 { color: var(--gold); font-size: 3em; margin-bottom: 10px; position: relative; z-index: 1; }
+        header p { color: var(--gray); font-size: 1.3em; position: relative; z-index: 1; }
+        .badges { margin-top: 20px; position: relative; z-index: 1; }
+        .badges img { margin: 0 5px; }
+        .lang-switch { position: absolute; top: 20px; right: 20px; z-index: 2; }
+        .lang-switch a { color: var(--gold); background: #1a1a1a; padding: 8px 15px; border-radius: 20px; text-decoration: none; }
+
+        section { margin: 50px 0; }
+        h2 {
+            color: var(--gold);
+            border-bottom: 2px solid var(--purple);
+            padding-bottom: 8px;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .feature-card {
+            background: var(--card);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid var(--purple);
+            transition: 0.3s;
+        }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        .feature-card h3 { color: var(--gold); margin-bottom: 10px; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 14px; text-align: left; border-bottom: 1px solid #333; }
+        th { color: var(--gold); font-size: 1.1em; }
+
+        .lang-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+        .lang-item {
+            background: var(--card);
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 0.95em;
+            transition: 0.3s;
+        }
+        .lang-item:hover { background: var(--purple); color: white; }
+
+        .tutorial {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+        .tutorial h3 { color: var(--gold); margin: 25px 0 12px; }
+        .tutorial code {
+            background: #2a2a2a;
+            padding: 3px 10px;
+            border-radius: 5px;
+            color: var(--yellow);
+            font-size: 0.95em;
+        }
+        .tutorial pre {
+            background: #0a0a0a;
+            padding: 18px;
+            border-radius: 8px;
+            overflow-x: auto;
+            color: var(--green);
+            margin: 12px 0;
+            font-size: 0.95em;
+        }
+        .step {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .step-num {
+            background: var(--purple);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--gray);
+            border-top: 1px solid #333;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 2em; }
+            header p { font-size: 1em; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="lang-switch"><a href="/en">🇬🇧 English</a></div>
+        <h1 class="fade-in">🌐 CustomTPA</h1>
+        <p class="fade-in delay-1">Современные запросы телепортации для Paper, Spigot, Folia и других</p>
+        <div class="badges fade-in delay-2">
+            <img src="https://img.shields.io/bstats/servers/32220?label=Серверов&style=flat-square" alt="Серверов">
+            <img src="https://img.shields.io/bstats/players/32220?label=Игроков&style=flat-square" alt="Игроков">
+            <img src="https://img.shields.io/modrinth/dt/customtpa?label=Скачиваний&style=flat-square" alt="Скачиваний">
+        </div>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2 class="fade-in">✨ Возможности</h2>
+            <div class="features">
+                <div class="feature-card fade-in delay-1"><h3>🌍 40 языков</h3>Автоматическое определение языка игрока.</div>
+                <div class="feature-card fade-in delay-1"><h3>💬 Кнопки в чате</h3>Кликабельные [✔ Принять] и [✘ Отклонить].</div>
+                <div class="feature-card fade-in delay-1"><h3>⏳ Задержка телепортации</h3>Настраиваемый обратный отсчёт.</div>
+                <div class="feature-card fade-in delay-1"><h3>🖼️ GUI</h3>/tpa gui с головами игроков.</div>
+                <div class="feature-card fade-in delay-2"><h3>🔔 Проверка обновлений</h3>Уведомления о новых версиях.</div>
+                <div class="feature-card fade-in delay-2"><h3>⚡ Автопринятие</h3>/tpaauto для мгновенных запросов.</div>
+                <div class="feature-card fade-in delay-2"><h3>🗺 Блэклист миров</h3>Блокировка телепортов в определённых мирах.</div>
+                <div class="feature-card fade-in delay-2"><h3>🎨 MiniMessage</h3>Градиенты, RGB, классические цвета.</div>
+                <div class="feature-card fade-in delay-3"><h3>🔙 TPA Back</h3>/tpaback для возврата после телепорта.</div>
+                <div class="feature-card fade-in delay-3"><h3>⚡ Force TPA</h3>Принудительная телепортация для админов.</div>
+                <div class="feature-card fade-in delay-3"><h3>📊 Статистика</h3>/tpastats для просмотра статистики игрока.</div>
+                <div class="feature-card fade-in delay-3"><h3>🌟 Тёплый приём</h3>Приветственное сообщение для новых игроков.</div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="fade-in">📋 Команды</h2>
+            <table>
+                <tr><th>Команда</th><th>Описание</th></tr>
+                <tr><td><code>/tpa &lt;игрок&gt;</code></td><td>Отправить запрос на телепортацию</td></tr>
+                <tr><td><code>/tpahere &lt;игрок&gt;</code></td><td>Пригласить игрока к себе</td></tr>
+                <tr><td><code>/tpaccept [игрок]</code></td><td>Принять запрос</td></tr>
+                <tr><td><code>/tpadeny [игрок]</code></td><td>Отклонить запрос</td></tr>
+                <tr><td><code>/tpcancel</code></td><td>Отменить свой запрос</td></tr>
+                <tr><td><code>/tpatoggle</code></td><td>Вкл/выкл приём запросов</td></tr>
+                <tr><td><code>/tpaauto</code></td><td>Вкл/выкл автопринятие</td></tr>
+                <tr><td><code>/tpa gui</code></td><td>Открыть графическое меню</td></tr>
+                <tr><td><code>/tpastats</code></td><td>Посмотреть статистику телепортаций</td></tr>
+                <tr><td><code>/tpaback</code></td><td>Вернуться на предыдущую позицию</td></tr>
+                <tr><td><code>/tpaforce &lt;игрок&gt;</code></td><td>Принудительная телепортация (только админ)</td></tr>
+                <tr><td><code>/customtpa reload</code></td><td>Перезагрузить конфигурацию</td></tr>
+            </table>
+        </section>
+
+        <section>
+            <h2 class="fade-in">🗣 Языки (40)</h2>
+            <div class="lang-grid">
+                <span class="lang-item">🇬🇧 English</span><span class="lang-item">🇷🇺 Русский</span><span class="lang-item">🇺🇦 Украинский</span>
+                <span class="lang-item">🇩🇪 Немецкий</span><span class="lang-item">🇫🇷 Французский</span><span class="lang-item">🇪🇸 Испанский</span>
+                <span class="lang-item">🇧🇷 Португальский (Бразилия)</span><span class="lang-item">🇵🇹 Португальский (Португалия)</span>
+                <span class="lang-item">🇹🇷 Турецкий</span><span class="lang-item">🇮🇹 Итальянский</span><span class="lang-item">🇵🇱 Польский</span>
+                <span class="lang-item">🇨🇳 Китайский</span><span class="lang-item">🇯🇵 Японский</span><span class="lang-item">🇫🇮 Финский</span>
+                <span class="lang-item">🇰🇷 Корейский</span><span class="lang-item">🇸🇪 Шведский</span><span class="lang-item">🇳🇱 Нидерландский</span>
+                <span class="lang-item">🇨🇿 Чешский</span><span class="lang-item">🇭🇺 Венгерский</span><span class="lang-item">🇷🇴 Румынский</span>
+                <span class="lang-item">🇳🇴 Норвежский</span><span class="lang-item">🇩🇰 Датский</span><span class="lang-item">🇬🇷 Греческий</span>
+                <span class="lang-item">🇮🇩 Индонезийский</span><span class="lang-item">🇸🇦 Арабский</span><span class="lang-item">🇻🇳 Вьетнамский</span>
+                <span class="lang-item">🇸🇰 Словацкий</span><span class="lang-item">🇧🇬 Болгарский</span><span class="lang-item">🇮🇱 Иврит</span>
+                <span class="lang-item">🇹🇭 Тайский</span><span class="lang-item">🇵🇭 Филиппинский</span><span class="lang-item">🇮🇳 Хинди</span>
+                <span class="lang-item">🇭🇷 Хорватский</span><span class="lang-item">🇸🇮 Словенский</span><span class="lang-item">🇱🇹 Литовский</span>
+                <span class="lang-item">🇱🇻 Латышский</span><span class="lang-item">🇪🇪 Эстонский</span><span class="lang-item">🇷🇸 Сербский</span>
+                <span class="lang-item">🇲🇰 Македонский</span><span class="lang-item">🇨🇦 Каталанский</span>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="fade-in">📖 Начало работы</h2>
+            <div class="tutorial fade-in delay-1">
+                <h3>📥 Установка</h3>
+                <div class="step"><div class="step-num">1</div><div>Скачайте подходящий JAR для вашего сервера:<br><pre>Paper/Purpur/Folia: CustomTPA-2.1.0-paper.jar<br>Spigot/Bukkit: CustomTPA-2.1.0-spigot.jar</pre></div></div>
+                <div class="step"><div class="step-num">2</div><div>Поместите его в папку <code>/plugins</code> вашего сервера.</div></div>
+                <div class="step"><div class="step-num">3</div><div>Запустите (или перезапустите) сервер. Будет создан файл <code>plugins/CustomTPA/config.yml</code>.</div></div>
+                <div class="step"><div class="step-num">4</div><div>Откройте <code>config.yml</code> и настройте задержку, кулдаун, звуки, блэклист миров и т.д.</div></div>
+                <div class="step"><div class="step-num">5</div><div>Настройте сообщения в <code>plugins/CustomTPA/lang/messages_XX.yml</code>.</div></div>
+                <div class="step"><div class="step-num">6</div><div>Выполните <code>/customtpa reload</code>, чтобы применить изменения без перезапуска.</div></div>
+
+                <h3>🔧 Пример конфигурации (config.yml)</h3>
+                <pre>request-timeout: 60
+cooldown: 30
+delay: 3
+countdown-sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+request-sound:
+  enabled: true
+  sound: "BLOCK_NOTE_BLOCK_PLING"
+daily-limit: 0
+world-blacklist:
+  enabled: false
+  worlds:
+    - "arena"
+tpa-back:
+  enabled: true
+force-tpa:
+  enabled: true
+max-log-days: 7
+update-checker: true</pre>
+
+                <h3>🎨 Настройка сообщений</h3>
+                <p>Отредактируйте <code>lang/messages_ru.yml</code> (или другой языковой файл), чтобы изменить цвета и текст. Можно использовать теги MiniMessage (<code>&lt;gold&gt;</code>, <code>&lt;gradient&gt;</code> и др.) или классические коды (<code>&a</code>, <code>&l</code>).</p>
+                <pre>prefix: "&lt;color:#ffaa00&gt;[TPA]&lt;/color&gt; "
+request-sent: "&lt;gray&gt;Запрос отправлен игроку &lt;yellow&gt;%other_name%&lt;/yellow&gt;&lt;/gray&gt;"</pre>
+
+                <h3>🌍 Добавление нового языка</h3>
+                <p>Скопируйте <code>messages_en.yml</code>, переименуйте (например, <code>messages_de.yml</code>), переведите значения и выполните <code>/customtpa reload</code>. Плагин автоматически определит локаль игрока.</p>
+
+                <h3>🛡 Права (Permissions)</h3>
+                <p>Используйте любой плагин прав (например, LuckPerms), чтобы выдать эти права:</p>
+                <pre>tpa.tpa
+tpa.tpahere
+tpa.accept
+tpa.deny
+tpa.cancel
+tpa.toggle
+tpa.auto
+tpa.gui
+customtpa.reload (админ)
+customtpa.force (админ)
+customtpa.bypass.delay
+customtpa.bypass.cooldown
+customtpa.bypass.blacklist
+customtpa.bypass.limit</pre>
+
+                <h3>🔄 PlaceholderAPI</h3>
+                <p>CustomTPA предоставляет следующие плейсхолдеры:</p>
+                <pre>%tpa_incoming%
+%tpa_has_incoming%
+%tpa_outgoing%
+%tpa_sent%
+%tpa_accepted%
+%tpa_denied%</pre>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2026 MrKronick. Лицензия GPLv3.</p>
+        <p>
+            <a href="https://modrinth.com/plugin/customtpa">Modrinth</a> ·
+            <a href="https://www.spigotmc.org/resources/customtpa.XXXXXX/">SpigotMC</a> ·
+            <a href="https://github.com/MrKronick/CustomTPA">GitHub</a> ·
+            <a href="https://bstats.org/plugin/bukkit/CustomTPA/32220">bStats</a>
+        </p>
+    </footer>
+</body>
+</html>
