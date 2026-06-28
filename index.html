@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CustomTPA - Modern Teleport Requests</title>
+    <style>
+        :root {
+            --bg: #0d0d0d;
+            --gold: #ffaa00;
+            --purple: #b366ff;
+            --text: #cccccc;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .container {
+            animation: fadeIn 1s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 { color: var(--gold); font-size: 3em; margin-bottom: 20px; }
+        p { font-size: 1.3em; margin-bottom: 40px; }
+        .lang-select {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .lang-card {
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 15px;
+            padding: 30px 40px;
+            transition: 0.3s;
+            text-decoration: none;
+            color: var(--text);
+            display: block;
+        }
+        .lang-card:hover {
+            border-color: var(--gold);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255,170,0,0.2);
+        }
+        .lang-card img { width: 60px; height: 40px; margin-bottom: 10px; }
+        .lang-card h2 { color: var(--gold); margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 CustomTPA</h1>
+        <p>Choose your language / Выберите язык</p>
+        <div class="lang-select">
+            <a href="/en" class="lang-card">
+                <img src="https://flagcdn.com/w80/gb.png" alt="English">
+                <h2>English</h2>
+            </a>
+            <a href="/ru" class="lang-card">
+                <img src="https://flagcdn.com/w80/ru.png" alt="Русский">
+                <h2>Русский</h2>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
