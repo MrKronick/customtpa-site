@@ -2,9 +2,9 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="https://i.ibb.co/JR9kvR91/Custom-TPA-2-1.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CustomTPA - Современные запросы телепортации</title>
+    <link rel="icon" href="https://i.ibb.co/JR9kvR91/Custom-TPA-2-1.png">
     <style>
         :root {
             --bg: #0d0d0d;
@@ -100,15 +100,21 @@
         th, td { padding: 14px; text-align: left; border-bottom: 1px solid #333; }
         th { color: var(--gold); font-size: 1.1em; }
 
-        .lang-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+        .lang-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
         .lang-item {
             background: var(--card);
             padding: 10px 18px;
             border-radius: 25px;
             font-size: 0.95em;
             transition: 0.3s;
+            border: 1px solid #333;
         }
-        .lang-item:hover { background: var(--purple); color: white; }
+        .lang-item:hover { background: var(--purple); color: white; border-color: var(--purple); }
 
         .tutorial {
             background: var(--card);
@@ -181,7 +187,7 @@
         <section>
             <h2 class="fade-in">✨ Возможности</h2>
             <div class="features">
-                <div class="feature-card fade-in delay-1"><h3>🌍 40 языков</h3>Автоматическое определение языка игрока.</div>
+                <div class="feature-card fade-in delay-1"><h3>🌍 50 языков</h3>Автоматическое определение языка игрока.</div>
                 <div class="feature-card fade-in delay-1"><h3>💬 Кнопки в чате</h3>Кликабельные [✔ Принять] и [✘ Отклонить].</div>
                 <div class="feature-card fade-in delay-1"><h3>⏳ Задержка телепортации</h3>Настраиваемый обратный отсчёт.</div>
                 <div class="feature-card fade-in delay-1"><h3>🖼️ GUI</h3>/tpa gui с головами игроков.</div>
@@ -216,22 +222,58 @@
         </section>
 
         <section>
-            <h2 class="fade-in">🗣 Языки (40)</h2>
+            <h2 class="fade-in">🗣 Языки (50)</h2>
             <div class="lang-grid">
-                <span class="lang-item">🇬🇧 English</span><span class="lang-item">🇷🇺 Русский</span><span class="lang-item">🇺🇦 Украинский</span>
-                <span class="lang-item">🇩🇪 Немецкий</span><span class="lang-item">🇫🇷 Французский</span><span class="lang-item">🇪🇸 Испанский</span>
-                <span class="lang-item">🇧🇷 Португальский (Бразилия)</span><span class="lang-item">🇵🇹 Португальский (Португалия)</span>
-                <span class="lang-item">🇹🇷 Турецкий</span><span class="lang-item">🇮🇹 Итальянский</span><span class="lang-item">🇵🇱 Польский</span>
-                <span class="lang-item">🇨🇳 Китайский</span><span class="lang-item">🇯🇵 Японский</span><span class="lang-item">🇫🇮 Финский</span>
-                <span class="lang-item">🇰🇷 Корейский</span><span class="lang-item">🇸🇪 Шведский</span><span class="lang-item">🇳🇱 Нидерландский</span>
-                <span class="lang-item">🇨🇿 Чешский</span><span class="lang-item">🇭🇺 Венгерский</span><span class="lang-item">🇷🇴 Румынский</span>
-                <span class="lang-item">🇳🇴 Норвежский</span><span class="lang-item">🇩🇰 Датский</span><span class="lang-item">🇬🇷 Греческий</span>
-                <span class="lang-item">🇮🇩 Индонезийский</span><span class="lang-item">🇸🇦 Арабский</span><span class="lang-item">🇻🇳 Вьетнамский</span>
-                <span class="lang-item">🇸🇰 Словацкий</span><span class="lang-item">🇧🇬 Болгарский</span><span class="lang-item">🇮🇱 Иврит</span>
-                <span class="lang-item">🇹🇭 Тайский</span><span class="lang-item">🇵🇭 Филиппинский</span><span class="lang-item">🇮🇳 Хинди</span>
-                <span class="lang-item">🇭🇷 Хорватский</span><span class="lang-item">🇸🇮 Словенский</span><span class="lang-item">🇱🇹 Литовский</span>
-                <span class="lang-item">🇱🇻 Латышский</span><span class="lang-item">🇪🇪 Эстонский</span><span class="lang-item">🇷🇸 Сербский</span>
-                <span class="lang-item">🇲🇰 Македонский</span><span class="lang-item">🇨🇦 Каталанский</span>
+                <span class="lang-item">🇬🇧 English</span>
+                <span class="lang-item">🇷🇺 Русский</span>
+                <span class="lang-item">🇺🇦 Украинский</span>
+                <span class="lang-item">🇩🇪 Немецкий</span>
+                <span class="lang-item">🇫🇷 Французский</span>
+                <span class="lang-item">🇪🇸 Испанский</span>
+                <span class="lang-item">🇧🇷 Португальский (Бразилия)</span>
+                <span class="lang-item">🇵🇹 Португальский (Португалия)</span>
+                <span class="lang-item">🇹🇷 Турецкий</span>
+                <span class="lang-item">🇮🇹 Итальянский</span>
+                <span class="lang-item">🇵🇱 Польский</span>
+                <span class="lang-item">🇨🇳 Китайский</span>
+                <span class="lang-item">🇯🇵 Японский</span>
+                <span class="lang-item">🇫🇮 Финский</span>
+                <span class="lang-item">🇰🇷 Корейский</span>
+                <span class="lang-item">🇸🇪 Шведский</span>
+                <span class="lang-item">🇳🇱 Нидерландский</span>
+                <span class="lang-item">🇨🇿 Чешский</span>
+                <span class="lang-item">🇭🇺 Венгерский</span>
+                <span class="lang-item">🇷🇴 Румынский</span>
+                <span class="lang-item">🇳🇴 Норвежский</span>
+                <span class="lang-item">🇩🇰 Датский</span>
+                <span class="lang-item">🇬🇷 Греческий</span>
+                <span class="lang-item">🇮🇩 Индонезийский</span>
+                <span class="lang-item">🇸🇦 Арабский</span>
+                <span class="lang-item">🇻🇳 Вьетнамский</span>
+                <span class="lang-item">🇸🇰 Словацкий</span>
+                <span class="lang-item">🇧🇬 Болгарский</span>
+                <span class="lang-item">🇮🇱 Иврит</span>
+                <span class="lang-item">🇹🇭 Тайский</span>
+                <span class="lang-item">🇵🇭 Филиппинский</span>
+                <span class="lang-item">🇮🇳 Хинди</span>
+                <span class="lang-item">🇭🇷 Хорватский</span>
+                <span class="lang-item">🇸🇮 Словенский</span>
+                <span class="lang-item">🇱🇹 Литовский</span>
+                <span class="lang-item">🇱🇻 Латышский</span>
+                <span class="lang-item">🇪🇪 Эстонский</span>
+                <span class="lang-item">🇷🇸 Сербский</span>
+                <span class="lang-item">🇲🇰 Македонский</span>
+                <span class="lang-item">🇨🇦 Каталанский</span>
+                <span class="lang-item">🇧🇩 Бенгальский</span>
+                <span class="lang-item">🇵🇰 Урду</span>
+                <span class="lang-item">🇮🇷 Персидский</span>
+                <span class="lang-item">🇲🇾 Малайский</span>
+                <span class="lang-item">🇹🇿 Суахили</span>
+                <span class="lang-item">🇿🇦 Африкаанс</span>
+                <span class="lang-item">🇮🇸 Исландский</span>
+                <span class="lang-item">🇪🇸 Галисийский</span>
+                <span class="lang-item">🇪🇸 Баскский</span>
+                <span class="lang-item">🌍 Эсперанто</span>
             </div>
         </section>
 
@@ -239,7 +281,7 @@
             <h2 class="fade-in">📖 Начало работы</h2>
             <div class="tutorial fade-in delay-1">
                 <h3>📥 Установка</h3>
-                <div class="step"><div class="step-num">1</div><div>Скачайте подходящий JAR для вашего сервера:<br><pre>Paper/Purpur/Folia: CustomTPA-2.1.0-paper.jar<br>Spigot/Bukkit: CustomTPA-2.1.0-spigot.jar</pre></div></div>
+                <div class="step"><div class="step-num">1</div><div>Скачайте подходящий JAR для вашего сервера:<br><pre>Paper/Purpur/Folia: CustomTPA-2.1.1-paper.jar<br>Spigot/Bukkit: CustomTPA-2.1.1-spigot.jar</pre></div></div>
                 <div class="step"><div class="step-num">2</div><div>Поместите его в папку <code>/plugins</code> вашего сервера.</div></div>
                 <div class="step"><div class="step-num">3</div><div>Запустите (или перезапустите) сервер. Будет создан файл <code>plugins/CustomTPA/config.yml</code>.</div></div>
                 <div class="step"><div class="step-num">4</div><div>Откройте <code>config.yml</code> и настройте задержку, кулдаун, звуки, блэклист миров и т.д.</div></div>
@@ -307,7 +349,7 @@ customtpa.bypass.limit</pre>
         <p>© 2026 MrKronick. Лицензия GPLv3.</p>
         <p>
             <a href="https://modrinth.com/plugin/customtpa">Modrinth</a> ·
-            <a href="https://www.spigotmc.org/resources/customtpa.136316/">SpigotMC</a> ·
+            <a href="https://www.spigotmc.org/resources/customtpa.XXXXXX/">SpigotMC</a> ·
             <a href="https://github.com/MrKronick/CustomTPA">GitHub</a> ·
             <a href="https://bstats.org/plugin/bukkit/CustomTPA/32220">bStats</a>
         </p>
