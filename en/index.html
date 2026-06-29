@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="https://i.ibb.co/JR9kvR91/Custom-TPA-2-1.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CustomTPA - Modern Teleport Requests</title>
+    <link rel="icon" href="https://i.ibb.co/JR9kvR91/Custom-TPA-2-1.png">
     <style>
         :root {
             --bg: #0d0d0d;
@@ -29,7 +29,6 @@
         a { color: var(--gold); text-decoration: none; transition: 0.3s; }
         a:hover { color: var(--purple); text-decoration: underline; }
 
-        /* Анимации */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -37,10 +36,6 @@
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
-        }
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(255,170,0,0.4); }
-            50% { box-shadow: 0 0 20px 10px rgba(255,170,0,0.1); }
         }
         .fade-in { animation: fadeInUp 0.8s ease forwards; opacity: 0; }
         .delay-1 { animation-delay: 0.2s; }
@@ -79,6 +74,8 @@
         header p { color: var(--gray); font-size: 1.3em; position: relative; z-index: 1; }
         .badges { margin-top: 20px; position: relative; z-index: 1; }
         .badges img { margin: 0 5px; }
+        .lang-switch { position: absolute; top: 20px; right: 20px; z-index: 2; }
+        .lang-switch a { color: var(--gold); background: #1a1a1a; padding: 8px 15px; border-radius: 20px; text-decoration: none; }
 
         section { margin: 50px 0; }
         h2 {
@@ -103,15 +100,21 @@
         th, td { padding: 14px; text-align: left; border-bottom: 1px solid #333; }
         th { color: var(--gold); font-size: 1.1em; }
 
-        .lang-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+        .lang-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
         .lang-item {
             background: var(--card);
             padding: 10px 18px;
             border-radius: 25px;
             font-size: 0.95em;
             transition: 0.3s;
+            border: 1px solid #333;
         }
-        .lang-item:hover { background: var(--purple); color: white; }
+        .lang-item:hover { background: var(--purple); color: white; border-color: var(--purple); }
 
         .tutorial {
             background: var(--card);
@@ -170,6 +173,7 @@
 </head>
 <body>
     <header>
+        <div class="lang-switch"><a href="/ru">🇷🇺 Русский</a></div>
         <h1 class="fade-in">🌐 CustomTPA</h1>
         <p class="fade-in delay-1">Modern Teleport Requests for Paper, Spigot, Folia & more</p>
         <div class="badges fade-in delay-2">
@@ -180,11 +184,10 @@
     </header>
 
     <div class="container">
-        <!-- Features -->
         <section>
             <h2 class="fade-in">✨ Features</h2>
             <div class="features">
-                <div class="feature-card fade-in delay-1"><h3>🌍 40 Languages</h3>Automatic per-player language detection.</div>
+                <div class="feature-card fade-in delay-1"><h3>🌍 50 Languages</h3>Automatic per-player language detection.</div>
                 <div class="feature-card fade-in delay-1"><h3>💬 Chat Buttons</h3>Clickable [✔ Accept] and [✘ Deny].</div>
                 <div class="feature-card fade-in delay-1"><h3>⏳ Teleport Delay</h3>Configurable countdown with action bar.</div>
                 <div class="feature-card fade-in delay-1"><h3>🖼️ GUI</h3>/tpa gui with player heads.</div>
@@ -199,7 +202,6 @@
             </div>
         </section>
 
-        <!-- Commands -->
         <section>
             <h2 class="fade-in">📋 Commands</h2>
             <table>
@@ -219,33 +221,67 @@
             </table>
         </section>
 
-        <!-- Languages -->
         <section>
-            <h2 class="fade-in">🗣 Languages (40)</h2>
+            <h2 class="fade-in">🗣 Languages (50)</h2>
             <div class="lang-grid">
-                <span class="lang-item">🇬🇧 English</span><span class="lang-item">🇷🇺 Russian</span><span class="lang-item">🇺🇦 Ukrainian</span>
-                <span class="lang-item">🇩🇪 German</span><span class="lang-item">🇫🇷 French</span><span class="lang-item">🇪🇸 Spanish</span>
-                <span class="lang-item">🇧🇷 Portuguese (BR)</span><span class="lang-item">🇵🇹 Portuguese (PT)</span>
-                <span class="lang-item">🇹🇷 Turkish</span><span class="lang-item">🇮🇹 Italian</span><span class="lang-item">🇵🇱 Polish</span>
-                <span class="lang-item">🇨🇳 Chinese</span><span class="lang-item">🇯🇵 Japanese</span><span class="lang-item">🇫🇮 Finnish</span>
-                <span class="lang-item">🇰🇷 Korean</span><span class="lang-item">🇸🇪 Swedish</span><span class="lang-item">🇳🇱 Dutch</span>
-                <span class="lang-item">🇨🇿 Czech</span><span class="lang-item">🇭🇺 Hungarian</span><span class="lang-item">🇷🇴 Romanian</span>
-                <span class="lang-item">🇳🇴 Norwegian</span><span class="lang-item">🇩🇰 Danish</span><span class="lang-item">🇬🇷 Greek</span>
-                <span class="lang-item">🇮🇩 Indonesian</span><span class="lang-item">🇸🇦 Arabic</span><span class="lang-item">🇻🇳 Vietnamese</span>
-                <span class="lang-item">🇸🇰 Slovak</span><span class="lang-item">🇧🇬 Bulgarian</span><span class="lang-item">🇮🇱 Hebrew</span>
-                <span class="lang-item">🇹🇭 Thai</span><span class="lang-item">🇵🇭 Filipino</span><span class="lang-item">🇮🇳 Hindi</span>
-                <span class="lang-item">🇭🇷 Croatian</span><span class="lang-item">🇸🇮 Slovenian</span><span class="lang-item">🇱🇹 Lithuanian</span>
-                <span class="lang-item">🇱🇻 Latvian</span><span class="lang-item">🇪🇪 Estonian</span><span class="lang-item">🇷🇸 Serbian</span>
-                <span class="lang-item">🇲🇰 Macedonian</span><span class="lang-item">🇨🇦 Catalan</span>
+                <span class="lang-item">🇬🇧 English</span>
+                <span class="lang-item">🇷🇺 Russian</span>
+                <span class="lang-item">🇺🇦 Ukrainian</span>
+                <span class="lang-item">🇩🇪 German</span>
+                <span class="lang-item">🇫🇷 French</span>
+                <span class="lang-item">🇪🇸 Spanish</span>
+                <span class="lang-item">🇧🇷 Portuguese (BR)</span>
+                <span class="lang-item">🇵🇹 Portuguese (PT)</span>
+                <span class="lang-item">🇹🇷 Turkish</span>
+                <span class="lang-item">🇮🇹 Italian</span>
+                <span class="lang-item">🇵🇱 Polish</span>
+                <span class="lang-item">🇨🇳 Chinese</span>
+                <span class="lang-item">🇯🇵 Japanese</span>
+                <span class="lang-item">🇫🇮 Finnish</span>
+                <span class="lang-item">🇰🇷 Korean</span>
+                <span class="lang-item">🇸🇪 Swedish</span>
+                <span class="lang-item">🇳🇱 Dutch</span>
+                <span class="lang-item">🇨🇿 Czech</span>
+                <span class="lang-item">🇭🇺 Hungarian</span>
+                <span class="lang-item">🇷🇴 Romanian</span>
+                <span class="lang-item">🇳🇴 Norwegian</span>
+                <span class="lang-item">🇩🇰 Danish</span>
+                <span class="lang-item">🇬🇷 Greek</span>
+                <span class="lang-item">🇮🇩 Indonesian</span>
+                <span class="lang-item">🇸🇦 Arabic</span>
+                <span class="lang-item">🇻🇳 Vietnamese</span>
+                <span class="lang-item">🇸🇰 Slovak</span>
+                <span class="lang-item">🇧🇬 Bulgarian</span>
+                <span class="lang-item">🇮🇱 Hebrew</span>
+                <span class="lang-item">🇹🇭 Thai</span>
+                <span class="lang-item">🇵🇭 Filipino</span>
+                <span class="lang-item">🇮🇳 Hindi</span>
+                <span class="lang-item">🇭🇷 Croatian</span>
+                <span class="lang-item">🇸🇮 Slovenian</span>
+                <span class="lang-item">🇱🇹 Lithuanian</span>
+                <span class="lang-item">🇱🇻 Latvian</span>
+                <span class="lang-item">🇪🇪 Estonian</span>
+                <span class="lang-item">🇷🇸 Serbian</span>
+                <span class="lang-item">🇲🇰 Macedonian</span>
+                <span class="lang-item">🇨🇦 Catalan</span>
+                <span class="lang-item">🇧🇩 Bengali</span>
+                <span class="lang-item">🇵🇰 Urdu</span>
+                <span class="lang-item">🇮🇷 Persian</span>
+                <span class="lang-item">🇲🇾 Malay</span>
+                <span class="lang-item">🇹🇿 Swahili</span>
+                <span class="lang-item">🇿🇦 Afrikaans</span>
+                <span class="lang-item">🇮🇸 Icelandic</span>
+                <span class="lang-item">🇪🇸 Galician</span>
+                <span class="lang-item">🇪🇸 Basque</span>
+                <span class="lang-item">🌍 Esperanto</span>
             </div>
         </section>
 
-        <!-- Installation & Tutorial -->
         <section>
             <h2 class="fade-in">📖 Getting Started</h2>
             <div class="tutorial fade-in delay-1">
                 <h3>📥 Installation</h3>
-                <div class="step"><div class="step-num">1</div><div>Download the correct JAR for your server:<br><pre>Paper/Purpur/Folia: CustomTPA-2.1.0-paper.jar<br>Spigot/Bukkit: CustomTPA-2.1.0-spigot.jar</pre></div></div>
+                <div class="step"><div class="step-num">1</div><div>Download the correct JAR for your server:<br><pre>Paper/Purpur/Folia: CustomTPA-2.1.1-paper.jar<br>Spigot/Bukkit: CustomTPA-2.1.1-spigot.jar</pre></div></div>
                 <div class="step"><div class="step-num">2</div><div>Place it into your server's <code>/plugins</code> folder.</div></div>
                 <div class="step"><div class="step-num">3</div><div>Start (or restart) your server. A <code>plugins/CustomTPA/config.yml</code> file will be generated.</div></div>
                 <div class="step"><div class="step-num">4</div><div>Open <code>config.yml</code> and adjust settings like delay, cooldown, sounds, world blacklist, etc.</div></div>
@@ -313,7 +349,7 @@ customtpa.bypass.limit</pre>
         <p>© 2026 MrKronick. Licensed under GPLv3.</p>
         <p>
             <a href="https://modrinth.com/plugin/customtpa">Modrinth</a> ·
-            <a href="https://www.spigotmc.org/resources/customtpa.136316/">SpigotMC</a> ·
+            <a href="https://www.spigotmc.org/resources/customtpa.XXXXXX/">SpigotMC</a> ·
             <a href="https://github.com/MrKronick/CustomTPA">GitHub</a> ·
             <a href="https://bstats.org/plugin/bukkit/CustomTPA/32220">bStats</a>
         </p>
