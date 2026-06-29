@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CustomTPA - Современные запросы телепортации</title>
+    <title>CustomTPA — Современные запросы телепортации</title>
     <link rel="icon" href="https://i.ibb.co/JR9kvR91/Custom-TPA-2-1.png">
     <style>
         :root {
@@ -15,7 +15,6 @@
             --green: #55ff55;
             --red: #ff5555;
             --yellow: #ffff55;
-            --white: #ffffff;
             --gray: #888888;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -72,6 +71,17 @@
         }
         header h1 { color: var(--gold); font-size: 3em; margin-bottom: 10px; position: relative; z-index: 1; }
         header p { color: var(--gray); font-size: 1.3em; position: relative; z-index: 1; }
+        .version-badge {
+            display: inline-block;
+            background: var(--purple);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 10px;
+            position: relative;
+            z-index: 1;
+        }
         .badges { margin-top: 20px; position: relative; z-index: 1; }
         .badges img { margin: 0 5px; }
         .lang-switch { position: absolute; top: 20px; right: 20px; z-index: 2; }
@@ -176,6 +186,7 @@
         <div class="lang-switch"><a href="/en">🇬🇧 English</a></div>
         <h1 class="fade-in">🌐 CustomTPA</h1>
         <p class="fade-in delay-1">Современные запросы телепортации для Paper, Spigot, Folia и других</p>
+        <span class="version-badge fade-in delay-1">v2.1.1 · 50 языков</span>
         <div class="badges fade-in delay-2">
             <img src="https://img.shields.io/bstats/servers/32220?label=Серверов&style=flat-square" alt="Серверов">
             <img src="https://img.shields.io/bstats/players/32220?label=Игроков&style=flat-square" alt="Игроков">
