@@ -28,64 +28,88 @@
         a { color: var(--gold); text-decoration: none; transition: 0.3s; }
         a:hover { color: var(--purple); text-decoration: underline; }
 
+        /* Анимации */
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(40px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-12px); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
         }
         .fade-in { animation: fadeInUp 0.8s ease forwards; opacity: 0; }
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
+        .delay-1 { animation-delay: 0.15s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.45s; }
+        .delay-4 { animation-delay: 0.6s; }
 
         .container { max-width: 960px; margin: 0 auto; padding: 20px; }
         header {
             text-align: center;
             padding: 80px 20px 60px;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #1a1a2e);
+            background-size: 300% 300%;
+            animation: shimmer 8s ease infinite;
             position: relative;
             overflow: hidden;
+            border-bottom: 2px solid var(--purple);
         }
         header::before {
             content: '';
             position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(255,170,0,0.15), transparent);
-            top: -100px;
-            left: -100px;
-            animation: float 6s infinite;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,170,0,0.08), transparent);
+            top: -150px;
+            left: -150px;
+            animation: float 8s infinite;
         }
         header::after {
             content: '';
             position: absolute;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(179,102,255,0.15), transparent);
-            bottom: -50px;
-            right: -50px;
-            animation: float 6s infinite reverse;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(179,102,255,0.08), transparent);
+            bottom: -100px;
+            right: -100px;
+            animation: float 8s infinite reverse;
         }
-        header h1 { color: var(--gold); font-size: 3em; margin-bottom: 10px; position: relative; z-index: 1; }
+        header h1 { color: var(--gold); font-size: 3.2em; margin-bottom: 10px; position: relative; z-index: 1; }
         header p { color: var(--gray); font-size: 1.3em; position: relative; z-index: 1; }
         .version-badge {
             display: inline-block;
             background: var(--purple);
             color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            margin-top: 10px;
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-size: 1em;
+            margin-top: 12px;
             position: relative;
             z-index: 1;
+            animation: pulse 2s infinite;
         }
         .badges { margin-top: 20px; position: relative; z-index: 1; }
-        .badges img { margin: 0 5px; }
+        .badges img { margin: 0 5px; transition: 0.3s; }
+        .badges img:hover { transform: scale(1.1); }
         .lang-switch { position: absolute; top: 20px; right: 20px; z-index: 2; }
-        .lang-switch a { color: var(--gold); background: #1a1a1a; padding: 8px 15px; border-radius: 20px; text-decoration: none; }
+        .lang-switch a {
+            color: var(--gold);
+            background: rgba(26,26,26,0.8);
+            padding: 8px 18px;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--purple);
+            transition: 0.3s;
+        }
+        .lang-switch a:hover { background: var(--purple); color: white; }
 
         section { margin: 50px 0; }
         h2 {
@@ -95,20 +119,31 @@
             margin-bottom: 25px;
             font-size: 1.8em;
         }
-        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
         .feature-card {
             background: var(--card);
             padding: 25px;
-            border-radius: 12px;
+            border-radius: 16px;
             border-left: 4px solid var(--purple);
-            transition: 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: default;
         }
-        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        .feature-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            border-left-color: var(--gold);
+        }
         .feature-card h3 { color: var(--gold); margin-bottom: 10px; }
 
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { padding: 14px; text-align: left; border-bottom: 1px solid #333; }
         th { color: var(--gold); font-size: 1.1em; }
+        tr { transition: 0.3s; }
+        tr:hover { background: rgba(255,170,0,0.05); }
 
         .lang-grid {
             display: flex;
@@ -119,24 +154,36 @@
         .lang-item {
             background: var(--card);
             padding: 10px 18px;
-            border-radius: 25px;
+            border-radius: 30px;
             font-size: 0.95em;
-            transition: 0.3s;
+            transition: all 0.3s;
             border: 1px solid #333;
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
         }
-        .lang-item:hover { background: var(--purple); color: white; border-color: var(--purple); }
+        .lang-item:hover {
+            background: var(--purple);
+            color: white;
+            border-color: var(--purple);
+            transform: scale(1.05);
+        }
+        .lang-item:nth-child(1) { animation-delay: 0.05s; }
+        .lang-item:nth-child(2) { animation-delay: 0.1s; }
+        /* можно и все 60 прописать, но я добавлю общее правило для всех */
+        .lang-item { animation-delay: calc(0.03s * var(--i, 0)); }
 
         .tutorial {
             background: var(--card);
             padding: 30px;
-            border-radius: 12px;
+            border-radius: 16px;
             transition: 0.3s;
         }
+        .tutorial:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .tutorial h3 { color: var(--gold); margin: 25px 0 12px; }
         .tutorial code {
             background: #2a2a2a;
             padding: 3px 10px;
-            border-radius: 5px;
+            border-radius: 6px;
             color: var(--yellow);
             font-size: 0.95em;
         }
@@ -148,6 +195,7 @@
             color: var(--green);
             margin: 12px 0;
             font-size: 0.95em;
+            border-left: 3px solid var(--purple);
         }
         .step {
             display: flex;
@@ -186,7 +234,7 @@
         <div class="lang-switch"><a href="/en">🇬🇧 English</a></div>
         <h1 class="fade-in">🌐 CustomTPA</h1>
         <p class="fade-in delay-1">Современные запросы телепортации для Paper, Spigot, Folia и других</p>
-        <span class="version-badge fade-in delay-1">v2.1.1 · 50 языков</span>
+        <div class="version-badge fade-in delay-1">v2.1.2 · 60 языков</div>
         <div class="badges fade-in delay-2">
             <img src="https://img.shields.io/bstats/servers/32220?label=Серверов&style=flat-square" alt="Серверов">
             <img src="https://img.shields.io/bstats/players/32220?label=Игроков&style=flat-square" alt="Игроков">
@@ -198,7 +246,7 @@
         <section>
             <h2 class="fade-in">✨ Возможности</h2>
             <div class="features">
-                <div class="feature-card fade-in delay-1"><h3>🌍 50 языков</h3>Автоматическое определение языка игрока.</div>
+                <div class="feature-card fade-in delay-1"><h3>🌍 60 языков</h3>Автоматическое определение языка игрока.</div>
                 <div class="feature-card fade-in delay-1"><h3>💬 Кнопки в чате</h3>Кликабельные [✔ Принять] и [✘ Отклонить].</div>
                 <div class="feature-card fade-in delay-1"><h3>⏳ Задержка телепортации</h3>Настраиваемый обратный отсчёт.</div>
                 <div class="feature-card fade-in delay-1"><h3>🖼️ GUI</h3>/tpa gui с головами игроков.</div>
@@ -233,58 +281,68 @@
         </section>
 
         <section>
-            <h2 class="fade-in">🗣 Языки (50)</h2>
+            <h2 class="fade-in">🗣 Языки (60)</h2>
             <div class="lang-grid">
-                <span class="lang-item">🇬🇧 English</span>
-                <span class="lang-item">🇷🇺 Русский</span>
-                <span class="lang-item">🇺🇦 Украинский</span>
-                <span class="lang-item">🇩🇪 Немецкий</span>
-                <span class="lang-item">🇫🇷 Французский</span>
-                <span class="lang-item">🇪🇸 Испанский</span>
-                <span class="lang-item">🇧🇷 Португальский (Бразилия)</span>
-                <span class="lang-item">🇵🇹 Португальский (Португалия)</span>
-                <span class="lang-item">🇹🇷 Турецкий</span>
-                <span class="lang-item">🇮🇹 Итальянский</span>
-                <span class="lang-item">🇵🇱 Польский</span>
-                <span class="lang-item">🇨🇳 Китайский</span>
-                <span class="lang-item">🇯🇵 Японский</span>
-                <span class="lang-item">🇫🇮 Финский</span>
-                <span class="lang-item">🇰🇷 Корейский</span>
-                <span class="lang-item">🇸🇪 Шведский</span>
-                <span class="lang-item">🇳🇱 Нидерландский</span>
-                <span class="lang-item">🇨🇿 Чешский</span>
-                <span class="lang-item">🇭🇺 Венгерский</span>
-                <span class="lang-item">🇷🇴 Румынский</span>
-                <span class="lang-item">🇳🇴 Норвежский</span>
-                <span class="lang-item">🇩🇰 Датский</span>
-                <span class="lang-item">🇬🇷 Греческий</span>
-                <span class="lang-item">🇮🇩 Индонезийский</span>
-                <span class="lang-item">🇸🇦 Арабский</span>
-                <span class="lang-item">🇻🇳 Вьетнамский</span>
-                <span class="lang-item">🇸🇰 Словацкий</span>
-                <span class="lang-item">🇧🇬 Болгарский</span>
-                <span class="lang-item">🇮🇱 Иврит</span>
-                <span class="lang-item">🇹🇭 Тайский</span>
-                <span class="lang-item">🇵🇭 Филиппинский</span>
-                <span class="lang-item">🇮🇳 Хинди</span>
-                <span class="lang-item">🇭🇷 Хорватский</span>
-                <span class="lang-item">🇸🇮 Словенский</span>
-                <span class="lang-item">🇱🇹 Литовский</span>
-                <span class="lang-item">🇱🇻 Латышский</span>
-                <span class="lang-item">🇪🇪 Эстонский</span>
-                <span class="lang-item">🇷🇸 Сербский</span>
-                <span class="lang-item">🇲🇰 Македонский</span>
-                <span class="lang-item">🇨🇦 Каталанский</span>
-                <span class="lang-item">🇧🇩 Бенгальский</span>
-                <span class="lang-item">🇵🇰 Урду</span>
-                <span class="lang-item">🇮🇷 Персидский</span>
-                <span class="lang-item">🇲🇾 Малайский</span>
-                <span class="lang-item">🇹🇿 Суахили</span>
-                <span class="lang-item">🇿🇦 Африкаанс</span>
-                <span class="lang-item">🇮🇸 Исландский</span>
-                <span class="lang-item">🇪🇸 Галисийский</span>
-                <span class="lang-item">🇪🇸 Баскский</span>
-                <span class="lang-item">🌍 Эсперанто</span>
+                <span class="lang-item" style="--i:1">🇬🇧 English</span>
+                <span class="lang-item" style="--i:2">🇷🇺 Русский</span>
+                <span class="lang-item" style="--i:3">🇺🇦 Украинский</span>
+                <span class="lang-item" style="--i:4">🇩🇪 Немецкий</span>
+                <span class="lang-item" style="--i:5">🇫🇷 Французский</span>
+                <span class="lang-item" style="--i:6">🇪🇸 Испанский</span>
+                <span class="lang-item" style="--i:7">🇧🇷 Португальский (Бразилия)</span>
+                <span class="lang-item" style="--i:8">🇵🇹 Португальский (Португалия)</span>
+                <span class="lang-item" style="--i:9">🇹🇷 Турецкий</span>
+                <span class="lang-item" style="--i:10">🇮🇹 Итальянский</span>
+                <span class="lang-item" style="--i:11">🇵🇱 Польский</span>
+                <span class="lang-item" style="--i:12">🇨🇳 Китайский</span>
+                <span class="lang-item" style="--i:13">🇯🇵 Японский</span>
+                <span class="lang-item" style="--i:14">🇫🇮 Финский</span>
+                <span class="lang-item" style="--i:15">🇰🇷 Корейский</span>
+                <span class="lang-item" style="--i:16">🇸🇪 Шведский</span>
+                <span class="lang-item" style="--i:17">🇳🇱 Нидерландский</span>
+                <span class="lang-item" style="--i:18">🇨🇿 Чешский</span>
+                <span class="lang-item" style="--i:19">🇭🇺 Венгерский</span>
+                <span class="lang-item" style="--i:20">🇷🇴 Румынский</span>
+                <span class="lang-item" style="--i:21">🇳🇴 Норвежский</span>
+                <span class="lang-item" style="--i:22">🇩🇰 Датский</span>
+                <span class="lang-item" style="--i:23">🇬🇷 Греческий</span>
+                <span class="lang-item" style="--i:24">🇮🇩 Индонезийский</span>
+                <span class="lang-item" style="--i:25">🇸🇦 Арабский</span>
+                <span class="lang-item" style="--i:26">🇻🇳 Вьетнамский</span>
+                <span class="lang-item" style="--i:27">🇸🇰 Словацкий</span>
+                <span class="lang-item" style="--i:28">🇧🇬 Болгарский</span>
+                <span class="lang-item" style="--i:29">🇮🇱 Иврит</span>
+                <span class="lang-item" style="--i:30">🇹🇭 Тайский</span>
+                <span class="lang-item" style="--i:31">🇵🇭 Филиппинский</span>
+                <span class="lang-item" style="--i:32">🇮🇳 Хинди</span>
+                <span class="lang-item" style="--i:33">🇭🇷 Хорватский</span>
+                <span class="lang-item" style="--i:34">🇸🇮 Словенский</span>
+                <span class="lang-item" style="--i:35">🇱🇹 Литовский</span>
+                <span class="lang-item" style="--i:36">🇱🇻 Латышский</span>
+                <span class="lang-item" style="--i:37">🇪🇪 Эстонский</span>
+                <span class="lang-item" style="--i:38">🇷🇸 Сербский</span>
+                <span class="lang-item" style="--i:39">🇲🇰 Македонский</span>
+                <span class="lang-item" style="--i:40">🇨🇦 Каталанский</span>
+                <span class="lang-item" style="--i:41">🇧🇩 Бенгальский</span>
+                <span class="lang-item" style="--i:42">🇵🇰 Урду</span>
+                <span class="lang-item" style="--i:43">🇮🇷 Персидский</span>
+                <span class="lang-item" style="--i:44">🇲🇾 Малайский</span>
+                <span class="lang-item" style="--i:45">🇹🇿 Суахили</span>
+                <span class="lang-item" style="--i:46">🇿🇦 Африкаанс</span>
+                <span class="lang-item" style="--i:47">🇮🇸 Исландский</span>
+                <span class="lang-item" style="--i:48">🇪🇸 Галисийский</span>
+                <span class="lang-item" style="--i:49">🇪🇸 Баскский</span>
+                <span class="lang-item" style="--i:50">🌍 Эсперанто</span>
+                <span class="lang-item" style="--i:51">🇮🇳 Пенджаби</span>
+                <span class="lang-item" style="--i:52">🇮🇳 Маратхи</span>
+                <span class="lang-item" style="--i:53">🇮🇳 Телугу</span>
+                <span class="lang-item" style="--i:54">🇮🇳 Тамильский</span>
+                <span class="lang-item" style="--i:55">🇮🇳 Гуджарати</span>
+                <span class="lang-item" style="--i:56">🇮🇳 Каннада</span>
+                <span class="lang-item" style="--i:57">🇮🇳 Малаялам</span>
+                <span class="lang-item" style="--i:58">🇳🇵 Непальский</span>
+                <span class="lang-item" style="--i:59">🇱🇰 Сингальский</span>
+                <span class="lang-item" style="--i:60">🇲🇲 Бирманский</span>
             </div>
         </section>
 
@@ -292,7 +350,7 @@
             <h2 class="fade-in">📖 Начало работы</h2>
             <div class="tutorial fade-in delay-1">
                 <h3>📥 Установка</h3>
-                <div class="step"><div class="step-num">1</div><div>Скачайте подходящий JAR для вашего сервера:<br><pre>Paper/Purpur/Folia: CustomTPA-2.1.1-paper.jar<br>Spigot/Bukkit: CustomTPA-2.1.1-spigot.jar</pre></div></div>
+                <div class="step"><div class="step-num">1</div><div>Скачайте подходящий JAR для вашего сервера:<br><pre>Paper/Purpur/Folia: CustomTPA-2.1.2-paper.jar<br>Spigot/Bukkit: CustomTPA-2.1.2-spigot.jar</pre></div></div>
                 <div class="step"><div class="step-num">2</div><div>Поместите его в папку <code>/plugins</code> вашего сервера.</div></div>
                 <div class="step"><div class="step-num">3</div><div>Запустите (или перезапустите) сервер. Будет создан файл <code>plugins/CustomTPA/config.yml</code>.</div></div>
                 <div class="step"><div class="step-num">4</div><div>Откройте <code>config.yml</code> и настройте задержку, кулдаун, звуки, блэклист миров и т.д.</div></div>
