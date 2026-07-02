@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CustomTPA - Modern Teleport Requests</title>
-    <!-- Твоя аватарка для favicon -->
     <link rel="icon" href="https://i.ibb.co/JR9kvR91/Custom-TPA-2-1.png">
     <style>
         :root {
@@ -23,24 +22,77 @@
             align-items: center;
             min-height: 100vh;
             text-align: center;
+            overflow: hidden;
+        }
+        /* Анимированный фон */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(179,102,255,0.08), transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(255,170,0,0.08), transparent 50%);
+            animation: bgPulse 8s ease-in-out infinite alternate;
+        }
+        @keyframes bgPulse {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.1); }
         }
         .container {
-            animation: fadeIn 1s ease;
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 1.2s ease;
+            padding: 20px;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
-        .random-image {
-            max-width: 500px;
+        .logo {
+            max-width: 200px;
             width: 100%;
             height: auto;
-            margin-bottom: 30px;
-            border-radius: 10px;
-            transition: opacity 0.5s ease;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            animation: float 4s ease-in-out infinite;
         }
-        h1 { color: var(--gold); font-size: 3em; margin-bottom: 20px; }
-        p { font-size: 1.3em; margin-bottom: 40px; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        h1 {
+            color: var(--gold);
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(255,170,0,0.2);
+            animation: glow 3s ease-in-out infinite;
+        }
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 30px rgba(255,170,0,0.2); }
+            50% { text-shadow: 0 0 60px rgba(255,170,0,0.4); }
+        }
+        .subtitle {
+            font-size: 1.3em;
+            color: var(--text);
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        .version-badge {
+            display: inline-block;
+            background: var(--purple);
+            color: white;
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-size: 1em;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(179,102,255,0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 20px 10px rgba(179,102,255,0.2); }
+        }
         .lang-select {
             display: flex;
             gap: 30px;
@@ -50,50 +102,81 @@
         .lang-card {
             background: #1a1a1a;
             border: 2px solid #333;
-            border-radius: 15px;
-            padding: 30px 40px;
-            transition: 0.3s;
+            border-radius: 20px;
+            padding: 35px 45px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-decoration: none;
             color: var(--text);
             display: block;
+            min-width: 160px;
+            position: relative;
+            overflow: hidden;
+        }
+        .lang-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,170,0,0.05), transparent 70%);
+            transition: 0.6s;
+            opacity: 0;
+        }
+        .lang-card:hover::before {
+            opacity: 1;
+            transform: scale(1.2);
         }
         .lang-card:hover {
             border-color: var(--gold);
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255,170,0,0.2);
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(255,170,0,0.15);
         }
-        .lang-card img { width: 60px; height: 40px; margin-bottom: 10px; }
-        .lang-card h2 { color: var(--gold); margin: 10px 0; }
+        .lang-card img {
+            width: 70px;
+            height: 45px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+        .lang-card:hover img {
+            transform: scale(1.1);
+        }
+        .lang-card h2 {
+            color: var(--gold);
+            margin: 10px 0 5px;
+            font-size: 1.6em;
+        }
+        .lang-card p {
+            color: var(--text);
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+        @media (max-width: 600px) {
+            h1 { font-size: 2.4em; }
+            .lang-card { padding: 25px 30px; min-width: 120px; }
+        }
     </style>
 </head>
 <body>
+    <div class="bg-animation"></div>
     <div class="container">
-        <!-- Случайная картинка 16:9 -->
-        <img id="randomImage" class="random-image" src="" alt="CustomTPA Feature">
-
+        <img class="logo" src="https://i.ibb.co/0RpM2yYS/all-platforms.png" alt="CustomTPA">
         <h1>🌐 CustomTPA</h1>
-        <p>Choose your language / Выберите язык</p>
+        <p class="subtitle">Choose your language / Выберите язык</p>
+        <div class="version-badge">v2.1.2 · 60 languages</div>
         <div class="lang-select">
             <a href="/en" class="lang-card">
                 <img src="https://flagcdn.com/w80/gb.png" alt="English">
                 <h2>English</h2>
+                <p>🇬🇧 EN</p>
             </a>
             <a href="/ru" class="lang-card">
                 <img src="https://flagcdn.com/w80/ru.png" alt="Русский">
                 <h2>Русский</h2>
+                <p>🇷🇺 RU</p>
             </a>
         </div>
     </div>
-
-    <script>
-        // Картинки 16:9, которые будут меняться
-        const images = [
-            "https://i.ibb.co/0RpM2yYS/all-platforms.png",
-            "https://i.ibb.co/hFLQHkX3/25-languages.png"
-        ];
-        const randomIndex = Math.floor(Math.random() * images.length);
-        document.getElementById("randomImage").src = images[randomIndex];
-        document.getElementById("randomImage").alt = "CustomTPA Feature " + (randomIndex + 1);
-    </script>
 </body>
 </html>
