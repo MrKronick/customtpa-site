@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CustomTPA — Современные запросы телепортации</title>
+    <title>CustomTPA — Modern Teleport Requests</title>
     <link rel="icon" href="https://i.ibb.co/JR9kvR91/Custom-TPA-2-1.png">
     <style>
         :root {
@@ -167,9 +167,6 @@
             border-color: var(--purple);
             transform: scale(1.05);
         }
-        .lang-item:nth-child(1) { animation-delay: 0.05s; }
-        .lang-item:nth-child(2) { animation-delay: 0.1s; }
-        /* можно и все 60 прописать, но я добавлю общее правило для всех */
         .lang-item { animation-delay: calc(0.03s * var(--i, 0)); }
 
         .tutorial {
@@ -231,133 +228,133 @@
 </head>
 <body>
     <header>
-        <div class="lang-switch"><a href="/en">🇬🇧 English</a></div>
+        <div class="lang-switch"><a href="/ru">🇷🇺 Русский</a></div>
         <h1 class="fade-in">🌐 CustomTPA</h1>
-        <p class="fade-in delay-1">Современные запросы телепортации для Paper, Spigot, Folia и других</p>
-        <div class="version-badge fade-in delay-1">v2.1.2 · 60 языков</div>
+        <p class="fade-in delay-1">Modern Teleport Requests for Paper, Spigot, Folia & more</p>
+        <div class="version-badge fade-in delay-1">v2.1.2 · 60 languages</div>
         <div class="badges fade-in delay-2">
-            <img src="https://img.shields.io/bstats/servers/32220?label=Серверов&style=flat-square" alt="Серверов">
-            <img src="https://img.shields.io/bstats/players/32220?label=Игроков&style=flat-square" alt="Игроков">
-            <img src="https://img.shields.io/modrinth/dt/customtpa?label=Скачиваний&style=flat-square" alt="Скачиваний">
+            <img src="https://img.shields.io/bstats/servers/32220?label=Servers&style=flat-square" alt="Servers">
+            <img src="https://img.shields.io/bstats/players/32220?label=Players&style=flat-square" alt="Players">
+            <img src="https://img.shields.io/modrinth/dt/customtpa?label=Downloads&style=flat-square" alt="Downloads">
         </div>
     </header>
 
     <div class="container">
         <section>
-            <h2 class="fade-in">✨ Возможности</h2>
+            <h2 class="fade-in">✨ Features</h2>
             <div class="features">
-                <div class="feature-card fade-in delay-1"><h3>🌍 60 языков</h3>Автоматическое определение языка игрока.</div>
-                <div class="feature-card fade-in delay-1"><h3>💬 Кнопки в чате</h3>Кликабельные [✔ Принять] и [✘ Отклонить].</div>
-                <div class="feature-card fade-in delay-1"><h3>⏳ Задержка телепортации</h3>Настраиваемый обратный отсчёт.</div>
-                <div class="feature-card fade-in delay-1"><h3>🖼️ GUI</h3>/tpa gui с головами игроков.</div>
-                <div class="feature-card fade-in delay-2"><h3>🔔 Проверка обновлений</h3>Уведомления о новых версиях.</div>
-                <div class="feature-card fade-in delay-2"><h3>⚡ Автопринятие</h3>/tpaauto для мгновенных запросов.</div>
-                <div class="feature-card fade-in delay-2"><h3>🗺 Блэклист миров</h3>Блокировка телепортов в определённых мирах.</div>
-                <div class="feature-card fade-in delay-2"><h3>🎨 MiniMessage</h3>Градиенты, RGB, классические цвета.</div>
-                <div class="feature-card fade-in delay-3"><h3>🔙 TPA Back</h3>/tpaback для возврата после телепорта.</div>
-                <div class="feature-card fade-in delay-3"><h3>⚡ Force TPA</h3>Принудительная телепортация для админов.</div>
-                <div class="feature-card fade-in delay-3"><h3>📊 Статистика</h3>/tpastats для просмотра статистики игрока.</div>
-                <div class="feature-card fade-in delay-3"><h3>🌟 Тёплый приём</h3>Приветственное сообщение для новых игроков.</div>
+                <div class="feature-card fade-in delay-1"><h3>🌍 60 Languages</h3>Automatic per-player language detection.</div>
+                <div class="feature-card fade-in delay-1"><h3>💬 Chat Buttons</h3>Clickable [✔ Accept] and [✘ Deny].</div>
+                <div class="feature-card fade-in delay-1"><h3>⏳ Teleport Delay</h3>Configurable countdown with action bar.</div>
+                <div class="feature-card fade-in delay-1"><h3>🖼️ GUI</h3>/tpa gui with player heads.</div>
+                <div class="feature-card fade-in delay-2"><h3>🔔 Update Checker</h3>Notifications on new versions.</div>
+                <div class="feature-card fade-in delay-2"><h3>⚡ Auto-Accept</h3>/tpaauto for instant requests.</div>
+                <div class="feature-card fade-in delay-2"><h3>🗺 World Blacklist</h3>Block teleports in specific worlds.</div>
+                <div class="feature-card fade-in delay-2"><h3>🎨 MiniMessage</h3>Gradients, RGB, legacy colors.</div>
+                <div class="feature-card fade-in delay-3"><h3>🔙 TPA Back</h3>/tpaback to return after teleport.</div>
+                <div class="feature-card fade-in delay-3"><h3>⚡ Force TPA</h3>Admin force-teleport (/tpaforce).</div>
+                <div class="feature-card fade-in delay-3"><h3>📊 Statistics</h3>/tpastats for player stats.</div>
+                <div class="feature-card fade-in delay-3"><h3>🌟 Warm Welcome</h3>Message for new players.</div>
             </div>
         </section>
 
         <section>
-            <h2 class="fade-in">📋 Команды</h2>
+            <h2 class="fade-in">📋 Commands</h2>
             <table>
-                <tr><th>Команда</th><th>Описание</th></tr>
-                <tr><td><code>/tpa &lt;игрок&gt;</code></td><td>Отправить запрос на телепортацию</td></tr>
-                <tr><td><code>/tpahere &lt;игрок&gt;</code></td><td>Пригласить игрока к себе</td></tr>
-                <tr><td><code>/tpaccept [игрок]</code></td><td>Принять запрос</td></tr>
-                <tr><td><code>/tpadeny [игрок]</code></td><td>Отклонить запрос</td></tr>
-                <tr><td><code>/tpcancel</code></td><td>Отменить свой запрос</td></tr>
-                <tr><td><code>/tpatoggle</code></td><td>Вкл/выкл приём запросов</td></tr>
-                <tr><td><code>/tpaauto</code></td><td>Вкл/выкл автопринятие</td></tr>
-                <tr><td><code>/tpa gui</code></td><td>Открыть графическое меню</td></tr>
-                <tr><td><code>/tpastats</code></td><td>Посмотреть статистику телепортаций</td></tr>
-                <tr><td><code>/tpaback</code></td><td>Вернуться на предыдущую позицию</td></tr>
-                <tr><td><code>/tpaforce &lt;игрок&gt;</code></td><td>Принудительная телепортация (только админ)</td></tr>
-                <tr><td><code>/customtpa reload</code></td><td>Перезагрузить конфигурацию</td></tr>
+                <tr><th>Command</th><th>Description</th></tr>
+                <tr><td><code>/tpa &lt;player&gt;</code></td><td>Request to teleport to a player</td></tr>
+                <tr><td><code>/tpahere &lt;player&gt;</code></td><td>Invite a player to teleport to you</td></tr>
+                <tr><td><code>/tpaccept [player]</code></td><td>Accept a request</td></tr>
+                <tr><td><code>/tpadeny [player]</code></td><td>Deny a request</td></tr>
+                <tr><td><code>/tpcancel</code></td><td>Cancel your outgoing request</td></tr>
+                <tr><td><code>/tpatoggle</code></td><td>Toggle receiving requests</td></tr>
+                <tr><td><code>/tpaauto</code></td><td>Toggle auto-accept</td></tr>
+                <tr><td><code>/tpa gui</code></td><td>Open graphical menu</td></tr>
+                <tr><td><code>/tpastats</code></td><td>View your teleport statistics</td></tr>
+                <tr><td><code>/tpaback</code></td><td>Return to previous location</td></tr>
+                <tr><td><code>/tpaforce &lt;player&gt;</code></td><td>Force-teleport (admin only)</td></tr>
+                <tr><td><code>/customtpa reload</code></td><td>Reload configuration</td></tr>
             </table>
         </section>
 
         <section>
-            <h2 class="fade-in">🗣 Языки (60)</h2>
+            <h2 class="fade-in">🗣 Languages (60)</h2>
             <div class="lang-grid">
                 <span class="lang-item" style="--i:1">🇬🇧 English</span>
-                <span class="lang-item" style="--i:2">🇷🇺 Русский</span>
-                <span class="lang-item" style="--i:3">🇺🇦 Украинский</span>
-                <span class="lang-item" style="--i:4">🇩🇪 Немецкий</span>
-                <span class="lang-item" style="--i:5">🇫🇷 Французский</span>
-                <span class="lang-item" style="--i:6">🇪🇸 Испанский</span>
-                <span class="lang-item" style="--i:7">🇧🇷 Португальский (Бразилия)</span>
-                <span class="lang-item" style="--i:8">🇵🇹 Португальский (Португалия)</span>
-                <span class="lang-item" style="--i:9">🇹🇷 Турецкий</span>
-                <span class="lang-item" style="--i:10">🇮🇹 Итальянский</span>
-                <span class="lang-item" style="--i:11">🇵🇱 Польский</span>
-                <span class="lang-item" style="--i:12">🇨🇳 Китайский</span>
-                <span class="lang-item" style="--i:13">🇯🇵 Японский</span>
-                <span class="lang-item" style="--i:14">🇫🇮 Финский</span>
-                <span class="lang-item" style="--i:15">🇰🇷 Корейский</span>
-                <span class="lang-item" style="--i:16">🇸🇪 Шведский</span>
-                <span class="lang-item" style="--i:17">🇳🇱 Нидерландский</span>
-                <span class="lang-item" style="--i:18">🇨🇿 Чешский</span>
-                <span class="lang-item" style="--i:19">🇭🇺 Венгерский</span>
-                <span class="lang-item" style="--i:20">🇷🇴 Румынский</span>
-                <span class="lang-item" style="--i:21">🇳🇴 Норвежский</span>
-                <span class="lang-item" style="--i:22">🇩🇰 Датский</span>
-                <span class="lang-item" style="--i:23">🇬🇷 Греческий</span>
-                <span class="lang-item" style="--i:24">🇮🇩 Индонезийский</span>
-                <span class="lang-item" style="--i:25">🇸🇦 Арабский</span>
-                <span class="lang-item" style="--i:26">🇻🇳 Вьетнамский</span>
-                <span class="lang-item" style="--i:27">🇸🇰 Словацкий</span>
-                <span class="lang-item" style="--i:28">🇧🇬 Болгарский</span>
-                <span class="lang-item" style="--i:29">🇮🇱 Иврит</span>
-                <span class="lang-item" style="--i:30">🇹🇭 Тайский</span>
-                <span class="lang-item" style="--i:31">🇵🇭 Филиппинский</span>
-                <span class="lang-item" style="--i:32">🇮🇳 Хинди</span>
-                <span class="lang-item" style="--i:33">🇭🇷 Хорватский</span>
-                <span class="lang-item" style="--i:34">🇸🇮 Словенский</span>
-                <span class="lang-item" style="--i:35">🇱🇹 Литовский</span>
-                <span class="lang-item" style="--i:36">🇱🇻 Латышский</span>
-                <span class="lang-item" style="--i:37">🇪🇪 Эстонский</span>
-                <span class="lang-item" style="--i:38">🇷🇸 Сербский</span>
-                <span class="lang-item" style="--i:39">🇲🇰 Македонский</span>
-                <span class="lang-item" style="--i:40">🇨🇦 Каталанский</span>
-                <span class="lang-item" style="--i:41">🇧🇩 Бенгальский</span>
-                <span class="lang-item" style="--i:42">🇵🇰 Урду</span>
-                <span class="lang-item" style="--i:43">🇮🇷 Персидский</span>
-                <span class="lang-item" style="--i:44">🇲🇾 Малайский</span>
-                <span class="lang-item" style="--i:45">🇹🇿 Суахили</span>
-                <span class="lang-item" style="--i:46">🇿🇦 Африкаанс</span>
-                <span class="lang-item" style="--i:47">🇮🇸 Исландский</span>
-                <span class="lang-item" style="--i:48">🇪🇸 Галисийский</span>
-                <span class="lang-item" style="--i:49">🇪🇸 Баскский</span>
-                <span class="lang-item" style="--i:50">🌍 Эсперанто</span>
-                <span class="lang-item" style="--i:51">🇮🇳 Пенджаби</span>
-                <span class="lang-item" style="--i:52">🇮🇳 Маратхи</span>
-                <span class="lang-item" style="--i:53">🇮🇳 Телугу</span>
-                <span class="lang-item" style="--i:54">🇮🇳 Тамильский</span>
-                <span class="lang-item" style="--i:55">🇮🇳 Гуджарати</span>
-                <span class="lang-item" style="--i:56">🇮🇳 Каннада</span>
-                <span class="lang-item" style="--i:57">🇮🇳 Малаялам</span>
-                <span class="lang-item" style="--i:58">🇳🇵 Непальский</span>
-                <span class="lang-item" style="--i:59">🇱🇰 Сингальский</span>
-                <span class="lang-item" style="--i:60">🇲🇲 Бирманский</span>
+                <span class="lang-item" style="--i:2">🇷🇺 Russian</span>
+                <span class="lang-item" style="--i:3">🇺🇦 Ukrainian</span>
+                <span class="lang-item" style="--i:4">🇩🇪 German</span>
+                <span class="lang-item" style="--i:5">🇫🇷 French</span>
+                <span class="lang-item" style="--i:6">🇪🇸 Spanish</span>
+                <span class="lang-item" style="--i:7">🇧🇷 Portuguese (BR)</span>
+                <span class="lang-item" style="--i:8">🇵🇹 Portuguese (PT)</span>
+                <span class="lang-item" style="--i:9">🇹🇷 Turkish</span>
+                <span class="lang-item" style="--i:10">🇮🇹 Italian</span>
+                <span class="lang-item" style="--i:11">🇵🇱 Polish</span>
+                <span class="lang-item" style="--i:12">🇨🇳 Chinese</span>
+                <span class="lang-item" style="--i:13">🇯🇵 Japanese</span>
+                <span class="lang-item" style="--i:14">🇫🇮 Finnish</span>
+                <span class="lang-item" style="--i:15">🇰🇷 Korean</span>
+                <span class="lang-item" style="--i:16">🇸🇪 Swedish</span>
+                <span class="lang-item" style="--i:17">🇳🇱 Dutch</span>
+                <span class="lang-item" style="--i:18">🇨🇿 Czech</span>
+                <span class="lang-item" style="--i:19">🇭🇺 Hungarian</span>
+                <span class="lang-item" style="--i:20">🇷🇴 Romanian</span>
+                <span class="lang-item" style="--i:21">🇳🇴 Norwegian</span>
+                <span class="lang-item" style="--i:22">🇩🇰 Danish</span>
+                <span class="lang-item" style="--i:23">🇬🇷 Greek</span>
+                <span class="lang-item" style="--i:24">🇮🇩 Indonesian</span>
+                <span class="lang-item" style="--i:25">🇸🇦 Arabic</span>
+                <span class="lang-item" style="--i:26">🇻🇳 Vietnamese</span>
+                <span class="lang-item" style="--i:27">🇸🇰 Slovak</span>
+                <span class="lang-item" style="--i:28">🇧🇬 Bulgarian</span>
+                <span class="lang-item" style="--i:29">🇮🇱 Hebrew</span>
+                <span class="lang-item" style="--i:30">🇹🇭 Thai</span>
+                <span class="lang-item" style="--i:31">🇵🇭 Filipino</span>
+                <span class="lang-item" style="--i:32">🇮🇳 Hindi</span>
+                <span class="lang-item" style="--i:33">🇭🇷 Croatian</span>
+                <span class="lang-item" style="--i:34">🇸🇮 Slovenian</span>
+                <span class="lang-item" style="--i:35">🇱🇹 Lithuanian</span>
+                <span class="lang-item" style="--i:36">🇱🇻 Latvian</span>
+                <span class="lang-item" style="--i:37">🇪🇪 Estonian</span>
+                <span class="lang-item" style="--i:38">🇷🇸 Serbian</span>
+                <span class="lang-item" style="--i:39">🇲🇰 Macedonian</span>
+                <span class="lang-item" style="--i:40">🇨🇦 Catalan</span>
+                <span class="lang-item" style="--i:41">🇧🇩 Bengali</span>
+                <span class="lang-item" style="--i:42">🇵🇰 Urdu</span>
+                <span class="lang-item" style="--i:43">🇮🇷 Persian</span>
+                <span class="lang-item" style="--i:44">🇲🇾 Malay</span>
+                <span class="lang-item" style="--i:45">🇹🇿 Swahili</span>
+                <span class="lang-item" style="--i:46">🇿🇦 Afrikaans</span>
+                <span class="lang-item" style="--i:47">🇮🇸 Icelandic</span>
+                <span class="lang-item" style="--i:48">🇪🇸 Galician</span>
+                <span class="lang-item" style="--i:49">🇪🇸 Basque</span>
+                <span class="lang-item" style="--i:50">🌍 Esperanto</span>
+                <span class="lang-item" style="--i:51">🇮🇳 Punjabi</span>
+                <span class="lang-item" style="--i:52">🇮🇳 Marathi</span>
+                <span class="lang-item" style="--i:53">🇮🇳 Telugu</span>
+                <span class="lang-item" style="--i:54">🇮🇳 Tamil</span>
+                <span class="lang-item" style="--i:55">🇮🇳 Gujarati</span>
+                <span class="lang-item" style="--i:56">🇮🇳 Kannada</span>
+                <span class="lang-item" style="--i:57">🇮🇳 Malayalam</span>
+                <span class="lang-item" style="--i:58">🇳🇵 Nepali</span>
+                <span class="lang-item" style="--i:59">🇱🇰 Sinhala</span>
+                <span class="lang-item" style="--i:60">🇲🇲 Burmese</span>
             </div>
         </section>
 
         <section>
-            <h2 class="fade-in">📖 Начало работы</h2>
+            <h2 class="fade-in">📖 Getting Started</h2>
             <div class="tutorial fade-in delay-1">
-                <h3>📥 Установка</h3>
-                <div class="step"><div class="step-num">1</div><div>Скачайте подходящий JAR для вашего сервера:<br><pre>Paper/Purpur/Folia: CustomTPA-2.1.2-paper.jar<br>Spigot/Bukkit: CustomTPA-2.1.2-spigot.jar</pre></div></div>
-                <div class="step"><div class="step-num">2</div><div>Поместите его в папку <code>/plugins</code> вашего сервера.</div></div>
-                <div class="step"><div class="step-num">3</div><div>Запустите (или перезапустите) сервер. Будет создан файл <code>plugins/CustomTPA/config.yml</code>.</div></div>
-                <div class="step"><div class="step-num">4</div><div>Откройте <code>config.yml</code> и настройте задержку, кулдаун, звуки, блэклист миров и т.д.</div></div>
-                <div class="step"><div class="step-num">5</div><div>Настройте сообщения в <code>plugins/CustomTPA/lang/messages_XX.yml</code>.</div></div>
-                <div class="step"><div class="step-num">6</div><div>Выполните <code>/customtpa reload</code>, чтобы применить изменения без перезапуска.</div></div>
+                <h3>📥 Installation</h3>
+                <div class="step"><div class="step-num">1</div><div>Download the correct JAR for your server:<br><pre>Paper/Purpur/Folia: CustomTPA-2.1.2-paper.jar<br>Spigot/Bukkit: CustomTPA-2.1.2-spigot.jar</pre></div></div>
+                <div class="step"><div class="step-num">2</div><div>Place it into your server's <code>/plugins</code> folder.</div></div>
+                <div class="step"><div class="step-num">3</div><div>Start (or restart) your server. A <code>plugins/CustomTPA/config.yml</code> file will be generated.</div></div>
+                <div class="step"><div class="step-num">4</div><div>Open <code>config.yml</code> and adjust settings like delay, cooldown, sounds, world blacklist, etc.</div></div>
+                <div class="step"><div class="step-num">5</div><div>Customise messages in <code>plugins/CustomTPA/lang/messages_XX.yml</code>.</div></div>
+                <div class="step"><div class="step-num">6</div><div>Run <code>/customtpa reload</code> to apply changes without restarting.</div></div>
 
-                <h3>🔧 Пример конфигурации (config.yml)</h3>
+                <h3>🔧 Configuration Example (config.yml)</h3>
                 <pre>request-timeout: 60
 cooldown: 30
 delay: 3
@@ -377,16 +374,16 @@ force-tpa:
 max-log-days: 7
 update-checker: true</pre>
 
-                <h3>🎨 Настройка сообщений</h3>
-                <p>Отредактируйте <code>lang/messages_ru.yml</code> (или другой языковой файл), чтобы изменить цвета и текст. Можно использовать теги MiniMessage (<code>&lt;gold&gt;</code>, <code>&lt;gradient&gt;</code> и др.) или классические коды (<code>&a</code>, <code>&l</code>).</p>
+                <h3>🎨 Customizing Messages</h3>
+                <p>Edit <code>lang/messages_en.yml</code> (or any language file) to change colors and text. You can use MiniMessage tags (<code>&lt;gold&gt;</code>, <code>&lt;gradient&gt;</code>, etc.) or legacy codes (<code>&a</code>, <code>&l</code>).</p>
                 <pre>prefix: "&lt;color:#ffaa00&gt;[TPA]&lt;/color&gt; "
-request-sent: "&lt;gray&gt;Запрос отправлен игроку &lt;yellow&gt;%other_name%&lt;/yellow&gt;&lt;/gray&gt;"</pre>
+request-sent: "&lt;gray&gt;Request sent to &lt;yellow&gt;%other_name%&lt;/yellow&gt;&lt;/gray&gt;"</pre>
 
-                <h3>🌍 Добавление нового языка</h3>
-                <p>Скопируйте <code>messages_en.yml</code>, переименуйте (например, <code>messages_de.yml</code>), переведите значения и выполните <code>/customtpa reload</code>. Плагин автоматически определит локаль игрока.</p>
+                <h3>🌍 Adding a New Language</h3>
+                <p>Copy <code>messages_en.yml</code>, rename it (e.g., <code>messages_de.yml</code>), translate the values, and run <code>/customtpa reload</code>. The plugin will automatically detect the player's locale.</p>
 
-                <h3>🛡 Права (Permissions)</h3>
-                <p>Используйте любой плагин прав (например, LuckPerms), чтобы выдать эти права:</p>
+                <h3>🛡 Permissions</h3>
+                <p>Use any permission plugin (e.g., LuckPerms) to grant these nodes:</p>
                 <pre>tpa.tpa
 tpa.tpahere
 tpa.accept
@@ -395,15 +392,15 @@ tpa.cancel
 tpa.toggle
 tpa.auto
 tpa.gui
-customtpa.reload (админ)
-customtpa.force (админ)
+customtpa.reload (admin)
+customtpa.force (admin)
 customtpa.bypass.delay
 customtpa.bypass.cooldown
 customtpa.bypass.blacklist
 customtpa.bypass.limit</pre>
 
                 <h3>🔄 PlaceholderAPI</h3>
-                <p>CustomTPA предоставляет следующие плейсхолдеры:</p>
+                <p>CustomTPA provides these placeholders:</p>
                 <pre>%tpa_incoming%
 %tpa_has_incoming%
 %tpa_outgoing%
@@ -415,7 +412,7 @@ customtpa.bypass.limit</pre>
     </div>
 
     <footer>
-        <p>© 2026 MrKronick. Лицензия GPLv3.</p>
+        <p>© 2026 MrKronick. Licensed under GPLv3.</p>
         <p>
             <a href="https://modrinth.com/plugin/customtpa">Modrinth</a> ·
             <a href="https://www.spigotmc.org/resources/customtpa.XXXXXX/">SpigotMC</a> ·
