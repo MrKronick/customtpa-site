@@ -3,83 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CustomTPA - Modern Teleport Requests</title>
+    <title>CustomTPA — Modern Teleport Requests</title>
     <link rel="icon" href="https://i.ibb.co/JR9kvR91/Custom-TPA-2-1.png">
     <style>
         :root {
             --bg: #0d0d0d;
+            --card: #1a1a1a;
+            --text: #cccccc;
             --gold: #ffaa00;
             --purple: #b366ff;
-            --text: #cccccc;
+            --green: #55ff55;
+            --red: #ff5555;
+            --yellow: #ffff55;
+            --gray: #888888;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: var(--bg);
             color: var(--text);
             font-family: 'Segoe UI', system-ui, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-            overflow: hidden;
-            padding: 20px;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(179,102,255,0.08), transparent 50%),
-                        radial-gradient(circle at 80% 50%, rgba(255,170,0,0.08), transparent 50%);
-            animation: bgPulse 8s ease-in-out infinite alternate;
-        }
-        @keyframes bgPulse {
-            0% { opacity: 0.5; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.1); }
-        }
-        .container {
-            position: relative;
-            z-index: 1;
-            animation: fadeIn 1.2s ease;
-            padding: 20px;
-            max-width: 100%;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+        a { color: var(--gold); text-decoration: none; transition: 0.3s; }
+        a:hover { color: var(--purple); text-decoration: underline; }
+
+        /* Анимации */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px) scale(0.95); }
             to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .logo {
-            max-width: 200px;
-            width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 20px;
-            animation: float 4s ease-in-out infinite;
         }
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-12px); }
         }
-        h1 {
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        .fade-in { animation: fadeInUp 0.8s ease forwards; opacity: 0; }
+        .delay-1 { animation-delay: 0.15s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.45s; }
+        .delay-4 { animation-delay: 0.6s; }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: clamp(15px, 3vw, 20px);
+        }
+        header {
+            text-align: center;
+            padding: clamp(40px, 10vw, 80px) clamp(15px, 3vw, 20px) clamp(30px, 8vw, 60px);
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #1a1a2e);
+            background-size: 300% 300%;
+            animation: shimmer 8s ease infinite;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 2px solid var(--purple);
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,170,0,0.08), transparent);
+            top: -150px;
+            left: -150px;
+            animation: float 8s infinite;
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(179,102,255,0.08), transparent);
+            bottom: -100px;
+            right: -100px;
+            animation: float 8s infinite reverse;
+        }
+        header h1 {
             color: var(--gold);
-            font-size: clamp(2.2em, 8vw, 3.5em);
+            font-size: clamp(2em, 8vw, 3.2em);
             margin-bottom: 10px;
-            text-shadow: 0 0 30px rgba(255,170,0,0.2);
-            animation: glow 3s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
             word-break: break-word;
         }
-        @keyframes glow {
-            0%, 100% { text-shadow: 0 0 30px rgba(255,170,0,0.2); }
-            50% { text-shadow: 0 0 60px rgba(255,170,0,0.4); }
-        }
-        .subtitle {
+        header p {
+            color: var(--gray);
             font-size: clamp(1em, 3vw, 1.3em);
-            color: var(--text);
-            margin-bottom: 10px;
-            opacity: 0.9;
+            position: relative;
+            z-index: 1;
         }
         .version-badge {
             display: inline-block;
@@ -88,95 +107,428 @@
             padding: 6px 20px;
             border-radius: 30px;
             font-size: clamp(0.8em, 2vw, 1em);
-            margin-bottom: 30px;
+            margin-top: 12px;
+            position: relative;
+            z-index: 1;
             animation: pulse 2s infinite;
         }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(179,102,255,0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 0 20px 10px rgba(179,102,255,0.2); }
-        }
-        .lang-select {
-            display: flex;
-            gap: clamp(15px, 4vw, 30px);
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .lang-card {
-            background: #1a1a1a;
-            border: 2px solid #333;
-            border-radius: 20px;
-            padding: clamp(20px, 4vw, 35px) clamp(25px, 5vw, 45px);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-decoration: none;
-            color: var(--text);
-            display: block;
-            min-width: clamp(120px, 30vw, 160px);
-            flex: 0 1 auto;
+        .badges {
+            margin-top: 20px;
             position: relative;
-            overflow: hidden;
+            z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
         }
-        .lang-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,170,0,0.05), transparent 70%);
-            transition: 0.6s;
-            opacity: 0;
-        }
-        .lang-card:hover::before {
-            opacity: 1;
-            transform: scale(1.2);
-        }
-        .lang-card:hover {
-            border-color: var(--gold);
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 20px 40px rgba(255,170,0,0.15);
-        }
-        .lang-card img {
-            width: clamp(50px, 12vw, 70px);
+        .badges img {
+            max-width: 100%;
             height: auto;
-            aspect-ratio: 16/10;
-            margin-bottom: 12px;
-            border-radius: 6px;
             transition: 0.3s;
         }
-        .lang-card:hover img {
-            transform: scale(1.1);
+        .badges img:hover { transform: scale(1.05); }
+        .lang-switch {
+            position: absolute;
+            top: clamp(10px, 2vw, 20px);
+            right: clamp(10px, 2vw, 20px);
+            z-index: 2;
         }
-        .lang-card h2 {
+        .lang-switch a {
             color: var(--gold);
-            margin: 10px 0 5px;
-            font-size: clamp(1.2em, 3vw, 1.6em);
+            background: rgba(26,26,26,0.8);
+            padding: 6px 14px;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--purple);
+            transition: 0.3s;
+            font-size: clamp(0.8em, 1.5vw, 1em);
         }
-        .lang-card p {
-            color: var(--text);
-            font-size: 0.9em;
-            opacity: 0.7;
+        .lang-switch a:hover { background: var(--purple); color: white; }
+
+        section { margin: clamp(30px, 6vw, 50px) 0; }
+        h2 {
+            color: var(--gold);
+            border-bottom: 2px solid var(--purple);
+            padding-bottom: 8px;
+            margin-bottom: 25px;
+            font-size: clamp(1.4em, 4vw, 1.8em);
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(180px, 30vw, 240px), 1fr));
+            gap: clamp(15px, 3vw, 20px);
+        }
+        .feature-card {
+            background: var(--card);
+            padding: clamp(18px, 3vw, 25px);
+            border-radius: 16px;
+            border-left: 4px solid var(--purple);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: default;
+        }
+        .feature-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            border-left-color: var(--gold);
+        }
+        .feature-card h3 {
+            color: var(--gold);
+            margin-bottom: 10px;
+            font-size: clamp(1em, 2vw, 1.2em);
+        }
+        .feature-card p { font-size: clamp(0.9em, 1.5vw, 1em); }
+
+        /* Адаптивная таблица */
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 10px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 480px;
+        }
+        th, td {
+            padding: clamp(10px, 2vw, 14px);
+            text-align: left;
+            border-bottom: 1px solid #333;
+            font-size: clamp(0.85em, 1.5vw, 1em);
+        }
+        th { color: var(--gold); font-size: clamp(0.95em, 1.8vw, 1.1em); }
+        tr { transition: 0.3s; }
+        tr:hover { background: rgba(255,170,0,0.05); }
+        table code {
+            font-size: clamp(0.75em, 1.2vw, 0.9em);
+            white-space: nowrap;
+        }
+
+        .lang-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(6px, 1.5vw, 10px);
+            justify-content: center;
+        }
+        .lang-item {
+            background: var(--card);
+            padding: clamp(6px, 1.5vw, 10px) clamp(12px, 2.5vw, 18px);
+            border-radius: 30px;
+            font-size: clamp(0.8em, 1.5vw, 0.95em);
+            transition: all 0.3s;
+            border: 1px solid #333;
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+            white-space: nowrap;
+        }
+        .lang-item:hover {
+            background: var(--purple);
+            color: white;
+            border-color: var(--purple);
+            transform: scale(1.05);
+        }
+        .lang-item { animation-delay: calc(0.03s * var(--i, 0)); }
+
+        .tutorial {
+            background: var(--card);
+            padding: clamp(20px, 4vw, 30px);
+            border-radius: 16px;
+            transition: 0.3s;
+        }
+        .tutorial:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .tutorial h3 {
+            color: var(--gold);
+            margin: clamp(15px, 3vw, 25px) 0 clamp(8px, 1.5vw, 12px);
+            font-size: clamp(1.1em, 2.5vw, 1.4em);
+        }
+        .tutorial code {
+            background: #2a2a2a;
+            padding: 3px 10px;
+            border-radius: 6px;
+            color: var(--yellow);
+            font-size: clamp(0.8em, 1.3vw, 0.95em);
+            word-break: break-word;
+        }
+        .tutorial pre {
+            background: #0a0a0a;
+            padding: clamp(12px, 2vw, 18px);
+            border-radius: 8px;
+            overflow-x: auto;
+            color: var(--green);
+            margin: 12px 0;
+            font-size: clamp(0.8em, 1.3vw, 0.95em);
+            border-left: 3px solid var(--purple);
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .tutorial p {
+            font-size: clamp(0.9em, 1.5vw, 1em);
+        }
+        .step {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        .step-num {
+            background: var(--purple);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: clamp(0.9em, 1.5vw, 1em);
+        }
+
+        footer {
+            text-align: center;
+            padding: clamp(20px, 4vw, 30px);
+            color: var(--gray);
+            border-top: 1px solid #333;
+            margin-top: clamp(30px, 6vw, 50px);
+        }
+        footer p {
+            font-size: clamp(0.85em, 1.5vw, 1em);
+        }
+
+        /* Дополнительные адаптивные правки */
+        @media (max-width: 600px) {
+            .lang-switch {
+                position: relative;
+                top: 0;
+                right: 0;
+                text-align: center;
+                margin-bottom: 15px;
+            }
+            header::before, header::after {
+                display: none;
+            }
+            .table-wrapper {
+                margin: 10px -10px;
+            }
+            table {
+                min-width: 400px;
+            }
+            .lang-item {
+                white-space: normal;
+                font-size: 0.8em;
+            }
+        }
+        @media (max-width: 400px) {
+            table {
+                min-width: 320px;
+            }
+            th, td {
+                padding: 8px;
+                font-size: 0.75em;
+            }
+            table code {
+                font-size: 0.7em;
+            }
+            .feature-card {
+                padding: 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="bg-animation"></div>
-    <div class="container">
-        <img class="logo" src="https://i.ibb.co/0RpM2yYS/all-platforms.png" alt="CustomTPA">
-        <h1>🌐 CustomTPA</h1>
-        <p class="subtitle">Choose your language / Выберите язык</p>
-        <div class="version-badge">v2.1.2 · 60 languages</div>
-        <div class="lang-select">
-            <a href="/en" class="lang-card">
-                <img src="https://flagcdn.com/w80/gb.png" alt="English">
-                <h2>English</h2>
-                <p>🇬🇧 EN</p>
-            </a>
-            <a href="/ru" class="lang-card">
-                <img src="https://flagcdn.com/w80/ru.png" alt="Русский">
-                <h2>Русский</h2>
-                <p>🇷🇺 RU</p>
-            </a>
+    <header>
+        <div class="lang-switch"><a href="/ru">🇷🇺 Русский</a></div>
+        <h1 class="fade-in">🌐 CustomTPA</h1>
+        <p class="fade-in delay-1">Modern Teleport Requests for Paper, Spigot, Folia & more</p>
+        <div class="version-badge fade-in delay-1">v2.1.2 · 60 languages</div>
+        <div class="badges fade-in delay-2">
+            <img src="https://img.shields.io/bstats/servers/32220?label=Servers&style=flat-square" alt="Servers">
+            <img src="https://img.shields.io/bstats/players/32220?label=Players&style=flat-square" alt="Players">
+            <img src="https://img.shields.io/modrinth/dt/customtpa?label=Downloads&style=flat-square" alt="Downloads">
         </div>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2 class="fade-in">✨ Features</h2>
+            <div class="features">
+                <div class="feature-card fade-in delay-1"><h3>🌍 60 Languages</h3>Automatic per-player language detection.</div>
+                <div class="feature-card fade-in delay-1"><h3>💬 Chat Buttons</h3>Clickable [✔ Accept] and [✘ Deny].</div>
+                <div class="feature-card fade-in delay-1"><h3>⏳ Teleport Delay</h3>Configurable countdown with action bar.</div>
+                <div class="feature-card fade-in delay-1"><h3>🖼️ GUI</h3>/tpa gui with player heads.</div>
+                <div class="feature-card fade-in delay-2"><h3>🔔 Update Checker</h3>Notifications on new versions.</div>
+                <div class="feature-card fade-in delay-2"><h3>⚡ Auto-Accept</h3>/tpaauto for instant requests.</div>
+                <div class="feature-card fade-in delay-2"><h3>🗺 World Blacklist</h3>Block teleports in specific worlds.</div>
+                <div class="feature-card fade-in delay-2"><h3>🎨 MiniMessage</h3>Gradients, RGB, legacy colors.</div>
+                <div class="feature-card fade-in delay-3"><h3>🔙 TPA Back</h3>/tpaback to return after teleport.</div>
+                <div class="feature-card fade-in delay-3"><h3>⚡ Force TPA</h3>Admin force-teleport (/tpaforce).</div>
+                <div class="feature-card fade-in delay-3"><h3>📊 Statistics</h3>/tpastats for player stats.</div>
+                <div class="feature-card fade-in delay-3"><h3>🌟 Warm Welcome</h3>Message for new players.</div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="fade-in">📋 Commands</h2>
+            <div class="table-wrapper">
+                <table>
+                    <tr><th>Command</th><th>Description</th></tr>
+                    <tr><td><code>/tpa &lt;player&gt;</code></td><td>Request to teleport to a player</td></tr>
+                    <tr><td><code>/tpahere &lt;player&gt;</code></td><td>Invite a player to teleport to you</td></tr>
+                    <tr><td><code>/tpaccept [player]</code></td><td>Accept a request</td></tr>
+                    <tr><td><code>/tpadeny [player]</code></td><td>Deny a request</td></tr>
+                    <tr><td><code>/tpcancel</code></td><td>Cancel your outgoing request</td></tr>
+                    <tr><td><code>/tpatoggle</code></td><td>Toggle receiving requests</td></tr>
+                    <tr><td><code>/tpaauto</code></td><td>Toggle auto-accept</td></tr>
+                    <tr><td><code>/tpa gui</code></td><td>Open graphical menu</td></tr>
+                    <tr><td><code>/tpastats</code></td><td>View your teleport statistics</td></tr>
+                    <tr><td><code>/tpaback</code></td><td>Return to previous location</td></tr>
+                    <tr><td><code>/tpaforce &lt;player&gt;</code></td><td>Force-teleport (admin only)</td></tr>
+                    <tr><td><code>/customtpa reload</code></td><td>Reload configuration</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="fade-in">🗣 Languages (60)</h2>
+            <div class="lang-grid">
+                <span class="lang-item" style="--i:1">🇬🇧 English</span>
+                <span class="lang-item" style="--i:2">🇷🇺 Russian</span>
+                <span class="lang-item" style="--i:3">🇺🇦 Ukrainian</span>
+                <span class="lang-item" style="--i:4">🇩🇪 German</span>
+                <span class="lang-item" style="--i:5">🇫🇷 French</span>
+                <span class="lang-item" style="--i:6">🇪🇸 Spanish</span>
+                <span class="lang-item" style="--i:7">🇧🇷 Portuguese (BR)</span>
+                <span class="lang-item" style="--i:8">🇵🇹 Portuguese (PT)</span>
+                <span class="lang-item" style="--i:9">🇹🇷 Turkish</span>
+                <span class="lang-item" style="--i:10">🇮🇹 Italian</span>
+                <span class="lang-item" style="--i:11">🇵🇱 Polish</span>
+                <span class="lang-item" style="--i:12">🇨🇳 Chinese</span>
+                <span class="lang-item" style="--i:13">🇯🇵 Japanese</span>
+                <span class="lang-item" style="--i:14">🇫🇮 Finnish</span>
+                <span class="lang-item" style="--i:15">🇰🇷 Korean</span>
+                <span class="lang-item" style="--i:16">🇸🇪 Swedish</span>
+                <span class="lang-item" style="--i:17">🇳🇱 Dutch</span>
+                <span class="lang-item" style="--i:18">🇨🇿 Czech</span>
+                <span class="lang-item" style="--i:19">🇭🇺 Hungarian</span>
+                <span class="lang-item" style="--i:20">🇷🇴 Romanian</span>
+                <span class="lang-item" style="--i:21">🇳🇴 Norwegian</span>
+                <span class="lang-item" style="--i:22">🇩🇰 Danish</span>
+                <span class="lang-item" style="--i:23">🇬🇷 Greek</span>
+                <span class="lang-item" style="--i:24">🇮🇩 Indonesian</span>
+                <span class="lang-item" style="--i:25">🇸🇦 Arabic</span>
+                <span class="lang-item" style="--i:26">🇻🇳 Vietnamese</span>
+                <span class="lang-item" style="--i:27">🇸🇰 Slovak</span>
+                <span class="lang-item" style="--i:28">🇧🇬 Bulgarian</span>
+                <span class="lang-item" style="--i:29">🇮🇱 Hebrew</span>
+                <span class="lang-item" style="--i:30">🇹🇭 Thai</span>
+                <span class="lang-item" style="--i:31">🇵🇭 Filipino</span>
+                <span class="lang-item" style="--i:32">🇮🇳 Hindi</span>
+                <span class="lang-item" style="--i:33">🇭🇷 Croatian</span>
+                <span class="lang-item" style="--i:34">🇸🇮 Slovenian</span>
+                <span class="lang-item" style="--i:35">🇱🇹 Lithuanian</span>
+                <span class="lang-item" style="--i:36">🇱🇻 Latvian</span>
+                <span class="lang-item" style="--i:37">🇪🇪 Estonian</span>
+                <span class="lang-item" style="--i:38">🇷🇸 Serbian</span>
+                <span class="lang-item" style="--i:39">🇲🇰 Macedonian</span>
+                <span class="lang-item" style="--i:40">🇨🇦 Catalan</span>
+                <span class="lang-item" style="--i:41">🇧🇩 Bengali</span>
+                <span class="lang-item" style="--i:42">🇵🇰 Urdu</span>
+                <span class="lang-item" style="--i:43">🇮🇷 Persian</span>
+                <span class="lang-item" style="--i:44">🇲🇾 Malay</span>
+                <span class="lang-item" style="--i:45">🇹🇿 Swahili</span>
+                <span class="lang-item" style="--i:46">🇿🇦 Afrikaans</span>
+                <span class="lang-item" style="--i:47">🇮🇸 Icelandic</span>
+                <span class="lang-item" style="--i:48">🇪🇸 Galician</span>
+                <span class="lang-item" style="--i:49">🇪🇸 Basque</span>
+                <span class="lang-item" style="--i:50">🌍 Esperanto</span>
+                <span class="lang-item" style="--i:51">🇮🇳 Punjabi</span>
+                <span class="lang-item" style="--i:52">🇮🇳 Marathi</span>
+                <span class="lang-item" style="--i:53">🇮🇳 Telugu</span>
+                <span class="lang-item" style="--i:54">🇮🇳 Tamil</span>
+                <span class="lang-item" style="--i:55">🇮🇳 Gujarati</span>
+                <span class="lang-item" style="--i:56">🇮🇳 Kannada</span>
+                <span class="lang-item" style="--i:57">🇮🇳 Malayalam</span>
+                <span class="lang-item" style="--i:58">🇳🇵 Nepali</span>
+                <span class="lang-item" style="--i:59">🇱🇰 Sinhala</span>
+                <span class="lang-item" style="--i:60">🇲🇲 Burmese</span>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="fade-in">📖 Getting Started</h2>
+            <div class="tutorial fade-in delay-1">
+                <h3>📥 Installation</h3>
+                <div class="step"><div class="step-num">1</div><div>Download the correct JAR for your server:<br><pre>Paper/Purpur/Folia: CustomTPA-2.1.2-paper.jar<br>Spigot/Bukkit: CustomTPA-2.1.2-spigot.jar</pre></div></div>
+                <div class="step"><div class="step-num">2</div><div>Place it into your server's <code>/plugins</code> folder.</div></div>
+                <div class="step"><div class="step-num">3</div><div>Start (or restart) your server. A <code>plugins/CustomTPA/config.yml</code> file will be generated.</div></div>
+                <div class="step"><div class="step-num">4</div><div>Open <code>config.yml</code> and adjust settings like delay, cooldown, sounds, world blacklist, etc.</div></div>
+                <div class="step"><div class="step-num">5</div><div>Customise messages in <code>plugins/CustomTPA/lang/messages_XX.yml</code>.</div></div>
+                <div class="step"><div class="step-num">6</div><div>Run <code>/customtpa reload</code> to apply changes without restarting.</div></div>
+
+                <h3>🔧 Configuration Example (config.yml)</h3>
+                <pre>request-timeout: 60
+cooldown: 30
+delay: 3
+countdown-sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+request-sound:
+  enabled: true
+  sound: "BLOCK_NOTE_BLOCK_PLING"
+daily-limit: 0
+world-blacklist:
+  enabled: false
+  worlds:
+    - "arena"
+tpa-back:
+  enabled: true
+force-tpa:
+  enabled: true
+max-log-days: 7
+update-checker: true</pre>
+
+                <h3>🎨 Customizing Messages</h3>
+                <p>Edit <code>lang/messages_en.yml</code> (or any language file) to change colors and text. You can use MiniMessage tags (<code>&lt;gold&gt;</code>, <code>&lt;gradient&gt;</code>, etc.) or legacy codes (<code>&a</code>, <code>&l</code>).</p>
+                <pre>prefix: "&lt;color:#ffaa00&gt;[TPA]&lt;/color&gt; "
+request-sent: "&lt;gray&gt;Request sent to &lt;yellow&gt;%other_name%&lt;/yellow&gt;&lt;/gray&gt;"</pre>
+
+                <h3>🌍 Adding a New Language</h3>
+                <p>Copy <code>messages_en.yml</code>, rename it (e.g., <code>messages_de.yml</code>), translate the values, and run <code>/customtpa reload</code>. The plugin will automatically detect the player's locale.</p>
+
+                <h3>🛡 Permissions</h3>
+                <p>Use any permission plugin (e.g., LuckPerms) to grant these nodes:</p>
+                <pre>tpa.tpa
+tpa.tpahere
+tpa.accept
+tpa.deny
+tpa.cancel
+tpa.toggle
+tpa.auto
+tpa.gui
+customtpa.reload (admin)
+customtpa.force (admin)
+customtpa.bypass.delay
+customtpa.bypass.cooldown
+customtpa.bypass.blacklist
+customtpa.bypass.limit</pre>
+
+                <h3>🔄 PlaceholderAPI</h3>
+                <p>CustomTPA provides these placeholders:</p>
+                <pre>%tpa_incoming%
+%tpa_has_incoming%
+%tpa_outgoing%
+%tpa_sent%
+%tpa_accepted%
+%tpa_denied%</pre>
+            </div>
+        </section>
     </div>
+
+    <footer>
+        <p>© 2026 MrKronick. Licensed under GPLv3.</p>
+        <p>
+            <a href="https://modrinth.com/plugin/customtpa">Modrinth</a> ·
+            <a href="https://www.spigotmc.org/resources/customtpa.XXXXXX/">SpigotMC</a> ·
+            <a href="https://github.com/MrKronick/CustomTPA">GitHub</a> ·
+            <a href="https://bstats.org/plugin/bukkit/CustomTPA/32220">bStats</a>
+        </p>
+    </footer>
 </body>
 </html>
