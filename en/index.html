@@ -45,11 +45,21 @@
             0% { background-position: -200% center; }
             100% { background-position: 200% center; }
         }
-        .fade-in { animation: fadeInUp 0.8s ease forwards; opacity: 0; }
-        .delay-1 { animation-delay: 0.15s; }
-        .delay-2 { animation-delay: 0.3s; }
-        .delay-3 { animation-delay: 0.45s; }
-        .delay-4 { animation-delay: 0.6s; }
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        @keyframes rotateIn {
+            from { opacity: 0; transform: rotate(-5deg) scale(0.9); }
+            to { opacity: 1; transform: rotate(0) scale(1); }
+        }
+
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.15s; }
+        .delay-2 { transition-delay: 0.3s; }
+        .delay-3 { transition-delay: 0.45s; }
+        .delay-4 { transition-delay: 0.6s; }
 
         .container {
             max-width: 960px;
@@ -87,12 +97,17 @@
             animation: float 8s infinite reverse;
         }
         header h1 {
-            color: var(--gold);
             font-size: clamp(2em, 8vw, 3.2em);
             margin-bottom: 10px;
             position: relative;
             z-index: 1;
             word-break: break-word;
+            background: linear-gradient(135deg, var(--gold), var(--purple), var(--gold));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientMove 4s ease-in-out infinite;
         }
         header p {
             color: var(--gray);
@@ -102,7 +117,7 @@
         }
         .version-badge {
             display: inline-block;
-            background: var(--purple);
+            background: linear-gradient(135deg, var(--purple), #7a2e8a);
             color: white;
             padding: 6px 20px;
             border-radius: 30px;
@@ -111,6 +126,7 @@
             position: relative;
             z-index: 1;
             animation: pulse 2s infinite;
+            box-shadow: 0 0 30px rgba(179,102,255,0.2);
         }
         .badges {
             margin-top: 20px;
@@ -163,12 +179,14 @@
             padding: clamp(18px, 3vw, 25px);
             border-radius: 16px;
             border-left: 4px solid var(--purple);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: default;
+            transform-style: preserve-3d;
+            perspective: 800px;
         }
         .feature-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            transform: translateY(-10px) scale(1.02) rotateX(2deg);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             border-left-color: var(--gold);
         }
         .feature-card h3 {
@@ -178,7 +196,6 @@
         }
         .feature-card p { font-size: clamp(0.9em, 1.5vw, 1em); }
 
-        /* Адаптивная таблица */
         .table-wrapper {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
@@ -214,19 +231,90 @@
             padding: clamp(6px, 1.5vw, 10px) clamp(12px, 2.5vw, 18px);
             border-radius: 30px;
             font-size: clamp(0.8em, 1.5vw, 0.95em);
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             border: 1px solid #333;
-            animation: fadeInUp 0.6s ease forwards;
             opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+            cursor: default;
             white-space: nowrap;
         }
+        .lang-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
         .lang-item:hover {
+            transform: scale(1.08) rotate(-1deg);
             background: var(--purple);
             color: white;
             border-color: var(--purple);
-            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(179,102,255,0.3);
         }
-        .lang-item { animation-delay: calc(0.03s * var(--i, 0)); }
+        .lang-item:nth-child(1) { transition-delay: 0.03s; }
+        .lang-item:nth-child(2) { transition-delay: 0.06s; }
+        .lang-item:nth-child(3) { transition-delay: 0.09s; }
+        .lang-item:nth-child(4) { transition-delay: 0.12s; }
+        .lang-item:nth-child(5) { transition-delay: 0.15s; }
+        .lang-item:nth-child(6) { transition-delay: 0.18s; }
+        .lang-item:nth-child(7) { transition-delay: 0.21s; }
+        .lang-item:nth-child(8) { transition-delay: 0.24s; }
+        .lang-item:nth-child(9) { transition-delay: 0.27s; }
+        .lang-item:nth-child(10) { transition-delay: 0.30s; }
+        .lang-item:nth-child(11) { transition-delay: 0.33s; }
+        .lang-item:nth-child(12) { transition-delay: 0.36s; }
+        .lang-item:nth-child(13) { transition-delay: 0.39s; }
+        .lang-item:nth-child(14) { transition-delay: 0.42s; }
+        .lang-item:nth-child(15) { transition-delay: 0.45s; }
+        .lang-item:nth-child(16) { transition-delay: 0.48s; }
+        .lang-item:nth-child(17) { transition-delay: 0.51s; }
+        .lang-item:nth-child(18) { transition-delay: 0.54s; }
+        .lang-item:nth-child(19) { transition-delay: 0.57s; }
+        .lang-item:nth-child(20) { transition-delay: 0.60s; }
+        .lang-item:nth-child(21) { transition-delay: 0.63s; }
+        .lang-item:nth-child(22) { transition-delay: 0.66s; }
+        .lang-item:nth-child(23) { transition-delay: 0.69s; }
+        .lang-item:nth-child(24) { transition-delay: 0.72s; }
+        .lang-item:nth-child(25) { transition-delay: 0.75s; }
+        .lang-item:nth-child(26) { transition-delay: 0.78s; }
+        .lang-item:nth-child(27) { transition-delay: 0.81s; }
+        .lang-item:nth-child(28) { transition-delay: 0.84s; }
+        .lang-item:nth-child(29) { transition-delay: 0.87s; }
+        .lang-item:nth-child(30) { transition-delay: 0.90s; }
+        .lang-item:nth-child(31) { transition-delay: 0.93s; }
+        .lang-item:nth-child(32) { transition-delay: 0.96s; }
+        .lang-item:nth-child(33) { transition-delay: 0.99s; }
+        .lang-item:nth-child(34) { transition-delay: 1.02s; }
+        .lang-item:nth-child(35) { transition-delay: 1.05s; }
+        .lang-item:nth-child(36) { transition-delay: 1.08s; }
+        .lang-item:nth-child(37) { transition-delay: 1.11s; }
+        .lang-item:nth-child(38) { transition-delay: 1.14s; }
+        .lang-item:nth-child(39) { transition-delay: 1.17s; }
+        .lang-item:nth-child(40) { transition-delay: 1.20s; }
+        .lang-item:nth-child(41) { transition-delay: 1.23s; }
+        .lang-item:nth-child(42) { transition-delay: 1.26s; }
+        .lang-item:nth-child(43) { transition-delay: 1.29s; }
+        .lang-item:nth-child(44) { transition-delay: 1.32s; }
+        .lang-item:nth-child(45) { transition-delay: 1.35s; }
+        .lang-item:nth-child(46) { transition-delay: 1.38s; }
+        .lang-item:nth-child(47) { transition-delay: 1.41s; }
+        .lang-item:nth-child(48) { transition-delay: 1.44s; }
+        .lang-item:nth-child(49) { transition-delay: 1.47s; }
+        .lang-item:nth-child(50) { transition-delay: 1.50s; }
+        .lang-item:nth-child(51) { transition-delay: 1.53s; }
+        .lang-item:nth-child(52) { transition-delay: 1.56s; }
+        .lang-item:nth-child(53) { transition-delay: 1.59s; }
+        .lang-item:nth-child(54) { transition-delay: 1.62s; }
+        .lang-item:nth-child(55) { transition-delay: 1.65s; }
+        .lang-item:nth-child(56) { transition-delay: 1.68s; }
+        .lang-item:nth-child(57) { transition-delay: 1.71s; }
+        .lang-item:nth-child(58) { transition-delay: 1.74s; }
+        .lang-item:nth-child(59) { transition-delay: 1.77s; }
+        .lang-item:nth-child(60) { transition-delay: 1.80s; }
+        .lang-item:nth-child(61) { transition-delay: 1.83s; }
+        .lang-item:nth-child(62) { transition-delay: 1.86s; }
+        .lang-item:nth-child(63) { transition-delay: 1.89s; }
+        .lang-item:nth-child(64) { transition-delay: 1.92s; }
+        .lang-item:nth-child(65) { transition-delay: 1.95s; }
 
         .tutorial {
             background: var(--card);
@@ -268,6 +356,13 @@
             gap: 15px;
             margin: 15px 0;
             flex-wrap: wrap;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.6s ease;
+        }
+        .step.visible {
+            opacity: 1;
+            transform: translateX(0);
         }
         .step-num {
             background: var(--purple);
@@ -294,7 +389,6 @@
             font-size: clamp(0.85em, 1.5vw, 1em);
         }
 
-        /* Дополнительные адаптивные правки */
         @media (max-width: 600px) {
             .lang-switch {
                 position: relative;
@@ -339,7 +433,7 @@
         <div class="lang-switch"><a href="/ru">🇷🇺 Русский</a></div>
         <h1 class="fade-in">🌐 CustomTPA</h1>
         <p class="fade-in delay-1">Modern Teleport Requests for Paper, Spigot, Folia & more</p>
-        <div class="version-badge fade-in delay-1">v2.1.2 · 60 languages</div>
+        <div class="version-badge fade-in delay-1">v2.2.0 · 65 languages</div>
         <div class="badges fade-in delay-2">
             <img src="https://img.shields.io/bstats/servers/32220?label=Servers&style=flat-square" alt="Servers">
             <img src="https://img.shields.io/bstats/players/32220?label=Players&style=flat-square" alt="Players">
@@ -351,13 +445,13 @@
         <section>
             <h2 class="fade-in">✨ Features</h2>
             <div class="features">
-                <div class="feature-card fade-in delay-1"><h3>🌍 60 Languages</h3>Automatic per-player language detection.</div>
+                <div class="feature-card fade-in delay-1"><h3>🌍 65 Languages</h3>Automatic per-player language detection.</div>
                 <div class="feature-card fade-in delay-1"><h3>💬 Chat Buttons</h3>Clickable [✔ Accept] and [✘ Deny].</div>
                 <div class="feature-card fade-in delay-1"><h3>⏳ Teleport Delay</h3>Configurable countdown with action bar.</div>
                 <div class="feature-card fade-in delay-1"><h3>🖼️ GUI</h3>/tpa gui with player heads.</div>
                 <div class="feature-card fade-in delay-2"><h3>🔔 Update Checker</h3>Notifications on new versions.</div>
                 <div class="feature-card fade-in delay-2"><h3>⚡ Auto-Accept</h3>/tpaauto for instant requests.</div>
-                <div class="feature-card fade-in delay-2"><h3>🗺 World Blacklist</h3>Block teleports in specific worlds.</div>
+                <div class="feature-card fade-in delay-2"><h3>🗺 World Blacklist / Whitelist</h3>Flexible world filtering.</div>
                 <div class="feature-card fade-in delay-2"><h3>🎨 MiniMessage</h3>Gradients, RGB, legacy colors.</div>
                 <div class="feature-card fade-in delay-3"><h3>🔙 TPA Back</h3>/tpaback to return after teleport.</div>
                 <div class="feature-card fade-in delay-3"><h3>⚡ Force TPA</h3>Admin force-teleport (/tpaforce).</div>
@@ -388,68 +482,73 @@
         </section>
 
         <section>
-            <h2 class="fade-in">🗣 Languages (60)</h2>
+            <h2 class="fade-in">🗣 Languages (65)</h2>
             <div class="lang-grid">
-                <span class="lang-item" style="--i:1">🇬🇧 English</span>
-                <span class="lang-item" style="--i:2">🇷🇺 Russian</span>
-                <span class="lang-item" style="--i:3">🇺🇦 Ukrainian</span>
-                <span class="lang-item" style="--i:4">🇩🇪 German</span>
-                <span class="lang-item" style="--i:5">🇫🇷 French</span>
-                <span class="lang-item" style="--i:6">🇪🇸 Spanish</span>
-                <span class="lang-item" style="--i:7">🇧🇷 Portuguese (BR)</span>
-                <span class="lang-item" style="--i:8">🇵🇹 Portuguese (PT)</span>
-                <span class="lang-item" style="--i:9">🇹🇷 Turkish</span>
-                <span class="lang-item" style="--i:10">🇮🇹 Italian</span>
-                <span class="lang-item" style="--i:11">🇵🇱 Polish</span>
-                <span class="lang-item" style="--i:12">🇨🇳 Chinese</span>
-                <span class="lang-item" style="--i:13">🇯🇵 Japanese</span>
-                <span class="lang-item" style="--i:14">🇫🇮 Finnish</span>
-                <span class="lang-item" style="--i:15">🇰🇷 Korean</span>
-                <span class="lang-item" style="--i:16">🇸🇪 Swedish</span>
-                <span class="lang-item" style="--i:17">🇳🇱 Dutch</span>
-                <span class="lang-item" style="--i:18">🇨🇿 Czech</span>
-                <span class="lang-item" style="--i:19">🇭🇺 Hungarian</span>
-                <span class="lang-item" style="--i:20">🇷🇴 Romanian</span>
-                <span class="lang-item" style="--i:21">🇳🇴 Norwegian</span>
-                <span class="lang-item" style="--i:22">🇩🇰 Danish</span>
-                <span class="lang-item" style="--i:23">🇬🇷 Greek</span>
-                <span class="lang-item" style="--i:24">🇮🇩 Indonesian</span>
-                <span class="lang-item" style="--i:25">🇸🇦 Arabic</span>
-                <span class="lang-item" style="--i:26">🇻🇳 Vietnamese</span>
-                <span class="lang-item" style="--i:27">🇸🇰 Slovak</span>
-                <span class="lang-item" style="--i:28">🇧🇬 Bulgarian</span>
-                <span class="lang-item" style="--i:29">🇮🇱 Hebrew</span>
-                <span class="lang-item" style="--i:30">🇹🇭 Thai</span>
-                <span class="lang-item" style="--i:31">🇵🇭 Filipino</span>
-                <span class="lang-item" style="--i:32">🇮🇳 Hindi</span>
-                <span class="lang-item" style="--i:33">🇭🇷 Croatian</span>
-                <span class="lang-item" style="--i:34">🇸🇮 Slovenian</span>
-                <span class="lang-item" style="--i:35">🇱🇹 Lithuanian</span>
-                <span class="lang-item" style="--i:36">🇱🇻 Latvian</span>
-                <span class="lang-item" style="--i:37">🇪🇪 Estonian</span>
-                <span class="lang-item" style="--i:38">🇷🇸 Serbian</span>
-                <span class="lang-item" style="--i:39">🇲🇰 Macedonian</span>
-                <span class="lang-item" style="--i:40">🇨🇦 Catalan</span>
-                <span class="lang-item" style="--i:41">🇧🇩 Bengali</span>
-                <span class="lang-item" style="--i:42">🇵🇰 Urdu</span>
-                <span class="lang-item" style="--i:43">🇮🇷 Persian</span>
-                <span class="lang-item" style="--i:44">🇲🇾 Malay</span>
-                <span class="lang-item" style="--i:45">🇹🇿 Swahili</span>
-                <span class="lang-item" style="--i:46">🇿🇦 Afrikaans</span>
-                <span class="lang-item" style="--i:47">🇮🇸 Icelandic</span>
-                <span class="lang-item" style="--i:48">🇪🇸 Galician</span>
-                <span class="lang-item" style="--i:49">🇪🇸 Basque</span>
-                <span class="lang-item" style="--i:50">🌍 Esperanto</span>
-                <span class="lang-item" style="--i:51">🇮🇳 Punjabi</span>
-                <span class="lang-item" style="--i:52">🇮🇳 Marathi</span>
-                <span class="lang-item" style="--i:53">🇮🇳 Telugu</span>
-                <span class="lang-item" style="--i:54">🇮🇳 Tamil</span>
-                <span class="lang-item" style="--i:55">🇮🇳 Gujarati</span>
-                <span class="lang-item" style="--i:56">🇮🇳 Kannada</span>
-                <span class="lang-item" style="--i:57">🇮🇳 Malayalam</span>
-                <span class="lang-item" style="--i:58">🇳🇵 Nepali</span>
-                <span class="lang-item" style="--i:59">🇱🇰 Sinhala</span>
-                <span class="lang-item" style="--i:60">🇲🇲 Burmese</span>
+                <span class="lang-item">🇬🇧 English</span>
+                <span class="lang-item">🇷🇺 Russian</span>
+                <span class="lang-item">🇺🇦 Ukrainian</span>
+                <span class="lang-item">🇩🇪 German</span>
+                <span class="lang-item">🇫🇷 French</span>
+                <span class="lang-item">🇪🇸 Spanish</span>
+                <span class="lang-item">🇧🇷 Portuguese (BR)</span>
+                <span class="lang-item">🇵🇹 Portuguese (PT)</span>
+                <span class="lang-item">🇹🇷 Turkish</span>
+                <span class="lang-item">🇮🇹 Italian</span>
+                <span class="lang-item">🇵🇱 Polish</span>
+                <span class="lang-item">🇨🇳 Chinese</span>
+                <span class="lang-item">🇯🇵 Japanese</span>
+                <span class="lang-item">🇫🇮 Finnish</span>
+                <span class="lang-item">🇰🇷 Korean</span>
+                <span class="lang-item">🇸🇪 Swedish</span>
+                <span class="lang-item">🇳🇱 Dutch</span>
+                <span class="lang-item">🇨🇿 Czech</span>
+                <span class="lang-item">🇭🇺 Hungarian</span>
+                <span class="lang-item">🇷🇴 Romanian</span>
+                <span class="lang-item">🇳🇴 Norwegian</span>
+                <span class="lang-item">🇩🇰 Danish</span>
+                <span class="lang-item">🇬🇷 Greek</span>
+                <span class="lang-item">🇮🇩 Indonesian</span>
+                <span class="lang-item">🇸🇦 Arabic</span>
+                <span class="lang-item">🇻🇳 Vietnamese</span>
+                <span class="lang-item">🇸🇰 Slovak</span>
+                <span class="lang-item">🇧🇬 Bulgarian</span>
+                <span class="lang-item">🇮🇱 Hebrew</span>
+                <span class="lang-item">🇹🇭 Thai</span>
+                <span class="lang-item">🇵🇭 Filipino</span>
+                <span class="lang-item">🇮🇳 Hindi</span>
+                <span class="lang-item">🇭🇷 Croatian</span>
+                <span class="lang-item">🇸🇮 Slovenian</span>
+                <span class="lang-item">🇱🇹 Lithuanian</span>
+                <span class="lang-item">🇱🇻 Latvian</span>
+                <span class="lang-item">🇪🇪 Estonian</span>
+                <span class="lang-item">🇷🇸 Serbian</span>
+                <span class="lang-item">🇲🇰 Macedonian</span>
+                <span class="lang-item">🇨🇦 Catalan</span>
+                <span class="lang-item">🇧🇩 Bengali</span>
+                <span class="lang-item">🇵🇰 Urdu</span>
+                <span class="lang-item">🇮🇷 Persian</span>
+                <span class="lang-item">🇲🇾 Malay</span>
+                <span class="lang-item">🇹🇿 Swahili</span>
+                <span class="lang-item">🇿🇦 Afrikaans</span>
+                <span class="lang-item">🇮🇸 Icelandic</span>
+                <span class="lang-item">🇪🇸 Galician</span>
+                <span class="lang-item">🇪🇸 Basque</span>
+                <span class="lang-item">🌍 Esperanto</span>
+                <span class="lang-item">🇮🇳 Punjabi</span>
+                <span class="lang-item">🇮🇳 Marathi</span>
+                <span class="lang-item">🇮🇳 Telugu</span>
+                <span class="lang-item">🇮🇳 Tamil</span>
+                <span class="lang-item">🇮🇳 Gujarati</span>
+                <span class="lang-item">🇮🇳 Kannada</span>
+                <span class="lang-item">🇮🇳 Malayalam</span>
+                <span class="lang-item">🇳🇵 Nepali</span>
+                <span class="lang-item">🇱🇰 Sinhala</span>
+                <span class="lang-item">🇲🇲 Burmese</span>
+                <span class="lang-item">🇰🇿 Kazakh</span>
+                <span class="lang-item">🇺🇿 Uzbek</span>
+                <span class="lang-item">🇦🇿 Azerbaijani</span>
+                <span class="lang-item">🇬🇪 Georgian</span>
+                <span class="lang-item">🇦🇲 Armenian</span>
             </div>
         </section>
 
@@ -457,10 +556,10 @@
             <h2 class="fade-in">📖 Getting Started</h2>
             <div class="tutorial fade-in delay-1">
                 <h3>📥 Installation</h3>
-                <div class="step"><div class="step-num">1</div><div>Download the correct JAR for your server:<br><pre>Paper/Purpur/Folia: CustomTPA-2.1.2-paper.jar<br>Spigot/Bukkit: CustomTPA-2.1.2-spigot.jar</pre></div></div>
+                <div class="step"><div class="step-num">1</div><div>Download the correct JAR for your server:<br><pre>Paper/Purpur/Folia: CustomTPA-2.2.0-paper.jar<br>Spigot/Bukkit: CustomTPA-2.2.0-spigot.jar</pre></div></div>
                 <div class="step"><div class="step-num">2</div><div>Place it into your server's <code>/plugins</code> folder.</div></div>
                 <div class="step"><div class="step-num">3</div><div>Start (or restart) your server. A <code>plugins/CustomTPA/config.yml</code> file will be generated.</div></div>
-                <div class="step"><div class="step-num">4</div><div>Open <code>config.yml</code> and adjust settings like delay, cooldown, sounds, world blacklist, etc.</div></div>
+                <div class="step"><div class="step-num">4</div><div>Open <code>config.yml</code> and adjust settings like delay, cooldown, sounds, world filtering, etc.</div></div>
                 <div class="step"><div class="step-num">5</div><div>Customise messages in <code>plugins/CustomTPA/lang/messages_XX.yml</code>.</div></div>
                 <div class="step"><div class="step-num">6</div><div>Run <code>/customtpa reload</code> to apply changes without restarting.</div></div>
 
@@ -473,10 +572,10 @@ request-sound:
   enabled: true
   sound: "BLOCK_NOTE_BLOCK_PLING"
 daily-limit: 0
-world-blacklist:
-  enabled: false
-  worlds:
-    - "arena"
+world-filter-mode: "blacklist"
+world-filter-list:
+  - "arena"
+  - "event_world"
 tpa-back:
   enabled: true
 force-tpa:
@@ -530,5 +629,29 @@ customtpa.bypass.limit</pre>
             <a href="https://bstats.org/plugin/bukkit/CustomTPA/32220">bStats</a>
         </p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in, .feature-card, .lang-item, .step').forEach(el => {
+                observer.observe(el);
+            });
+
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in, .feature-card, .lang-item, .step').forEach(el => {
+                    if (el.getBoundingClientRect().top < window.innerHeight) {
+                        el.classList.add('visible');
+                    }
+                });
+            }, 100);
+        });
+    </script>
 </body>
 </html>
