@@ -25,6 +25,16 @@
             overflow: hidden;
             padding: 20px;
         }
+        /* Фон с частицами */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
         .bg-animation {
             position: fixed;
             top: 0;
@@ -32,8 +42,8 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(179,102,255,0.08), transparent 50%),
-                        radial-gradient(circle at 80% 50%, rgba(255,170,0,0.08), transparent 50%);
+            background: radial-gradient(circle at 20% 50%, rgba(179,102,255,0.06), transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(255,170,0,0.06), transparent 50%);
             animation: bgPulse 8s ease-in-out infinite alternate;
         }
         @keyframes bgPulse {
@@ -58,22 +68,27 @@
             margin-bottom: 20px;
             border-radius: 20px;
             animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(255,170,0,0.1));
         }
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-12px); }
         }
-        h1 {
-            color: var(--gold);
+        .gradient-text {
             font-size: clamp(2.2em, 8vw, 3.5em);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--gold), var(--purple), var(--gold));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientMove 4s ease-in-out infinite;
             margin-bottom: 10px;
-            text-shadow: 0 0 30px rgba(255,170,0,0.2);
-            animation: glow 3s ease-in-out infinite;
             word-break: break-word;
         }
-        @keyframes glow {
-            0%, 100% { text-shadow: 0 0 30px rgba(255,170,0,0.2); }
-            50% { text-shadow: 0 0 60px rgba(255,170,0,0.4); }
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         .subtitle {
             font-size: clamp(1em, 3vw, 1.3em);
@@ -83,17 +98,18 @@
         }
         .version-badge {
             display: inline-block;
-            background: var(--purple);
+            background: linear-gradient(135deg, var(--purple), #7a2e8a);
             color: white;
             padding: 6px 20px;
             border-radius: 30px;
             font-size: clamp(0.8em, 2vw, 1em);
             margin-bottom: 30px;
             animation: pulse 2s infinite;
+            box-shadow: 0 0 30px rgba(179,102,255,0.2);
         }
         @keyframes pulse {
             0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(179,102,255,0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 0 20px 10px rgba(179,102,255,0.2); }
+            50% { transform: scale(1.05); box-shadow: 0 0 30px 15px rgba(179,102,255,0.15); }
         }
         .lang-select {
             display: flex;
@@ -102,11 +118,12 @@
             flex-wrap: wrap;
         }
         .lang-card {
-            background: #1a1a1a;
+            background: rgba(26,26,26,0.8);
+            backdrop-filter: blur(10px);
             border: 2px solid #333;
             border-radius: 20px;
             padding: clamp(20px, 4vw, 35px) clamp(25px, 5vw, 45px);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-decoration: none;
             color: var(--text);
             display: block;
@@ -114,6 +131,8 @@
             flex: 0 1 auto;
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 800px;
         }
         .lang-card::before {
             content: '';
@@ -132,8 +151,8 @@
         }
         .lang-card:hover {
             border-color: var(--gold);
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 20px 40px rgba(255,170,0,0.15);
+            transform: translateY(-10px) scale(1.03) rotateX(2deg) rotateY(2deg);
+            box-shadow: 0 30px 60px rgba(255,170,0,0.15);
         }
         .lang-card img {
             width: clamp(50px, 12vw, 70px);
@@ -144,10 +163,13 @@
             transition: 0.3s;
         }
         .lang-card:hover img {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(-2deg);
         }
         .lang-card h2 {
-            color: var(--gold);
+            background: linear-gradient(135deg, var(--gold), #ffdd77);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin: 10px 0 5px;
             font-size: clamp(1.2em, 3vw, 1.6em);
         }
@@ -156,27 +178,106 @@
             font-size: 0.9em;
             opacity: 0.7;
         }
+        .lang-card .glow {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,170,0,0.03), transparent 70%);
+            transition: 0.6s;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .lang-card:hover .glow {
+            opacity: 1;
+            transform: scale(1.5);
+        }
+        @media (max-width: 600px) {
+            .gradient-text { font-size: 2.4em; }
+            .lang-card { padding: 25px 30px; min-width: 120px; }
+        }
     </style>
 </head>
 <body>
+    <div id="particles-canvas"></div>
     <div class="bg-animation"></div>
     <div class="container">
         <img class="logo" src="https://i.ibb.co/0RpM2yYS/all-platforms.png" alt="CustomTPA">
-        <h1>🌐 CustomTPA</h1>
+        <h1 class="gradient-text">🌐 CustomTPA</h1>
         <p class="subtitle">Choose your language / Выберите язык</p>
-        <div class="version-badge">v2.1.2 · 60 languages</div>
+        <div class="version-badge">v2.2.0 · 65 languages</div>
         <div class="lang-select">
             <a href="/en" class="lang-card">
+                <div class="glow"></div>
                 <img src="https://flagcdn.com/w80/gb.png" alt="English">
                 <h2>English</h2>
                 <p>🇬🇧 EN</p>
             </a>
             <a href="/ru" class="lang-card">
+                <div class="glow"></div>
                 <img src="https://flagcdn.com/w80/ru.png" alt="Русский">
                 <h2>Русский</h2>
                 <p>🇷🇺 RU</p>
             </a>
         </div>
     </div>
+
+    <script>
+        // Частицы
+        (function() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height, particles = [];
+
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.5;
+                    this.speedY = (Math.random() - 0.5) * 0.5;
+                    this.opacity = Math.random() * 0.5 + 0.1;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
+                        this.reset();
+                    }
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 170, 0, ${this.opacity})`;
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < 80; i++) {
+                particles.push(new Particle());
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+    </script>
 </body>
 </html>
