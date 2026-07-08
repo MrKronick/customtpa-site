@@ -439,224 +439,167 @@
             <img src="https://img.shields.io/bstats/players/32220?label=Игроков&style=flat-square" alt="Игроков">
             <img src="https://img.shields.io/modrinth/dt/customtpa?label=Скачиваний&style=flat-square" alt="Скачиваний">
         </div>
-<a href="https://github.com/MrKronick/CustomTPA/releases" 
-   target="_blank" 
-   class="github-premium-btn">
-    
-    <!-- Анимированный градиентный фон -->
-    <span class="btn-bg-glow"></span>
-    
-    <!-- Иконка GitHub -->
-    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-    </svg>
-    
-    <span class="btn-text">GitHub Release</span>
-    
-    <!-- Маленький бейдж с версией -->
-    <span class="btn-badge">v2.2.0</span>
-</a>
+<!-- Блок с тремя дизайнерскими кнопками -->
+<div style="display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 16px;">
+
+    <!-- Кнопка GitHub -->
+    <a href="https://github.com/MrKronick/CustomTPA/releases" target="_blank" class="premium-btn github-btn">
+        <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        <span>GitHub</span>
+        <span class="badge">v2.2.0</span>
+    </a>
+
+    <!-- Кнопка Modrinth -->
+    <a href="https://modrinth.com/plugin/customtpa" target="_blank" class="premium-btn modrinth-btn">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22.5c-5.799 0-10.5-4.701-10.5-10.5S6.201 1.5 12 1.5 22.5 6.201 22.5 12 17.799 22.5 12 22.5z" fill="currentColor"/>
+            <path d="M15.6 7.2h-3.6v3.6h3.6V7.2zm0 6h-3.6v3.6h3.6v-3.6zm-6-6H6v3.6h3.6V7.2zm0 6H6v3.6h3.6v-3.6z" fill="currentColor"/>
+        </svg>
+        <span>Modrinth</span>
+        <span class="badge">Download</span>
+    </a>
+
+    <!-- Кнопка SpigotMC -->
+    <a href="https://www.spigotmc.org/resources/customtpa.136316/" target="_blank" class="premium-btn spigot-btn">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z" fill="currentColor"/>
+            <path d="M12 6l-2 4h4l-2-4zm0 12l2-4h-4l2 4zm-4-6l4-2-4-2v4zm8 0l-4 2 4 2v-4z" fill="currentColor"/>
+        </svg>
+        <span>SpigotMC</span>
+        <span class="badge">v2.2.0</span>
+    </a>
+
+</div>
 
 <style>
-    /* ===== Стиль кнопки ===== */
-    .github-premium-btn {
-        position: relative;
+    /* ===== Общий стиль для всех кнопок ===== */
+    .premium-btn {
         display: inline-flex;
         align-items: center;
-        gap: 14px;
-        padding: 16px 34px;
-        border-radius: 60px;
+        gap: 10px;
+        padding: 10px 22px;
+        border-radius: 50px;
         text-decoration: none;
         font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        font-weight: 700;
-        font-size: 1.05em;
+        font-weight: 600;
+        font-size: 0.92em;
         color: #ffffff;
-        background: linear-gradient(135deg, #1a1a2e, #16213e);
         border: 1px solid rgba(255, 255, 255, 0.06);
         cursor: pointer;
-        overflow: hidden;
         transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-        margin-top: 12px;
-        letter-spacing: 0.3px;
-        /* Стеклянный эффект */
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
     }
 
-    /* ===== Анимированный градиентный фон ===== */
-    .btn-bg-glow {
-        position: absolute;
-        top: -2px;
-        left: -2px;
-        right: -2px;
-        bottom: -2px;
-        border-radius: 62px;
-        background: conic-gradient(from 0deg, 
-            #6e5494, 
-            #b366ff, 
-            #ffaa00, 
-            #6e5494
-        );
-        opacity: 0;
-        transition: opacity 0.6s ease;
-        z-index: 0;
-        animation: rotateGlow 4s linear infinite;
-        background-size: 300% 300%;
-    }
-
-    /* ===== Содержимое поверх фона ===== */
-    .github-premium-btn svg {
-        width: 24px;
-        height: 24px;
-        fill: #ffffff;
+    .premium-btn svg {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
         flex-shrink: 0;
+        transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         position: relative;
         z-index: 2;
-        transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-        filter: drop-shadow(0 0 8px rgba(110, 84, 148, 0.3));
     }
 
-    .btn-text {
+    .premium-btn span {
         position: relative;
         z-index: 2;
         transition: all 0.4s ease;
-        background: linear-gradient(135deg, #ffffff, #e0d0ff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
     }
 
-    .btn-badge {
-        position: relative;
-        z-index: 2;
+    .premium-btn .badge {
         background: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(4px);
-        padding: 3px 12px;
+        padding: 2px 10px;
         border-radius: 30px;
-        font-size: 0.65em;
+        font-size: 0.6em;
         font-weight: 600;
-        color: rgba(255, 255, 255, 0.7);
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.05);
         transition: all 0.4s ease;
-        letter-spacing: 0.5px;
-        -webkit-text-fill-color: rgba(255, 255, 255, 0.7);
+        letter-spacing: 0.3px;
     }
 
-    /* ===== Пульсирующее свечение снаружи ===== */
-    .github-premium-btn::before {
-        content: '';
-        position: absolute;
-        inset: -4px;
-        border-radius: 64px;
-        padding: 2px;
-        background: conic-gradient(from 0deg, 
-            transparent, 
-            rgba(179, 102, 255, 0.15), 
-            transparent 60%
-        );
-        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-        pointer-events: none;
-        z-index: 0;
-        animation: rotateBorder 6s linear infinite;
-        opacity: 0;
-        transition: opacity 0.8s ease;
+    /* ===== GitHub кнопка ===== */
+    .github-btn {
+        background: linear-gradient(135deg, #24292e, #1a1a2e);
+    }
+    .github-btn:hover {
+        transform: translateY(-4px) scale(1.04);
+        box-shadow: 0 12px 40px rgba(110, 84, 148, 0.3);
+        border-color: rgba(110, 84, 148, 0.2);
+    }
+    .github-btn:hover svg {
+        transform: rotate(-6deg) scale(1.1);
     }
 
-    /* ===== Ховер-эффекты ===== */
-    .github-premium-btn:hover {
-        transform: translateY(-6px) scale(1.03);
-        box-shadow: 0 20px 60px rgba(110, 84, 148, 0.35),
-                    0 0 80px rgba(179, 102, 255, 0.08);
-        border-color: rgba(179, 102, 255, 0.15);
+    /* ===== Modrinth кнопка ===== */
+    .modrinth-btn {
+        background: linear-gradient(135deg, #1bd96a, #0fa84a);
+    }
+    .modrinth-btn:hover {
+        transform: translateY(-4px) scale(1.04);
+        box-shadow: 0 12px 40px rgba(27, 217, 106, 0.3);
+        border-color: rgba(27, 217, 106, 0.2);
+    }
+    .modrinth-btn:hover svg {
+        transform: rotate(6deg) scale(1.1);
     }
 
-    .github-premium-btn:hover .btn-bg-glow {
-        opacity: 1;
+    /* ===== Spigot кнопка ===== */
+    .spigot-btn {
+        background: linear-gradient(135deg, #db6a1b, #a84a0f);
+    }
+    .spigot-btn:hover {
+        transform: translateY(-4px) scale(1.04);
+        box-shadow: 0 12px 40px rgba(219, 106, 27, 0.3);
+        border-color: rgba(219, 106, 27, 0.2);
+    }
+    .spigot-btn:hover svg {
+        transform: rotate(-6deg) scale(1.1);
     }
 
-    .github-premium-btn:hover::before {
-        opacity: 1;
-    }
-
-    .github-premium-btn:hover svg {
-        transform: rotate(-8deg) scale(1.12);
-        filter: drop-shadow(0 0 20px rgba(179, 102, 255, 0.5));
-    }
-
-    .github-premium-btn:hover .btn-text {
-        background: linear-gradient(135deg, #ffffff, #ffdd77);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        transform: translateX(4px);
-    }
-
-    .github-premium-btn:hover .btn-badge {
-        background: rgba(179, 102, 255, 0.2);
-        border-color: rgba(179, 102, 255, 0.2);
-        color: rgba(255, 255, 255, 0.95);
-        -webkit-text-fill-color: rgba(255, 255, 255, 0.95);
-        transform: scale(1.05);
-    }
-
-    /* ===== Анимации ===== */
-    @keyframes rotateGlow {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-    @keyframes rotateBorder {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-
-    /* ===== Пульсация на странице (очень мягкая) ===== */
-    .github-premium-btn {
+    /* ===== Пульсация ===== */
+    .premium-btn {
         animation: subtleFloat 4s ease-in-out infinite;
+    }
+    .premium-btn:hover {
+        animation-play-state: paused;
     }
 
     @keyframes subtleFloat {
         0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-4px); }
-    }
-
-    .github-premium-btn:hover {
-        animation-play-state: paused;
+        50% { transform: translateY(-3px); }
     }
 
     /* ===== Адаптив ===== */
     @media (max-width: 600px) {
-        .github-premium-btn {
-            padding: 14px 24px;
-            font-size: 0.9em;
-            gap: 10px;
-            border-radius: 50px;
+        .premium-btn {
+            padding: 8px 16px;
+            font-size: 0.8em;
+            gap: 8px;
         }
-        .github-premium-btn svg {
-            width: 20px;
-            height: 20px;
+        .premium-btn svg {
+            width: 16px;
+            height: 16px;
         }
-        .btn-badge {
+        .premium-btn .badge {
             display: none;
         }
     }
 
     @media (max-width: 400px) {
-        .github-premium-btn {
-            padding: 12px 18px;
-            font-size: 0.8em;
-            gap: 8px;
+        .premium-btn {
+            padding: 6px 12px;
+            font-size: 0.7em;
+            gap: 6px;
+            border-radius: 30px;
         }
-        .github-premium-btn svg {
-            width: 18px;
-            height: 18px;
-        }
-        .btn-text {
-            font-size: 0.85em;
+        .premium-btn svg {
+            width: 14px;
+            height: 14px;
         }
     }
 </style>
