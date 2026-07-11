@@ -25,16 +25,6 @@
             overflow: hidden;
             padding: 20px;
         }
-        /* Фон с частицами */
-        #particles-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
         .bg-animation {
             position: fixed;
             top: 0;
@@ -200,13 +190,12 @@
     </style>
 </head>
 <body>
-    <div id="particles-canvas"></div>
     <div class="bg-animation"></div>
     <div class="container">
         <img class="logo" src="https://i.ibb.co/0RpM2yYS/all-platforms.png" alt="CustomTPA">
         <h1 class="gradient-text">🌐 CustomTPA</h1>
         <p class="subtitle">Choose your language / Выберите язык</p>
-        <div class="version-badge">v2.2.0 · 65 languages</div>
+        <div class="version-badge">v2.3.0 · 70 languages</div>
         <div class="lang-select">
             <a href="/en" class="lang-card">
                 <div class="glow"></div>
@@ -224,9 +213,11 @@
     </div>
 
     <script>
-        // Частицы
         (function() {
-            const canvas = document.getElementById('particles-canvas');
+            const canvas = document.createElement('canvas');
+            canvas.id = 'particles-canvas';
+            canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;';
+            document.body.prepend(canvas);
             const ctx = canvas.getContext('2d');
             let width, height, particles = [];
 
