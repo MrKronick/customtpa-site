@@ -1,402 +1,764 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CustomTPA - Modern Teleport Requests</title>
-    <link rel="icon" href="https://i.ibb.co/JR9kvR91/Custom-TPA-2-1.png">
-    <style>
-        :root {
-            --bg: #0d0d0d;
-            --gold: #ffaa00;
-            --purple: #b366ff;
-            --text: #cccccc;
-            --glass: rgba(255,255,255,0.05);
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-            overflow: hidden;
-            padding: 20px;
-        }
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(179,102,255,0.08), transparent 50%),
-                        radial-gradient(circle at 80% 50%, rgba(255,170,0,0.08), transparent 50%);
-            animation: bgPulse 8s ease-in-out infinite alternate;
-        }
-        @keyframes bgPulse {
-            0% { opacity: 0.5; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.1); }
-        }
-        .container {
-            position: relative;
-            z-index: 1;
-            animation: fadeIn 1.2s ease;
-            padding: 20px;
-            max-width: 100%;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .logo {
-            max-width: 200px;
-            width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 20px;
-            animation: float 4s ease-in-out infinite;
-            filter: drop-shadow(0 0 30px rgba(255,170,0,0.15));
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-        .gradient-text {
-            font-size: clamp(2.2em, 8vw, 3.5em);
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--gold), var(--purple), var(--gold));
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientMove 4s ease-in-out infinite;
-            margin-bottom: 10px;
-            word-break: break-word;
-        }
-        @keyframes gradientMove {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        .subtitle {
-            font-size: clamp(1em, 3vw, 1.3em);
-            color: var(--text);
-            margin-bottom: 10px;
-            opacity: 0.9;
-        }
-        .version-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--purple), #7a2e8a);
-            color: white;
-            padding: 6px 20px;
-            border-radius: 30px;
-            font-size: clamp(0.8em, 2vw, 1em);
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
-            box-shadow: 0 0 30px rgba(179,102,255,0.2);
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(179,102,255,0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 0 30px 15px rgba(179,102,255,0.15); }
-        }
-        .lang-select {
-            display: flex;
-            gap: clamp(15px, 4vw, 30px);
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-        .lang-card {
-            background: rgba(26,26,26,0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 20px;
-            padding: clamp(20px, 4vw, 35px) clamp(25px, 5vw, 45px);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-decoration: none;
-            color: var(--text);
-            display: block;
-            min-width: clamp(120px, 30vw, 160px);
-            flex: 0 1 auto;
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-            perspective: 800px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
-        .lang-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,170,0,0.06), transparent 70%);
-            transition: 0.6s;
-            opacity: 0;
-        }
-        .lang-card:hover::before {
-            opacity: 1;
-            transform: scale(1.2);
-        }
-        .lang-card:hover {
-            border-color: var(--gold);
-            transform: translateY(-10px) scale(1.03) rotateX(2deg) rotateY(2deg);
-            box-shadow: 0 30px 60px rgba(255,170,0,0.15);
-        }
-        .lang-card img {
-            width: clamp(50px, 12vw, 70px);
-            height: auto;
-            aspect-ratio: 16/10;
-            margin-bottom: 12px;
-            border-radius: 6px;
-            transition: 0.3s;
-        }
-        .lang-card:hover img {
-            transform: scale(1.1) rotate(-2deg);
-        }
-        .lang-card h2 {
-            background: linear-gradient(135deg, var(--gold), #ffdd77);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 10px 0 5px;
-            font-size: clamp(1.2em, 3vw, 1.6em);
-        }
-        .lang-card p {
-            color: var(--text);
-            font-size: 0.9em;
-            opacity: 0.7;
-        }
-        .lang-card .glow {
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,170,0,0.03), transparent 70%);
-            transition: 0.6s;
-            opacity: 0;
-            pointer-events: none;
-        }
-        .lang-card:hover .glow {
-            opacity: 1;
-            transform: scale(1.5);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d0d0d" id="metaTheme">
+<meta name="description" content="CustomTPA — modern teleport requests plugin for Paper, Spigot, Folia. 70 languages, GUI, Vault economy.">
+<title>CustomTPA — Modern Teleport Requests</title>
+<link rel="icon" href="https://i.ibb.co/JR9kvR91/Custom-TPA-2-1.png">
+<style>
+/* ===== THEMES ===== */
+html[data-theme="dark"]{
+    --bg:#0d0d0d; --bg-alt:#111; --card:#1a1a1a; --card-hover:#222;
+    --text:#cccccc; --text-bright:#fff; --gray:#888;
+    --border:#333; --border-subtle:#2a2a2a;
+    --code-bg:#2a2a2a; --pre-bg:#0a0a0a;
+    --hover-row:rgba(255,170,0,.05);
+    --header-gradient:linear-gradient(135deg,#1a1a2e,#16213e,#1a1a2e);
+    --shadow:rgba(0,0,0,.4);
+    --toggle-bg:rgba(255,255,255,.05);
+    --toggle-border:rgba(255,255,255,.1);
+    --toggle-hover:rgba(255,255,255,.12);
+}
+html[data-theme="light"]{
+    --bg:#f4f4f8; --bg-alt:#fff; --card:#fff; --card-hover:#f9f9fc;
+    --text:#444455; --text-bright:#1a1a1a; --gray:#666677;
+    --border:#e0e0e8; --border-subtle:#eeeef4;
+    --code-bg:#eeeef4; --pre-bg:#f8f8fc;
+    --hover-row:rgba(255,170,0,.08);
+    --header-gradient:linear-gradient(135deg,#e8e8f4,#d8d8ec,#e8e8f4);
+    --shadow:rgba(0,0,0,.1);
+    --toggle-bg:rgba(255,255,255,.85);
+    --toggle-border:rgba(0,0,0,.1);
+    --toggle-hover:rgba(0,0,0,.06);
+}
+:root{
+    --gold:#ffaa00; --purple:#b366ff;
+    --green:#55ff55; --red:#ff5555; --yellow:#ffff55;
+    --transition:.3s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+    background:var(--bg); color:var(--text);
+    font-family:'Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;
+    line-height:1.6; overflow-x:hidden; min-height:100vh;
+    transition:background var(--transition),color var(--transition);
+    -webkit-font-smoothing:antialiased;
+}
+a{color:var(--gold);text-decoration:none;transition:.3s}
+a:hover{color:var(--purple);text-decoration:underline}
 
-        /* ===== Кнопки платформ ===== */
-        .platform-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            justify-content: center;
-            margin-top: 10px;
-        }
-        .platform-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 24px;
-            border-radius: 60px;
-            text-decoration: none;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            font-weight: 600;
-            font-size: 0.95em;
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.08);
-            cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            animation: subtleFloat 4s ease-in-out infinite;
-        }
-        .platform-btn svg {
-            width: 22px;
-            height: 22px;
-            fill: currentColor;
-            flex-shrink: 0;
-            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative;
-            z-index: 2;
-        }
-        .platform-btn span {
-            position: relative;
-            z-index: 2;
-            transition: all 0.4s ease;
-        }
-        .platform-btn .badge {
-            background: rgba(255,255,255,0.08);
-            padding: 2px 10px;
-            border-radius: 30px;
-            font-size: 0.6em;
-            font-weight: 600;
-            color: rgba(255,255,255,0.6);
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.4s ease;
-            letter-spacing: 0.3px;
-            position: relative;
-            z-index: 2;
-        }
-        .platform-btn .btn-glow {
-            position: absolute;
-            inset: -2px;
-            border-radius: 62px;
-            background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.3), transparent 60%);
-            opacity: 0;
-            transition: opacity 0.6s ease;
-            z-index: 0;
-            animation: rotateGlow 3s linear infinite;
-            pointer-events: none;
-        }
-        .platform-btn:hover .btn-glow {
-            opacity: 1;
-        }
-        @keyframes rotateGlow {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .platform-btn:hover {
-            transform: translateY(-4px) scale(1.05);
-            animation-play-state: paused;
-        }
-        .platform-btn:hover svg {
-            transform: rotate(-6deg) scale(1.1);
-            filter: drop-shadow(0 0 16px rgba(255,255,255,0.2));
-        }
-        .platform-btn:hover .badge {
-            background: rgba(255,255,255,0.15);
-            color: rgba(255,255,255,0.9);
-            border-color: rgba(255,255,255,0.15);
-            transform: scale(1.05);
-        }
-        @keyframes subtleFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-3px); }
-        }
+/* ===== KEYFRAMES ===== */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.05);opacity:1}}
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+@keyframes gradientMove{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes rotateGlow{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+@keyframes subtleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 
-        .github-btn { background: linear-gradient(135deg, #24292e, #1a1a2e); border-color: rgba(110,84,148,0.2); }
-        .github-btn:hover { box-shadow: 0 12px 40px rgba(110,84,148,0.35); }
-        .github-btn .btn-glow { background: conic-gradient(from 0deg, transparent, rgba(179,102,255,0.5), transparent 60%); }
+@media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+        transition-duration:.01ms!important;
+    }
+}
 
-        .modrinth-btn { background: linear-gradient(135deg, #1bd96a, #0fa84a); border-color: rgba(27,217,106,0.2); }
-        .modrinth-btn:hover { box-shadow: 0 12px 40px rgba(27,217,106,0.35); }
-        .modrinth-btn .btn-glow { background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.5), transparent 60%); }
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.delay-1{transition-delay:.15s}.delay-2{transition-delay:.3s}.delay-3{transition-delay:.45s}
 
-        .spigot-btn { background: linear-gradient(135deg, #db6a1b, #a84a0f); border-color: rgba(219,106,27,0.2); }
-        .spigot-btn:hover { box-shadow: 0 12px 40px rgba(219,106,27,0.35); }
-        .spigot-btn .btn-glow { background: conic-gradient(from 0deg, transparent, rgba(255,200,100,0.5), transparent 60%); }
+.container{max-width:960px;margin:0 auto;padding:clamp(15px,3vw,20px)}
 
-        @media (max-width: 600px) {
-            .gradient-text { font-size: 2.4em; }
-            .lang-card { padding: 25px 30px; min-width: 120px; }
-            .platform-btn { padding: 10px 18px; font-size: 0.85em; gap: 8px; }
-            .platform-btn svg { width: 18px; height: 18px; }
-            .platform-btn .badge { display: none; }
-        }
-        @media (max-width: 400px) {
-            .platform-btn { padding: 8px 14px; font-size: 0.75em; gap: 6px; border-radius: 40px; }
-            .platform-btn svg { width: 16px; height: 16px; }
-        }
-    </style>
+/* ===== HEADER ===== */
+header{
+    text-align:center;
+    padding:clamp(60px,10vw,80px) clamp(15px,3vw,20px) clamp(30px,6vw,50px);
+    background:var(--header-gradient);
+    background-size:300% 300%;
+    animation:shimmer 8s ease infinite;
+    position:relative; overflow:hidden;
+    border-bottom:2px solid var(--purple);
+    transition:background var(--transition);
+}
+header::before{
+    content:''; position:absolute; width:400px; height:400px;
+    background:radial-gradient(circle,rgba(255,170,0,.08),transparent);
+    top:-150px; left:-150px; animation:float 8s infinite; pointer-events:none;
+}
+header::after{
+    content:''; position:absolute; width:300px; height:300px;
+    background:radial-gradient(circle,rgba(179,102,255,.08),transparent);
+    bottom:-100px; right:-100px; animation:float 8s infinite reverse; pointer-events:none;
+}
+.header-controls{
+    position:absolute; top:clamp(10px,2vw,20px); right:clamp(10px,2vw,20px);
+    display:flex; gap:8px; z-index:10;
+}
+.ctrl-btn{
+    background:var(--toggle-bg); border:1px solid var(--toggle-border);
+    color:var(--text); padding:8px 14px; border-radius:30px; cursor:pointer;
+    font-family:inherit; font-size:clamp(.8em,1.5vw,.95em); font-weight:600;
+    display:inline-flex; align-items:center; gap:6px;
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    transition:all .3s ease; white-space:nowrap; min-height:42px;
+    -webkit-tap-highlight-color:transparent;
+}
+.ctrl-btn:hover{background:var(--toggle-hover);transform:translateY(-2px)}
+.ctrl-btn:active{transform:translateY(0)}
+.ctrl-btn:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+.theme-toggle{font-size:1.15em;padding:8px 12px;min-width:48px;justify-content:center}
+header h1{
+    font-size:clamp(2em,8vw,3.2em); margin-bottom:10px;
+    position:relative; z-index:1; word-break:break-word;
+    background:linear-gradient(135deg,var(--gold),var(--purple),var(--gold));
+    background-size:300% 300%;
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text;
+    animation:gradientMove 4s ease-in-out infinite;
+}
+header .subtitle{
+    color:var(--gray); font-size:clamp(1em,3vw,1.25em);
+    position:relative; z-index:1; max-width:700px; margin:0 auto;
+}
+.version-badge{
+    display:inline-block;
+    background:linear-gradient(135deg,var(--purple),#7a2e8a);
+    color:#fff; padding:6px 20px; border-radius:30px;
+    font-size:clamp(.8em,2vw,1em); margin-top:12px;
+    position:relative; z-index:1;
+    animation:pulse 2s infinite;
+    box-shadow:0 0 30px rgba(179,102,255,.2);
+}
+.badges{
+    margin-top:20px; position:relative; z-index:1;
+    display:flex; flex-wrap:wrap; justify-content:center; gap:8px;
+}
+.badges img{max-width:100%;height:auto;transition:.3s}
+.badges img:hover{transform:scale(1.05)}
+
+/* ===== SECTIONS ===== */
+section{margin:clamp(30px,6vw,50px) 0}
+h2{
+    color:var(--gold); border-bottom:2px solid var(--purple);
+    padding-bottom:8px; margin-bottom:25px;
+    font-size:clamp(1.4em,4vw,1.8em);
+    transition:color var(--transition);
+}
+
+/* ===== FEATURES ===== */
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));
+    gap:clamp(15px,3vw,20px);
+}
+.feature-card{
+    background:var(--card); padding:clamp(18px,3vw,25px);
+    border-radius:16px; border-left:4px solid var(--purple);
+    transition:transform .5s cubic-bezier(.175,.885,.32,1.275),
+               box-shadow .3s,border-color .3s,background var(--transition);
+    cursor:default;
+}
+.feature-card:hover{
+    transform:translateY(-10px) scale(1.02);
+    box-shadow:0 20px 40px var(--shadow);
+    border-left-color:var(--gold);
+}
+.feature-card h3{color:var(--gold);margin-bottom:10px;font-size:clamp(1em,2vw,1.2em)}
+.feature-card p{font-size:clamp(.9em,1.5vw,1em)}
+
+/* ===== TABLE ===== */
+.table-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0;border-radius:8px}
+table{width:100%;border-collapse:collapse;min-width:480px}
+th,td{
+    padding:clamp(10px,2vw,14px); text-align:left;
+    border-bottom:1px solid var(--border);
+    font-size:clamp(.85em,1.5vw,1em);
+    transition:background var(--transition);
+}
+th{color:var(--gold);font-size:clamp(.95em,1.8vw,1.1em);background:var(--card)}
+tr{transition:background .3s}
+tr:hover{background:var(--hover-row)}
+table code{
+    font-size:clamp(.75em,1.2vw,.9em); white-space:nowrap;
+    font-family:'Courier New',monospace;
+    color:var(--yellow); background:var(--code-bg);
+    padding:2px 6px; border-radius:4px;
+}
+
+/* ===== LANGUAGES ===== */
+.lang-grid{display:flex;flex-wrap:wrap;gap:clamp(6px,1.5vw,10px);justify-content:center}
+.lang-item{
+    background:var(--card);
+    padding:clamp(6px,1.5vw,10px) clamp(12px,2.5vw,18px);
+    border-radius:30px;
+    font-size:clamp(.8em,1.5vw,.95em);
+    border:1px solid var(--border);
+    transition:all .4s ease;
+    cursor:default; white-space:nowrap;
+    opacity:0; transform:translateY(20px);
+}
+.lang-item.visible{opacity:1;transform:translateY(0)}
+.lang-item:hover{
+    transform:scale(1.08);
+    background:var(--purple); color:#fff;
+    border-color:var(--purple);
+    box-shadow:0 10px 30px rgba(179,102,255,.3);
+}
+
+/* ===== TUTORIAL ===== */
+.tutorial{
+    background:var(--card); padding:clamp(20px,4vw,30px);
+    border-radius:16px;
+    transition:box-shadow .3s,background var(--transition);
+}
+.tutorial:hover{box-shadow:0 10px 30px var(--shadow)}
+.tutorial h3{
+    color:var(--gold);
+    margin:clamp(20px,3vw,25px) 0 clamp(8px,1.5vw,12px);
+    font-size:clamp(1.1em,2.5vw,1.4em);
+}
+.tutorial h3:first-child{margin-top:0}
+.tutorial code{
+    background:var(--code-bg); padding:3px 10px; border-radius:6px;
+    color:var(--yellow); font-size:clamp(.8em,1.3vw,.95em);
+    word-break:break-word; font-family:'Courier New',monospace;
+}
+.tutorial pre{
+    background:var(--pre-bg); padding:clamp(12px,2vw,18px);
+    border-radius:8px; overflow-x:auto;
+    color:var(--green); margin:12px 0;
+    font-size:clamp(.8em,1.3vw,.95em);
+    border-left:3px solid var(--purple);
+    white-space:pre-wrap; word-break:break-word;
+    font-family:'Courier New',monospace;
+    transition:background var(--transition);
+}
+.tutorial p{font-size:clamp(.9em,1.5vw,1em)}
+.step{
+    display:flex; gap:15px; margin:15px 0; flex-wrap:wrap; align-items:flex-start;
+    opacity:0; transform:translateX(-20px);
+    transition:opacity .6s ease,transform .6s ease;
+}
+.step.visible{opacity:1;transform:translateX(0)}
+.step-num{
+    background:var(--purple); color:#fff;
+    width:35px; height:35px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:bold; flex-shrink:0;
+    font-size:clamp(.9em,1.5vw,1em);
+}
+.step-content{flex:1;min-width:0;width:100%}
+
+/* ===== PLATFORM BUTTONS ===== */
+.platform-buttons{
+    display:flex; flex-wrap:wrap; gap:14px; justify-content:center;
+    margin:30px 0;
+}
+.platform-btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:12px 24px; border-radius:60px;
+    text-decoration:none; font-family:inherit; font-weight:600;
+    font-size:.95em; color:#fff;
+    border:1px solid rgba(255,255,255,.08); cursor:pointer;
+    transition:all .5s cubic-bezier(.23,1,.32,1);
+    box-shadow:0 4px 20px rgba(0,0,0,.3);
+    position:relative; overflow:hidden;
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    animation:subtleFloat 4s ease-in-out infinite;
+    min-height:48px; -webkit-tap-highlight-color:transparent;
+}
+.platform-btn svg{
+    width:22px; height:22px; fill:currentColor; flex-shrink:0;
+    transition:transform .5s cubic-bezier(.34,1.56,.64,1);
+    position:relative; z-index:2;
+}
+.platform-btn > span:not(.badge):not(.btn-glow){position:relative;z-index:2}
+.platform-btn .badge{
+    background:rgba(255,255,255,.15); padding:2px 10px; border-radius:30px;
+    font-size:.65em; font-weight:600; color:rgba(255,255,255,.9);
+    border:1px solid rgba(255,255,255,.1);
+    transition:all .4s ease; letter-spacing:.3px;
+    position:relative; z-index:2;
+}
+.platform-btn .btn-glow{
+    position:absolute; inset:-2px; border-radius:62px;
+    background:conic-gradient(from 0deg,transparent,rgba(255,255,255,.3),transparent 60%);
+    opacity:0; transition:opacity .6s ease; z-index:0;
+    animation:rotateGlow 3s linear infinite; pointer-events:none;
+}
+.platform-btn:hover .btn-glow{opacity:1}
+.platform-btn:hover{transform:translateY(-4px) scale(1.05);animation-play-state:paused}
+.platform-btn:hover svg{transform:rotate(-6deg) scale(1.1);filter:drop-shadow(0 0 16px rgba(255,255,255,.2))}
+.github-btn{background:linear-gradient(135deg,#24292e,#1a1a2e)}
+.github-btn:hover{box-shadow:0 12px 40px rgba(110,84,148,.35)}
+.github-btn .btn-glow{background:conic-gradient(from 0deg,transparent,rgba(179,102,255,.5),transparent 60%)}
+.modrinth-btn{background:linear-gradient(135deg,#1bd96a,#0fa84a)}
+.modrinth-btn:hover{box-shadow:0 12px 40px rgba(27,217,106,.35)}
+.modrinth-btn .btn-glow{background:conic-gradient(from 0deg,transparent,rgba(255,255,255,.5),transparent 60%)}
+.spigot-btn{background:linear-gradient(135deg,#db6a1b,#a84a0f)}
+.spigot-btn:hover{box-shadow:0 12px 40px rgba(219,106,27,.35)}
+.spigot-btn .btn-glow{background:conic-gradient(from 0deg,transparent,rgba(255,200,100,.5),transparent 60%)}
+
+/* ===== FOOTER ===== */
+footer{
+    text-align:center; padding:clamp(20px,4vw,30px);
+    color:var(--gray); border-top:1px solid var(--border);
+    margin-top:clamp(30px,6vw,50px);
+}
+footer p{font-size:clamp(.85em,1.5vw,1em);margin:4px 0}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+    .header-controls{position:static;justify-content:center;margin-bottom:24px}
+    .ctrl-btn{font-size:.85em}
+}
+@media(max-width:600px){
+    header::before,header::after{display:none}
+    .table-wrapper{margin:10px calc(-1 * clamp(15px,3vw,20px));padding:0 clamp(15px,3vw,20px)}
+    table{min-width:400px}
+    .lang-item{white-space:normal;font-size:.8em}
+    .platform-btn{padding:10px 18px;font-size:.85em;gap:8px}
+    .platform-btn svg{width:18px;height:18px}
+    .platform-btn .badge{display:none}
+}
+@media(max-width:400px){
+    table{min-width:320px}
+    th,td{padding:8px;font-size:.75em}
+    table code{font-size:.7em}
+    .feature-card{padding:15px}
+    .platform-btn{padding:8px 14px;font-size:.75em;gap:6px;border-radius:40px}
+    .platform-btn svg{width:16px;height:16px}
+    .ctrl-btn{padding:6px 10px;font-size:.75em;min-height:38px}
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:var(--bg-alt)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:5px}
+::-webkit-scrollbar-thumb:hover{background:var(--purple)}
+</style>
 </head>
 <body>
-    <div class="bg-animation"></div>
-    <div class="container">
-        <img class="logo" src="https://i.ibb.co/0RpM2yYS/all-platforms.png" alt="CustomTPA">
-        <h1 class="gradient-text">🌐 CustomTPA</h1>
-        <p class="subtitle">Choose your language / Выберите язык</p>
-        <div class="version-badge">v2.3.0 · 70 languages</div>
-        <div class="lang-select">
-            <a href="/en" class="lang-card">
-                <div class="glow"></div>
-                <img src="https://flagcdn.com/w80/gb.png" alt="English">
-                <h2>English</h2>
-                <p>🇬🇧 EN</p>
-            </a>
-            <a href="/ru" class="lang-card">
-                <div class="glow"></div>
-                <img src="https://flagcdn.com/w80/ru.png" alt="Русский">
-                <h2>Русский</h2>
-                <p>🇷🇺 RU</p>
-            </a>
-        </div>
 
-        <!-- ===== Кнопки платформ ===== -->
-        <div class="platform-buttons">
-            <a href="https://github.com/MrKronick/CustomTPA/releases" target="_blank" class="platform-btn github-btn">
-                <span class="btn-glow"></span>
-                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-                <span>GitHub</span>
-                <span class="badge">v2.3.0</span>
-            </a>
-            <a href="https://modrinth.com/plugin/customtpa" target="_blank" class="platform-btn modrinth-btn">
-                <span class="btn-glow"></span>
-                <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22.5c-5.799 0-10.5-4.701-10.5-10.5S6.201 1.5 12 1.5 22.5 6.201 22.5 12 17.799 22.5 12 22.5z" fill="currentColor"/><path d="M15.6 7.2h-3.6v3.6h3.6V7.2zm0 6h-3.6v3.6h3.6v-3.6zm-6-6H6v3.6h3.6V7.2zm0 6H6v3.6h3.6v-3.6z" fill="currentColor"/></svg>
-                <span>Modrinth</span>
-                <span class="badge">Download</span>
-            </a>
-            <a href="https://www.spigotmc.org/resources/customtpa.136316/" target="_blank" class="platform-btn spigot-btn">
-                <span class="btn-glow"></span>
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z" fill="currentColor"/><path d="M12 6l-2 4h4l-2-4zm0 12l2-4h-4l2 4zm-4-6l4-2-4-2v4zm8 0l-4 2 4 2v-4z" fill="currentColor"/></svg>
-                <span>SpigotMC</span>
-                <span class="badge">v2.3.0</span>
-            </a>
-        </div>
+<header>
+    <div class="header-controls">
+        <button id="langToggle" class="ctrl-btn" type="button" aria-label="Switch language">🇷🇺 Русский</button>
+        <button id="themeToggle" class="ctrl-btn theme-toggle" type="button" aria-label="Toggle theme">🌙</button>
+    </div>
+    <h1 class="fade-in">🌐 CustomTPA</h1>
+    <p class="subtitle fade-in delay-1" data-i18n="subtitle"></p>
+    <div class="version-badge fade-in delay-1" data-i18n="versionBadge"></div>
+    <div class="badges fade-in delay-2" id="badges"></div>
+</header>
+
+<div class="container">
+
+    <div class="platform-buttons">
+        <a href="https://github.com/MrKronick/CustomTPA/releases" target="_blank" rel="noopener" class="platform-btn github-btn">
+            <span class="btn-glow"></span>
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            <span>GitHub</span><span class="badge">v2.3.0</span>
+        </a>
+        <a href="https://modrinth.com/plugin/customtpa" target="_blank" rel="noopener" class="platform-btn modrinth-btn">
+            <span class="btn-glow"></span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22.5c-5.799 0-10.5-4.701-10.5-10.5S6.201 1.5 12 1.5 22.5 6.201 22.5 12 17.799 22.5 12 22.5z" fill="currentColor"/><path d="M15.6 7.2h-3.6v3.6h3.6V7.2zm0 6h-3.6v3.6h3.6v-3.6zm-6-6H6v3.6h3.6V7.2zm0 6H6v3.6h3.6v-3.6z" fill="currentColor"/></svg>
+            <span>Modrinth</span><span class="badge">Download</span>
+        </a>
+        <a href="https://www.spigotmc.org/resources/customtpa.136316/" target="_blank" rel="noopener" class="platform-btn spigot-btn">
+            <span class="btn-glow"></span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z" fill="currentColor"/><path d="M12 6l-2 4h4l-2-4zm0 12l2-4h-4l2 4zm-4-6l4-2-4-2v4zm8 0l-4 2 4 2v-4z" fill="currentColor"/></svg>
+            <span>SpigotMC</span><span class="badge">v2.3.0</span>
+        </a>
     </div>
 
-    <script>
-        (function() {
-            const canvas = document.createElement('canvas');
-            canvas.id = 'particles-canvas';
-            canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;';
-            document.body.prepend(canvas);
-            const ctx = canvas.getContext('2d');
-            let width, height, particles = [];
+    <section id="features">
+        <h2 class="fade-in" data-i18n="featuresTitle"></h2>
+        <div class="features" id="featuresGrid"></div>
+    </section>
 
-            function resize() {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-            }
-            window.addEventListener('resize', resize);
-            resize();
+    <section id="commands">
+        <h2 class="fade-in" data-i18n="commandsTitle"></h2>
+        <div class="table-wrapper">
+            <table>
+                <thead><tr>
+                    <th data-i18n="commandColCmd"></th>
+                    <th data-i18n="commandColDesc"></th>
+                </tr></thead>
+                <tbody id="commandsBody"></tbody>
+            </table>
+        </div>
+    </section>
 
-            class Particle {
-                constructor() { this.reset(); }
-                reset() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    this.size = Math.random() * 2 + 0.5;
-                    this.speedX = (Math.random() - 0.5) * 0.5;
-                    this.speedY = (Math.random() - 0.5) * 0.5;
-                    this.opacity = Math.random() * 0.5 + 0.1;
-                }
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) this.reset();
-                }
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(255, 170, 0, ${this.opacity})`;
-                    ctx.fill();
-                }
-            }
-            for (let i = 0; i < 80; i++) particles.push(new Particle());
-            function animate() {
-                ctx.clearRect(0, 0, width, height);
-                particles.forEach(p => { p.update(); p.draw(); });
-                requestAnimationFrame(animate);
-            }
-            animate();
-        })();
-    </script>
+    <section id="languages">
+        <h2 class="fade-in" data-i18n="languagesTitle"></h2>
+        <div class="lang-grid" id="langGrid"></div>
+    </section>
+
+    <section id="getting-started">
+        <h2 class="fade-in" data-i18n="gettingStartedTitle"></h2>
+        <div class="tutorial fade-in delay-1" id="tutorial"></div>
+    </section>
+
+</div>
+
+<footer>
+    <p data-i18n="footerCopyright"></p>
+    <p>
+        <a href="https://modrinth.com/plugin/customtpa">Modrinth</a> ·
+        <a href="https://www.spigotmc.org/resources/customtpa.136316/">SpigotMC</a> ·
+        <a href="https://github.com/MrKronick/CustomTPA">GitHub</a> ·
+        <a href="https://bstats.org/plugin/bukkit/CustomTPA/32220">bStats</a>
+    </p>
+</footer>
+
+<script>
+/* =========================================================
+   TRANSLATIONS
+   ========================================================= */
+const translations = {
+    en: {
+        pageTitle: "CustomTPA — Modern Teleport Requests",
+        subtitle: "Modern Teleport Requests for Paper, Spigot, Folia & more",
+        versionBadge: "v2.3.0 · 70 languages",
+        badgeServers: "Servers", badgePlayers: "Players", badgeDownloads: "Downloads",
+        featuresTitle: "✨ Features",
+        commandsTitle: "📋 Commands",
+        commandColCmd: "Command", commandColDesc: "Description",
+        languagesTitle: "🗣 Languages (70)",
+        gettingStartedTitle: "📖 Getting Started",
+        footerCopyright: "© 2026 MrKronick. Licensed under GPLv3.",
+
+        features: [
+            { icon:"🌍", title:"70 Languages", desc:"Automatic per-player language detection." },
+            { icon:"💰", title:"Vault Economy", desc:"Configurable cost for /tpa and /tpahere. Permission to bypass payment." },
+            { icon:"💬", title:"Chat Buttons", desc:"Clickable [✔ Accept] and [✘ Deny]." },
+            { icon:"⏳", title:"Teleport Delay", desc:"Configurable countdown with action bar." },
+            { icon:"🖼️", title:"GUI", desc:"/tpa gui with player heads." },
+            { icon:"🔔", title:"Update Checker", desc:"Notifications on new versions." },
+            { icon:"⚡", title:"Auto-Accept", desc:"/tpaauto for instant requests." },
+            { icon:"🗺", title:"World Whitelist / Blacklist", desc:"Flexible world filtering." },
+            { icon:"🎨", title:"MiniMessage", desc:"Gradients, RGB, legacy colors." },
+            { icon:"🔙", title:"TPA Back", desc:"/tpaback to return after teleport." },
+            { icon:"⚡", title:"Force TPA", desc:"Admin force-teleport (/tpaforce)." },
+            { icon:"📊", title:"Statistics", desc:"/tpastats for player stats." },
+            { icon:"🌟", title:"Warm Welcome", desc:"Message for new players." }
+        ],
+        commands: [
+            { cmd:"/tpa &lt;player&gt;", desc:"Request to teleport to a player" },
+            { cmd:"/tpahere &lt;player&gt;", desc:"Invite a player to teleport to you" },
+            { cmd:"/tpaccept [player]", desc:"Accept a request" },
+            { cmd:"/tpadeny [player]", desc:"Deny a request" },
+            { cmd:"/tpcancel", desc:"Cancel your outgoing request" },
+            { cmd:"/tpatoggle", desc:"Toggle receiving requests" },
+            { cmd:"/tpaauto", desc:"Toggle auto-accept" },
+            { cmd:"/tpa gui", desc:"Open graphical menu" },
+            { cmd:"/tpastats", desc:"View your teleport statistics" },
+            { cmd:"/tpaback", desc:"Return to previous location" },
+            { cmd:"/tpaforce &lt;player&gt;", desc:"Force-teleport (admin only)" },
+            { cmd:"/customtpa reload", desc:"Reload configuration" }
+        ],
+        tutorial: {
+            installTitle: "📥 Installation",
+            installSteps: [
+                { num:1, html:"Download the correct JAR for your server:", pre:"Paper/Purpur/Folia: CustomTPA-2.3.0-paper.jar\nSpigot/Bukkit: CustomTPA-2.3.0-spigot.jar" },
+                { num:2, html:"Place it into your server's <code>/plugins</code> folder." },
+                { num:3, html:"Start (or restart) your server. A <code>plugins/CustomTPA/config.yml</code> file will be generated." },
+                { num:4, html:"Open <code>config.yml</code> and adjust settings like delay, cooldown, sounds, world filtering, prices, etc." },
+                { num:5, html:"Customise messages in <code>plugins/CustomTPA/lang/messages_XX.yml</code>." },
+                { num:6, html:"Run <code>/customtpa reload</code> to apply changes without restarting." }
+            ],
+            configTitle: "🔧 Configuration Example (config.yml)",
+            configContent: "request-timeout: 60\ncooldown: 30\ndelay: 3\ncountdown-sound: \"ENTITY_EXPERIENCE_ORB_PICKUP\"\nrequest-sound:\n  enabled: true\n  sound: \"BLOCK_NOTE_BLOCK_PLING\"\ndaily-limit: 0\nworld-filter-mode: \"blacklist\"\nworld-filter-list:\n  - \"arena\"\n  - \"event_world\"\ntpa-back:\n  enabled: true\nforce-tpa:\n  enabled: true\nmax-log-days: 7\nupdate-checker: true\n# Cost for teleport request (0 = free)\ntpa-cost: 10\ntpahere-cost: 5",
+            messagesTitle: "🎨 Customizing Messages",
+            messagesDesc: "Edit <code>lang/messages_en.yml</code> (or any language file) to change colors and text. You can use MiniMessage tags (<code>&lt;gold&gt;</code>, <code>&lt;gradient&gt;</code>, etc.) or legacy codes (<code>&amp;a</code>, <code>&amp;l</code>).",
+            messagesExample: "prefix: \"<color:#ffaa00>[TPA]</color> \"\nrequest-sent: \"<gray>Request sent to <yellow>%other_name%</yellow></gray>\"",
+            addLangTitle: "🌍 Adding a New Language",
+            addLangDesc: "Copy <code>messages_en.yml</code>, rename it (e.g., <code>messages_de.yml</code>), translate the values, and run <code>/customtpa reload</code>. The plugin will automatically detect the player's locale.",
+            permsTitle: "🛡 Permissions",
+            permsDesc: "Use any permission plugin (e.g., LuckPerms) to grant these nodes:",
+            permsContent: "tpa.tpa\ntpa.tpahere\ntpa.accept\ntpa.deny\ntpa.cancel\ntpa.toggle\ntpa.auto\ntpa.gui\ncustomtpa.reload (admin)\ncustomtpa.force (admin)\ncustomtpa.bypass.delay\ncustomtpa.bypass.cooldown\ncustomtpa.bypass.blacklist\ncustomtpa.bypass.limit\ncustomtpa.bypass.cost",
+            placeholdersTitle: "🔄 PlaceholderAPI",
+            placeholdersDesc: "CustomTPA provides these placeholders:",
+            placeholdersContent: "%tpa_incoming%\n%tpa_has_incoming%\n%tpa_outgoing%\n%tpa_sent%\n%tpa_accepted%\n%tpa_denied%"
+        }
+    },
+    ru: {
+        pageTitle: "CustomTPA — Современные запросы телепортации",
+        subtitle: "Современные запросы телепортации для Paper, Spigot, Folia и других",
+        versionBadge: "v2.3.0 · 70 языков",
+        badgeServers: "Серверов", badgePlayers: "Игроков", badgeDownloads: "Скачиваний",
+        featuresTitle: "✨ Возможности",
+        commandsTitle: "📋 Команды",
+        commandColCmd: "Команда", commandColDesc: "Описание",
+        languagesTitle: "🗣 Языки (70)",
+        gettingStartedTitle: "📖 Начало работы",
+        footerCopyright: "© 2026 MrKronick. Лицензия GPLv3.",
+
+        features: [
+            { icon:"🌍", title:"70 языков", desc:"Автоматическое определение языка игрока." },
+            { icon:"💰", title:"Экономика Vault", desc:"Настраиваемая стоимость для /tpa и /tpahere. Право на обход оплаты." },
+            { icon:"💬", title:"Кнопки в чате", desc:"Кликабельные [✔ Принять] и [✘ Отклонить]." },
+            { icon:"⏳", title:"Задержка телепортации", desc:"Настраиваемый обратный отсчёт." },
+            { icon:"🖼️", title:"GUI", desc:"/tpa gui с головами игроков." },
+            { icon:"🔔", title:"Проверка обновлений", desc:"Уведомления о новых версиях." },
+            { icon:"⚡", title:"Автопринятие", desc:"/tpaauto для мгновенных запросов." },
+            { icon:"🗺", title:"Блэклист/Белый список миров", desc:"Гибкая фильтрация миров." },
+            { icon:"🎨", title:"MiniMessage", desc:"Градиенты, RGB, классические цвета." },
+            { icon:"🔙", title:"TPA Back", desc:"/tpaback для возврата после телепорта." },
+            { icon:"⚡", title:"Force TPA", desc:"Принудительная телепортация для админов." },
+            { icon:"📊", title:"Статистика", desc:"/tpastats для просмотра статистики игрока." },
+            { icon:"🌟", title:"Тёплый приём", desc:"Приветственное сообщение для новых игроков." }
+        ],
+        commands: [
+            { cmd:"/tpa &lt;игрок&gt;", desc:"Отправить запрос на телепортацию" },
+            { cmd:"/tpahere &lt;игрок&gt;", desc:"Пригласить игрока к себе" },
+            { cmd:"/tpaccept [игрок]", desc:"Принять запрос" },
+            { cmd:"/tpadeny [игрок]", desc:"Отклонить запрос" },
+            { cmd:"/tpcancel", desc:"Отменить свой запрос" },
+            { cmd:"/tpatoggle", desc:"Вкл/выкл приём запросов" },
+            { cmd:"/tpaauto", desc:"Вкл/выкл автопринятие" },
+            { cmd:"/tpa gui", desc:"Открыть графическое меню" },
+            { cmd:"/tpastats", desc:"Посмотреть статистику телепортаций" },
+            { cmd:"/tpaback", desc:"Вернуться на предыдущую позицию" },
+            { cmd:"/tpaforce &lt;игрок&gt;", desc:"Принудительная телепортация (только админ)" },
+            { cmd:"/customtpa reload", desc:"Перезагрузить конфигурацию" }
+        ],
+        tutorial: {
+            installTitle: "📥 Установка",
+            installSteps: [
+                { num:1, html:"Скачайте подходящий JAR для вашего сервера:", pre:"Paper/Purpur/Folia: CustomTPA-2.3.0-paper.jar\nSpigot/Bukkit: CustomTPA-2.3.0-spigot.jar" },
+                { num:2, html:"Поместите его в папку <code>/plugins</code> вашего сервера." },
+                { num:3, html:"Запустите (или перезапустите) сервер. Будет создан файл <code>plugins/CustomTPA/config.yml</code>." },
+                { num:4, html:"Откройте <code>config.yml</code> и настройте задержку, кулдаун, звуки, фильтрацию миров и цены." },
+                { num:5, html:"Настройте сообщения в <code>plugins/CustomTPA/lang/messages_XX.yml</code>." },
+                { num:6, html:"Выполните <code>/customtpa reload</code>, чтобы применить изменения без перезапуска." }
+            ],
+            configTitle: "🔧 Пример конфигурации (config.yml)",
+            configContent: "request-timeout: 60\ncooldown: 30\ndelay: 3\ncountdown-sound: \"ENTITY_EXPERIENCE_ORB_PICKUP\"\nrequest-sound:\n  enabled: true\n  sound: \"BLOCK_NOTE_BLOCK_PLING\"\ndaily-limit: 0\nworld-filter-mode: \"blacklist\"\nworld-filter-list:\n  - \"arena\"\n  - \"event_world\"\ntpa-back:\n  enabled: true\nforce-tpa:\n  enabled: true\nmax-log-days: 7\nupdate-checker: true\n# Стоимость отправки запроса (0 = бесплатно)\ntpa-cost: 10\ntpahere-cost: 5",
+            messagesTitle: "🎨 Настройка сообщений",
+            messagesDesc: "Отредактируйте <code>lang/messages_ru.yml</code> (или другой языковой файл), чтобы изменить цвета и текст. Можно использовать теги MiniMessage (<code>&lt;gold&gt;</code>, <code>&lt;gradient&gt;</code> и др.) или классические коды (<code>&amp;a</code>, <code>&amp;l</code>).",
+            messagesExample: "prefix: \"<color:#ffaa00>[TPA]</color> \"\nrequest-sent: \"<gray>Запрос отправлен игроку <yellow>%other_name%</yellow></gray>\"",
+            addLangTitle: "🌍 Добавление нового языка",
+            addLangDesc: "Скопируйте <code>messages_en.yml</code>, переименуйте (например, <code>messages_de.yml</code>), переведите значения и выполните <code>/customtpa reload</code>. Плагин автоматически определит локаль игрока.",
+            permsTitle: "🛡 Права (Permissions)",
+            permsDesc: "Используйте любой плагин прав (например, LuckPerms), чтобы выдать эти права:",
+            permsContent: "tpa.tpa\ntpa.tpahere\ntpa.accept\ntpa.deny\ntpa.cancel\ntpa.toggle\ntpa.auto\ntpa.gui\ncustomtpa.reload (админ)\ncustomtpa.force (админ)\ncustomtpa.bypass.delay\ncustomtpa.bypass.cooldown\ncustomtpa.bypass.blacklist\ncustomtpa.bypass.limit\ncustomtpa.bypass.cost",
+            placeholdersTitle: "🔄 PlaceholderAPI",
+            placeholdersDesc: "CustomTPA предоставляет следующие плейсхолдеры:",
+            placeholdersContent: "%tpa_incoming%\n%tpa_has_incoming%\n%tpa_outgoing%\n%tpa_sent%\n%tpa_accepted%\n%tpa_denied%"
+        }
+    }
+};
+
+/* ===== 70 native language names (universal) ===== */
+const SUPPORTED_LANGUAGES = [
+    "🇬🇧 English","🇷🇺 Русский","🇺🇦 Українська","🇩🇪 Deutsch","🇫🇷 Français",
+    "🇪🇸 Español","🇧🇷 Português (BR)","🇵🇹 Português (PT)","🇹🇷 Türkçe","🇮🇹 Italiano",
+    "🇵🇱 Polski","🇨🇳 中文","🇯🇵 日本語","🇫🇮 Suomi","🇰🇷 한국어",
+    "🇸🇪 Svenska","🇳🇱 Nederlands","🇨🇿 Čeština","🇭🇺 Magyar","🇷🇴 Română",
+    "🇳🇴 Norsk","🇩🇰 Dansk","🇬🇷 Ελληνικά","🇮🇩 Bahasa Indonesia","🇸🇦 العربية",
+    "🇻🇳 Tiếng Việt","🇸🇰 Slovenčina","🇧🇬 Български","🇮🇱 עברית","🇹🇭 ไทย",
+    "🇵🇭 Filipino","🇮🇳 हिन्दी","🇭🇷 Hrvatski","🇸🇮 Slovenščina","🇱🇹 Lietuvių",
+    "🇱🇻 Latviešu","🇪🇪 Eesti","🇷🇸 Српски","🇲🇰 Македонски","🇪🇸 Català",
+    "🇧🇩 বাংলা","🇵🇰 اردو","🇮🇷 فارسی","🇲🇾 Bahasa Melayu","🇹🇿 Kiswahili",
+    "🇿🇦 Afrikaans","🇮🇸 Íslenska","🇪🇸 Galego","🇪🇸 Euskara","🌍 Esperanto",
+    "🇮🇳 ਪੰਜਾਬੀ","🇮🇳 मराठी","🇮🇳 తెలుగు","🇮🇳 தமிழ்","🇮🇳 ગુજરાતી",
+    "🇮🇳 ಕನ್ನಡ","🇮🇳 മലയാളം","🇳🇵 नेपाली","🇱🇰 සිංහල","🇲🇲 မြန်မာ",
+    "🇰🇿 Қазақша","🇺🇿 Oʻzbekcha","🇦🇿 Azərbaycan","🇬🇪 ქართული","🇦🇲 Հայերեն",
+    "🇰🇭 ខ្មែរ","🇱🇦 ລາວ","🇲🇳 Монгол","🇸🇴 Soomaali","🇿🇦 isiZulu"
+];
+
+/* =========================================================
+   STATE & HELPERS
+   ========================================================= */
+let currentLang = 'en';
+let currentTheme = 'dark';
+let fadeObserver = null;
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function applyTheme(theme){
+    currentTheme = theme;
+    document.documentElement.setAttribute('data-theme', theme);
+    try{ localStorage.setItem('customtpa-theme', theme); }catch(e){}
+    const btn = document.getElementById('themeToggle');
+    btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    const label = theme === 'dark'
+        ? (currentLang==='ru'?'Переключить на светлую тему':'Switch to light theme')
+        : (currentLang==='ru'?'Переключить на тёмную тему':'Switch to dark theme');
+    btn.setAttribute('aria-label', label);
+    document.getElementById('metaTheme').setAttribute('content', theme==='dark'?'#0d0d0d':'#f4f4f8');
+}
+
+/* =========================================================
+   RENDERERS
+   ========================================================= */
+function renderBadges(t){
+    document.getElementById('badges').innerHTML = `
+        <img src="https://img.shields.io/bstats/servers/32220?label=${encodeURIComponent(t.badgeServers)}&style=flat-square" alt="${esc(t.badgeServers)}" loading="lazy">
+        <img src="https://img.shields.io/bstats/players/32220?label=${encodeURIComponent(t.badgePlayers)}&style=flat-square" alt="${esc(t.badgePlayers)}" loading="lazy">
+        <img src="https://img.shields.io/modrinth/dt/customtpa?label=${encodeURIComponent(t.badgeDownloads)}&style=flat-square" alt="${esc(t.badgeDownloads)}" loading="lazy">
+    `;
+}
+
+function renderFeatures(t){
+    document.getElementById('featuresGrid').innerHTML = t.features.map(f => `
+        <div class="feature-card">
+            <h3>${f.icon} ${esc(f.title)}</h3>
+            <p>${esc(f.desc)}</p>
+        </div>
+    `).join('');
+}
+
+function renderCommands(t){
+    document.getElementById('commandsBody').innerHTML = t.commands.map(c => `
+        <tr><td><code>${c.cmd}</code></td><td>${esc(c.desc)}</td></tr>
+    `).join('');
+}
+
+function renderLanguages(){
+    document.getElementById('langGrid').innerHTML =
+        SUPPORTED_LANGUAGES.map(l => `<span class="lang-item">${esc(l)}</span>`).join('');
+}
+
+function renderTutorial(t){
+    const tt = t.tutorial;
+    let html = '';
+
+    html += `<h3>${esc(tt.installTitle)}</h3>`;
+    tt.installSteps.forEach(s => {
+        html += `<div class="step">
+            <div class="step-num">${s.num}</div>
+            <div class="step-content">${s.html}${s.pre ? `<pre>${esc(s.pre)}</pre>` : ''}</div>
+        </div>`;
+    });
+
+    html += `<h3>${esc(tt.configTitle)}</h3>`;
+    html += `<pre>${esc(tt.configContent)}</pre>`;
+
+    html += `<h3>${esc(tt.messagesTitle)}</h3>`;
+    html += `<p>${tt.messagesDesc}</p>`;
+    html += `<pre>${esc(tt.messagesExample)}</pre>`;
+
+    html += `<h3>${esc(tt.addLangTitle)}</h3>`;
+    html += `<p>${tt.addLangDesc}</p>`;
+
+    html += `<h3>${esc(tt.permsTitle)}</h3>`;
+    html += `<p>${esc(tt.permsDesc)}</p>`;
+    html += `<pre>${esc(tt.permsContent)}</pre>`;
+
+    html += `<h3>${esc(tt.placeholdersTitle)}</h3>`;
+    html += `<p>${esc(tt.placeholdersDesc)}</p>`;
+    html += `<pre>${esc(tt.placeholdersContent)}</pre>`;
+
+    document.getElementById('tutorial').innerHTML = html;
+}
+
+function renderContent(lang){
+    currentLang = lang;
+    const t = translations[lang];
+
+    document.documentElement.setAttribute('lang', lang);
+    document.title = t.pageTitle;
+    try{ localStorage.setItem('customtpa-lang', lang); }catch(e){}
+
+    /* data-i18n text updates */
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key]) el.textContent = t[key];
+    });
+
+    /* update lang button */
+    const langBtn = document.getElementById('langToggle');
+    langBtn.textContent = lang === 'en' ? '🇷🇺 Русский' : '🇬🇧 English';
+    langBtn.setAttribute('aria-label', lang === 'en' ? 'Переключить на русский' : 'Switch to English');
+
+    /* refresh theme button aria-label according to language */
+    applyTheme(currentTheme);
+
+    /* dynamic sections */
+    renderBadges(t);
+    renderFeatures(t);
+    renderCommands(t);
+    renderLanguages();
+    renderTutorial(t);
+
+    /* fade-in for new elements */
+    initFadeIn();
+}
+
+/* =========================================================
+   FADE-IN OBSERVER
+   ========================================================= */
+function initFadeIn(){
+    const elements = document.querySelectorAll('.fade-in, .feature-card, .lang-item, .step');
+
+    elements.forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) {
+            el.classList.add('visible');
+        }
+    });
+
+    if (fadeObserver) fadeObserver.disconnect();
+    if (!('IntersectionObserver' in window)) {
+        elements.forEach(el => el.classList.add('visible'));
+        return;
+    }
+    fadeObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) e.target.classList.add('visible');
+        });
+    }, { threshold: 0.1 });
+
+    elements.forEach(el => {
+        if (!el.classList.contains('visible')) fadeObserver.observe(el);
+    });
+}
+
+/* =========================================================
+   INIT
+   ========================================================= */
+(function init(){
+    /* ---- language ---- */
+    let lang;
+    try{ lang = localStorage.getItem('customtpa-lang'); }catch(e){}
+    if (!lang) {
+        const bl = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+        lang = bl.startsWith('ru') ? 'ru' : 'en';
+    }
+    if (!['en','ru'].includes(lang)) lang = 'en';
+
+    /* ---- theme ---- */
+    let theme;
+    try{ theme = localStorage.getItem('customtpa-theme'); }catch(e){}
+    if (!theme) {
+        theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
+            ? 'light' : 'dark';
+    }
+    applyTheme(theme);
+
+    /* ---- render ---- */
+    renderContent(lang);
+
+    /* ---- controls ---- */
+    document.getElementById('langToggle').addEventListener('click', () => {
+        renderContent(currentLang === 'en' ? 'ru' : 'en');
+    });
+    document.getElementById('themeToggle').addEventListener('click', () => {
+        applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    });
+
+    /* ---- re-check fade-in on resize (rare but cheap) ---- */
+    let rt;
+    window.addEventListener('resize', () => {
+        clearTimeout(rt);
+        rt = setTimeout(initFadeIn, 200);
+    }, { passive: true });
+})();
+</script>
 </body>
 </html>
