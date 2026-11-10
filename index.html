@@ -20,6 +20,7 @@ html[data-theme="dark"]{
     --toggle-bg:rgba(255,255,255,.05);
     --toggle-border:rgba(255,255,255,.1);
     --toggle-hover:rgba(255,255,255,.12);
+    --loader-bg:#0d0d0d;
 }
 html[data-theme="light"]{
     --bg:#f4f4f8; --bg-alt:#fff; --card:#fff; --card-hover:#f9f9fc;
@@ -32,6 +33,7 @@ html[data-theme="light"]{
     --toggle-bg:rgba(255,255,255,.85);
     --toggle-border:rgba(0,0,0,.1);
     --toggle-hover:rgba(0,0,0,.06);
+    --loader-bg:#f4f4f8;
 }
 :root{
     --gold:#ffaa00; --purple:#b366ff;
@@ -50,6 +52,40 @@ body{
 a{color:var(--gold);text-decoration:none;transition:.3s}
 a:hover{color:var(--purple);text-decoration:underline}
 
+/* ===== LOADER ===== */
+#page-loader{
+    position:fixed; inset:0; z-index:9999;
+    background:var(--loader-bg);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    transition:opacity .6s ease, visibility .6s ease;
+    opacity:1; visibility:visible;
+}
+#page-loader.hidden{
+    opacity:0; visibility:hidden;
+    pointer-events:none;
+}
+.loader-spinner{
+    width:64px; height:64px;
+    border:4px solid var(--border-subtle);
+    border-top-color:var(--gold);
+    border-right-color:var(--purple);
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader-logo{
+    margin-bottom:20px;
+    max-width:140px; width:100%;
+    animation:float 3s ease-in-out infinite;
+}
+.loader-text{
+    margin-top:18px;
+    font-size:clamp(.9em,2vw,1.1em);
+    color:var(--gray);
+    letter-spacing:.5px;
+    animation:pulse 2s ease-in-out infinite;
+}
+
 /* ===== KEYFRAMES ===== */
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.05);opacity:1}}
@@ -64,6 +100,8 @@ a:hover{color:var(--purple);text-decoration:underline}
         animation-iteration-count:1!important;
         transition-duration:.01ms!important;
     }
+    .loader-spinner{animation:none;border-top-color:var(--gold)}
+    #page-loader{transition:none}
 }
 
 .fade-in{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
@@ -302,6 +340,60 @@ table code{
 .spigot-btn:hover{box-shadow:0 12px 40px rgba(219,106,27,.35)}
 .spigot-btn .btn-glow{background:conic-gradient(from 0deg,transparent,rgba(255,200,100,.5),transparent 60%)}
 
+/* ===== DOWNLOAD SECTION ===== */
+.download-buttons{
+    display:flex; flex-wrap:wrap; gap:16px; justify-content:center;
+    margin:30px 0;
+}
+.dl-btn{
+    display:inline-flex; align-items:center; gap:12px;
+    padding:14px 28px; border-radius:60px;
+    text-decoration:none; font-family:inherit; font-weight:700;
+    font-size:1em; color:#fff;
+    border:none; cursor:pointer;
+    transition:all .4s cubic-bezier(.23,1,.32,1);
+    box-shadow:0 6px 24px rgba(0,0,0,.35);
+    position:relative; overflow:hidden;
+    min-height:52px; -webkit-tap-highlight-color:transparent;
+}
+.dl-btn svg{width:24px;height:24px;fill:currentColor;flex-shrink:0}
+.dl-btn.paper-btn{background:linear-gradient(135deg,#ff6b6b,#ee5a24)}
+.dl-btn.paper-btn:hover{box-shadow:0 12px 36px rgba(238,90,36,.4);transform:translateY(-3px) scale(1.03)}
+.dl-btn.spigot-dl-btn{background:linear-gradient(135deg,#f39c12,#e67e22)}
+.dl-btn.spigot-dl-btn:hover{box-shadow:0 12px 36px rgba(230,126,34,.4);transform:translateY(-3px) scale(1.03)}
+.dl-btn:active{transform:translateY(0) scale(1)}
+.dl-btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* ===== DOWNLOAD STATS ===== */
+.download-stats{
+    display:flex; flex-wrap:wrap; gap:20px; justify-content:center;
+    margin:25px 0;
+    padding:clamp(18px,3vw,25px);
+    background:var(--card);
+    border-radius:16px;
+    border:1px solid var(--border);
+}
+.stat-item{
+    text-align:center; flex:1 1 140px; min-width:120px;
+}
+.stat-value{
+    font-size:clamp(1.6em,5vw,2.2em);
+    font-weight:800;
+    background:linear-gradient(135deg,var(--gold),var(--purple));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text;
+    line-height:1.2;
+}
+.stat-label{
+    font-size:clamp(.75em,1.5vw,.85em);
+    color:var(--gray);
+    margin-top:4px;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+}
+.stat-value.loading{opacity:.5}
+.stat-value.error{color:var(--red);background:none;-webkit-text-fill-color:var(--red)}
+
 /* ===== FOOTER ===== */
 footer{
     text-align:center; padding:clamp(20px,4vw,30px);
@@ -323,6 +415,8 @@ footer p{font-size:clamp(.85em,1.5vw,1em);margin:4px 0}
     .platform-btn{padding:10px 18px;font-size:.85em;gap:8px}
     .platform-btn svg{width:18px;height:18px}
     .platform-btn .badge{display:none}
+    .dl-btn{padding:12px 22px;font-size:.9em;gap:8px;min-height:46px}
+    .dl-btn svg{width:20px;height:20px}
 }
 @media(max-width:400px){
     table{min-width:320px}
@@ -332,6 +426,10 @@ footer p{font-size:clamp(.85em,1.5vw,1em);margin:4px 0}
     .platform-btn{padding:8px 14px;font-size:.75em;gap:6px;border-radius:40px}
     .platform-btn svg{width:16px;height:16px}
     .ctrl-btn{padding:6px 10px;font-size:.75em;min-height:38px}
+    .dl-btn{padding:10px 16px;font-size:.8em;gap:6px;border-radius:40px;min-height:42px}
+    .dl-btn svg{width:18px;height:18px}
+    .download-stats{gap:12px;padding:15px}
+    .stat-value{font-size:1.4em}
 }
 
 /* ===== SCROLLBAR ===== */
@@ -342,6 +440,13 @@ footer p{font-size:clamp(.85em,1.5vw,1em);margin:4px 0}
 </style>
 </head>
 <body>
+
+<!-- ===== PAGE LOADER ===== -->
+<div id="page-loader">
+    <img class="loader-logo" src="https://i.ibb.co/0RpM2yYS/all-platforms.png" alt="CustomTPA">
+    <div class="loader-spinner"></div>
+    <div class="loader-text" data-i18n="loaderText">Loading...</div>
+</div>
 
 <header>
     <div class="header-controls">
@@ -355,6 +460,36 @@ footer p{font-size:clamp(.85em,1.5vw,1em);margin:4px 0}
 </header>
 
 <div class="container">
+
+    <!-- ===== DOWNLOAD BUTTONS ===== -->
+    <div class="download-buttons">
+        <a href="https://github.com/MrKronick/CustomTPA/releases/download/v2.3.0/CustomTPA-2.3.0-paper.jar"
+           target="_blank" rel="noopener" class="dl-btn paper-btn" data-dl="paper">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16l-6-6h4V4h4v6h4l-6 6zm-6 2v2h12v-2H6z"/></svg>
+            <span data-i18n="dlPaper">Paper 2.3.0</span>
+        </a>
+        <a href="https://github.com/MrKronick/CustomTPA/releases/download/v2.3.0/CustomTPA-2.3.0-spigot.jar"
+           target="_blank" rel="noopener" class="dl-btn spigot-dl-btn" data-dl="spigot">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16l-6-6h4V4h4v6h4l-6 6zm-6 2v2h12v-2H6z"/></svg>
+            <span data-i18n="dlSpigot">Spigot 2.3.0</span>
+        </a>
+    </div>
+
+    <!-- ===== DOWNLOAD STATS ===== -->
+    <div class="download-stats" id="downloadStats">
+        <div class="stat-item">
+            <div class="stat-value loading" id="ghDownloads">—</div>
+            <div class="stat-label" data-i18n="statGitHub">GitHub</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value loading" id="siteDownloads">0</div>
+            <div class="stat-label" data-i18n="statSite">Site</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value loading" id="totalDownloads">—</div>
+            <div class="stat-label" data-i18n="statTotal">Total</div>
+        </div>
+    </div>
 
     <div class="platform-buttons">
         <a href="https://github.com/MrKronick/CustomTPA/releases" target="_blank" rel="noopener" class="platform-btn github-btn">
@@ -421,9 +556,15 @@ footer p{font-size:clamp(.85em,1.5vw,1em);margin:4px 0}
 const translations = {
     en: {
         pageTitle: "CustomTPA — Modern Teleport Requests",
+        loaderText: "Loading...",
         subtitle: "Modern Teleport Requests for Paper, Spigot, Folia & more",
         versionBadge: "v2.3.0 · 70 languages",
         badgeServers: "Servers", badgePlayers: "Players", badgeDownloads: "Downloads",
+        dlPaper: "Paper 2.3.0",
+        dlSpigot: "Spigot 2.3.0",
+        statGitHub: "GitHub",
+        statSite: "Site",
+        statTotal: "Total",
         featuresTitle: "✨ Features",
         commandsTitle: "📋 Commands",
         commandColCmd: "Command", commandColDesc: "Description",
@@ -487,9 +628,15 @@ const translations = {
     },
     ru: {
         pageTitle: "CustomTPA — Современные запросы телепортации",
+        loaderText: "Загрузка...",
         subtitle: "Современные запросы телепортации для Paper, Spigot, Folia и других",
         versionBadge: "v2.3.0 · 70 языков",
         badgeServers: "Серверов", badgePlayers: "Игроков", badgeDownloads: "Скачиваний",
+        dlPaper: "Paper 2.3.0",
+        dlSpigot: "Spigot 2.3.0",
+        statGitHub: "GitHub",
+        statSite: "Сайт",
+        statTotal: "Всего",
         featuresTitle: "✨ Возможности",
         commandsTitle: "📋 Команды",
         commandColCmd: "Команда", commandColDesc: "Описание",
@@ -553,7 +700,7 @@ const translations = {
     }
 };
 
-/* ===== 70 native language names (universal) ===== */
+/* ===== 70 native language names ===== */
 const SUPPORTED_LANGUAGES = [
     "🇬🇧 English","🇷🇺 Русский","🇺🇦 Українська","🇩🇪 Deutsch","🇫🇷 Français",
     "🇪🇸 Español","🇧🇷 Português (BR)","🇵🇹 Português (PT)","🇹🇷 Türkçe","🇮🇹 Italiano",
@@ -577,6 +724,12 @@ const SUPPORTED_LANGUAGES = [
 let currentLang = 'en';
 let currentTheme = 'dark';
 let fadeObserver = null;
+let ghDownloads = null;   // null = not loaded yet
+let siteDownloads = 0;
+
+const SITE_COUNT_KEY = 'customtpa-site-downloads';
+const REPO = 'MrKronick/CustomTPA';
+const GH_API = `https://api.github.com/repos/${REPO}/releases`;
 
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 
@@ -591,6 +744,73 @@ function applyTheme(theme){
         : (currentLang==='ru'?'Переключить на тёмную тему':'Switch to dark theme');
     btn.setAttribute('aria-label', label);
     document.getElementById('metaTheme').setAttribute('content', theme==='dark'?'#0d0d0d':'#f4f4f8');
+}
+
+/* =========================================================
+   SITE DOWNLOAD COUNTER (localStorage)
+   ========================================================= */
+function loadSiteDownloads(){
+    try{
+        const v = parseInt(localStorage.getItem(SITE_COUNT_KEY), 10);
+        siteDownloads = isNaN(v) ? 0 : v;
+    }catch(e){ siteDownloads = 0; }
+}
+function bumpSiteDownloads(){
+    siteDownloads++;
+    try{ localStorage.setItem(SITE_COUNT_KEY, String(siteDownloads)); }catch(e){}
+    renderDownloadStats();
+}
+
+/* =========================================================
+   GITHUB DOWNLOAD COUNTER
+   ========================================================= */
+async function fetchGitHubDownloads(){
+    const el = document.getElementById('ghDownloads');
+    const totalEl = document.getElementById('totalDownloads');
+    try{
+        const res = await fetch(GH_API, { headers: { 'Accept': 'application/vnd.github+json' } });
+        if (!res.ok) throw new Error('GitHub API ' + res.status);
+        const releases = await res.json();
+        let total = 0;
+        releases.forEach(rel => {
+            (rel.assets || []).forEach(a => { total += (a.download_count || 0); });
+        });
+        ghDownloads = total;
+        renderDownloadStats();
+    }catch(err){
+        console.warn('Could not fetch GitHub downloads:', err);
+        if (el){ el.textContent = '—'; el.classList.remove('loading'); el.classList.add('error'); }
+        if (totalEl){ totalEl.textContent = '—'; totalEl.classList.remove('loading'); totalEl.classList.add('error'); }
+    }
+}
+
+function formatNum(n){
+    if (n === null || n === undefined) return '—';
+    return n.toLocaleString(currentLang === 'ru' ? 'ru-RU' : 'en-US');
+}
+
+function renderDownloadStats(){
+    const ghEl = document.getElementById('ghDownloads');
+    const siteEl = document.getElementById('siteDownloads');
+    const totalEl = document.getElementById('totalDownloads');
+
+    if (ghEl){
+        ghEl.textContent = formatNum(ghDownloads);
+        ghEl.classList.remove('loading','error');
+    }
+    if (siteEl){
+        siteEl.textContent = formatNum(siteDownloads);
+        siteEl.classList.remove('loading');
+    }
+    if (totalEl){
+        if (ghDownloads === null){
+            totalEl.textContent = '—';
+            totalEl.classList.add('loading');
+        } else {
+            totalEl.textContent = formatNum(ghDownloads + siteDownloads);
+            totalEl.classList.remove('loading','error');
+        }
+    }
 }
 
 /* =========================================================
@@ -686,6 +906,9 @@ function renderContent(lang){
     renderLanguages();
     renderTutorial(t);
 
+    /* re-render stats with new locale formatting */
+    renderDownloadStats();
+
     /* fade-in for new elements */
     initFadeIn();
 }
@@ -720,6 +943,16 @@ function initFadeIn(){
 }
 
 /* =========================================================
+   PAGE LOADER
+   ========================================================= */
+function hideLoader(){
+    const loader = document.getElementById('page-loader');
+    if (!loader) return;
+    loader.classList.add('hidden');
+    setTimeout(() => { loader.style.display = 'none'; }, 700);
+}
+
+/* =========================================================
    INIT
    ========================================================= */
 (function init(){
@@ -741,8 +974,21 @@ function initFadeIn(){
     }
     applyTheme(theme);
 
+    /* ---- load site counter ---- */
+    loadSiteDownloads();
+
     /* ---- render ---- */
     renderContent(lang);
+
+    /* ---- download button click counters ---- */
+    document.querySelectorAll('[data-dl]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            bumpSiteDownloads();
+        });
+    });
+
+    /* ---- GitHub download stats ---- */
+    fetchGitHubDownloads();
 
     /* ---- controls ---- */
     document.getElementById('langToggle').addEventListener('click', () => {
@@ -752,12 +998,21 @@ function initFadeIn(){
         applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
     });
 
-    /* ---- re-check fade-in on resize (rare but cheap) ---- */
+    /* ---- re-check fade-in on resize ---- */
     let rt;
     window.addEventListener('resize', () => {
         clearTimeout(rt);
         rt = setTimeout(initFadeIn, 200);
     }, { passive: true });
+
+    /* ---- hide loader when page fully loaded ---- */
+    if (document.readyState === 'complete') {
+        hideLoader();
+    } else {
+        window.addEventListener('load', hideLoader);
+        /* safety fallback: never keep the loader longer than 6s */
+        setTimeout(hideLoader, 6000);
+    }
 })();
 </script>
 </body>
